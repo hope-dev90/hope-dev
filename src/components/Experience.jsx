@@ -2,8 +2,10 @@ import { useRef } from "react";
 import { experience } from "../data";
 import { motion, useInView } from "framer-motion";
 import { staggerContainer, fadeUp } from "../lib/motion";
+import { useReveal } from "../hooks/useReveal";
 
 export default function Experience() {
+  const revealRef = useReveal({ stagger: 0.13, duration: 1 });
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
@@ -16,7 +18,8 @@ export default function Experience() {
       transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
       className="bg-white rounded-3xl shadow-card ring-1 ring-black/5 p-6 sm:p-7 h-full scroll-mt-24"
     >
-      <h2 className="text-base font-extrabold text-navy mb-5">Experience</h2>
+      <div ref={revealRef}>
+      <h2 className="text-base font-extrabold text-navy mb-5" data-reveal-heading>Experience</h2>
 
       <motion.ol
         className="relative border-l-2 border-navy/10 pl-6 flex flex-col gap-7"
@@ -27,6 +30,7 @@ export default function Experience() {
         {experience.map((item, i) => (
           <motion.li
             key={item.role + item.period}
+            data-reveal-item
             variants={fadeUp}
             custom={i * 0.08}
             className="relative"
@@ -46,6 +50,7 @@ export default function Experience() {
           </motion.li>
         ))}
       </motion.ol>
+      </div>
     </motion.div>
   );
 }

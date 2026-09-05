@@ -1,17 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { navLinks, profile } from "../data";
 import { motion, AnimatePresence } from "framer-motion";
+import { gsap } from "../lib/gsap";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const isCV = location.pathname === "/cv";
+  const headerRef = useRef(null);
+  const lastY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    const header = headerRef.current;
+    if (!header) return;
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      const delta = y - lastY.current;
+
+      if (y < 60) {
+        // At top — always show
+        gsap.to(header, { y: 0, duration: 0.4, ease: "power3.out" });
+      } else if (delta > 6) {
+        // Scrolling down — hide
+        gsap.to(header, { y: "-100%", duration: 0.35, ease: "power3.inOut" });
+      } else if (delta < -4) {
+        // Scrolling up — reveal
+        gsap.to(header, { y: 0, duration: 0.45, ease: "power3.out" });
+      }
+
+      lastY.current = y;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -20,12 +42,11 @@ export default function Navbar() {
 
   return (
     <motion.header
+      ref={headerRef}
       initial={{ y: -64, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/95 backdrop-blur shadow-sm" : "bg-white"
-      }`}
+      className="sticky top-0 z-50 bg-white/95 backdrop-blur shadow-sm will-change-transform"
     >
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
@@ -72,6 +93,7 @@ export default function Navbar() {
           {!isCV && (
             <Link
               to="/cv"
+              data-magnetic
               className="text-sm font-semibold text-navy/70 hover:text-orange transition-colors px-4 py-2 rounded-full border border-navy/15 hover:border-orange"
             >
               View CV
@@ -79,12 +101,14 @@ export default function Navbar() {
           )}
           {isCV ? (
             <Link to="/"
+              data-magnetic
               className="inline-flex items-center gap-2 bg-orange hover:bg-orange-dark text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">
               Portfolio
             </Link>
           ) : (
             <motion.a
               href="#contact"
+              data-magnetic
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
               className="inline-flex items-center bg-orange hover:bg-orange-dark text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors"

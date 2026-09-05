@@ -4,19 +4,22 @@ import { FiExternalLink, FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { fadeUp, staggerContainer } from "../lib/motion";
+import { useReveal } from "../hooks/useReveal";
 
 const visible = cvProjects.slice(0, 6);
 
 export default function Projects() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const ref = useReveal({ stagger: 0.12, duration: 1.1 });
+  const inViewRef = useRef(null);
+  const inView = useInView(inViewRef, { once: true, margin: "-80px" });
 
   return (
-    <section id="projects" className="bg-white py-16 scroll-mt-24" ref={ref}>
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="projects" className="bg-white py-16 scroll-mt-24" ref={inViewRef}>
+      <div className="max-w-7xl mx-auto px-6" ref={ref}>
 
         {/* heading */}
         <motion.div
+          data-reveal-item
           className="flex items-end justify-between mb-10"
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -44,6 +47,7 @@ export default function Projects() {
           {visible.map((proj, i) => (
             <motion.div
               key={proj.name}
+              data-reveal-item
               variants={fadeUp}
               custom={i * 0.06}
               whileHover={{ y: -8, boxShadow: "0 20px 48px -12px rgba(27,42,74,0.18)" }}

@@ -3,19 +3,22 @@ import { techStack } from "../data";
 import TechIcon from "./TechIcon";
 import { motion, useInView } from "framer-motion";
 import { fadeUp } from "../lib/motion";
+import { useReveal } from "../hooks/useReveal";
 
 // Duplicate items for seamless infinite loop
 const track = [...techStack, ...techStack];
 
 export default function TechStack() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const ref = useReveal();
+  const inViewRef = useRef(null);
+  const inView = useInView(inViewRef, { once: true, margin: "-80px" });
 
   return (
-    <section id="skills" className="bg-white py-10 overflow-hidden" ref={ref}>
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="skills" className="bg-white py-10 overflow-hidden" ref={inViewRef}>
+      <div className="max-w-7xl mx-auto px-6" ref={ref}>
         <motion.div
           className="bg-white rounded-3xl shadow-card ring-1 ring-black/5 px-8 sm:px-10 pt-8 pb-6 overflow-hidden"
+          data-reveal-item
           initial={{ opacity: 0, y: 28 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}

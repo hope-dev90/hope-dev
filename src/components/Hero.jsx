@@ -1,24 +1,25 @@
+import { useEffect, useRef, useState } from "react";
 import { profile, floatingBadges, sideList } from "../data";
 import TechIcon from "./TechIcon";
 import { Link } from "react-router-dom";
 import { FiDownload, FiArrowRight, FiCode } from "react-icons/fi";
-import { motion } from "framer-motion";
-import { fadeUp, fadeRight, fadeLeft, scaleIn, staggerContainer } from "../lib/motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { fadeUp, scaleIn, staggerContainer } from "../lib/motion";
 
-// Floating triangles config — warm palette matching the hero gradient
+// ── Floating triangles ──────────────────────────────────────────────────────
 const TRIANGLES = [
-  { id: 0,  size: 38, color: "#e8622c", opacity: 0.85, left: "8%",  delay: 0,    duration: 3.5 },
-  { id: 1,  size: 18, color: "#f4a07a", opacity: 0.55, left: "18%", delay: 0.6,  duration: 4.5 },
-  { id: 2,  size: 26, color: "#f9c4aa", opacity: 0.45, left: "33%", delay: 0.2,  duration: 5.5 },
-  { id: 3,  size: 14, color: "#e8622c", opacity: 0.35, left: "47%", delay: 1.0,  duration: 4   },
-  { id: 4,  size: 32, color: "#f87171", opacity: 0.65, left: "60%", delay: 0.4,  duration: 5   },
-  { id: 5,  size: 20, color: "#fca5a5", opacity: 0.40, left: "72%", delay: 0.8,  duration: 6.5 },
-  { id: 6,  size: 44, color: "#fb923c", opacity: 0.50, left: "82%", delay: 0.1,  duration: 4.5 },
-  { id: 7,  size: 16, color: "#fde0d4", opacity: 0.55, left: "91%", delay: 1.2,  duration: 3.5 },
-  { id: 8,  size: 22, color: "#e8622c", opacity: 0.30, left: "25%", delay: 1.5,  duration: 6   },
-  { id: 9,  size: 30, color: "#f4a07a", opacity: 0.60, left: "55%", delay: 0.9,  duration: 4   },
-  { id: 10, size: 12, color: "#f87171", opacity: 0.35, left: "70%", delay: 0.3,  duration: 7   },
-  { id: 11, size: 36, color: "#fca5a5", opacity: 0.45, left: "40%", delay: 1.4,  duration: 5   },
+  { id: 0,  size: 38, color: "#e8622c", opacity: 0.85, left: "8%",  delay: 0,   duration: 3.5 },
+  { id: 1,  size: 18, color: "#f4a07a", opacity: 0.55, left: "18%", delay: 0.6, duration: 4.5 },
+  { id: 2,  size: 26, color: "#f9c4aa", opacity: 0.45, left: "33%", delay: 0.2, duration: 5.5 },
+  { id: 3,  size: 14, color: "#e8622c", opacity: 0.35, left: "47%", delay: 1.0, duration: 4   },
+  { id: 4,  size: 32, color: "#f87171", opacity: 0.65, left: "60%", delay: 0.4, duration: 5   },
+  { id: 5,  size: 20, color: "#fca5a5", opacity: 0.40, left: "72%", delay: 0.8, duration: 6.5 },
+  { id: 6,  size: 44, color: "#fb923c", opacity: 0.50, left: "82%", delay: 0.1, duration: 4.5 },
+  { id: 7,  size: 16, color: "#fde0d4", opacity: 0.55, left: "91%", delay: 1.2, duration: 3.5 },
+  { id: 8,  size: 22, color: "#e8622c", opacity: 0.30, left: "25%", delay: 1.5, duration: 6   },
+  { id: 9,  size: 30, color: "#f4a07a", opacity: 0.60, left: "55%", delay: 0.9, duration: 4   },
+  { id: 10, size: 12, color: "#f87171", opacity: 0.35, left: "70%", delay: 0.3, duration: 7   },
+  { id: 11, size: 36, color: "#fca5a5", opacity: 0.45, left: "40%", delay: 1.4, duration: 5   },
 ];
 
 function FloatingTriangles() {
@@ -33,28 +34,18 @@ function FloatingTriangles() {
             bottom: "-60px",
             width: 0,
             height: 0,
-            borderLeft: `${t.size / 2}px solid transparent`,
-            borderRight: `${t.size / 2}px solid transparent`,
+            borderLeft:   `${t.size / 2}px solid transparent`,
+            borderRight:  `${t.size / 2}px solid transparent`,
             borderBottom: `${t.size * 0.87}px solid ${t.color}`,
             opacity: t.opacity,
           }}
           animate={{
-            y: [0, -(typeof window !== "undefined" ? window.innerHeight + 100 : 900)],
+            y: [0, -1100],
             rotate: [0, t.id % 2 === 0 ? 15 : -15],
           }}
           transition={{
-            y: {
-              duration: t.duration,
-              repeat: Infinity,
-              ease: "linear",
-              delay: t.delay,
-            },
-            rotate: {
-              duration: t.duration,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: t.delay,
-            },
+            y:      { duration: t.duration, repeat: Infinity, ease: "linear",    delay: t.delay },
+            rotate: { duration: t.duration, repeat: Infinity, ease: "easeInOut", delay: t.delay },
           }}
         />
       ))}
@@ -62,20 +53,50 @@ function FloatingTriangles() {
   );
 }
 
+// ── Hero ────────────────────────────────────────────────────────────────────
 export default function Hero() {
+  const sectionRef = useRef(null);
+  // 3 states: "locked" (scroll off, arrow in hero) → "sticky" (scroll on, arrow fixed) → "hidden" (near footer)
+  const [arrowState, setArrowState] = useState("locked");
+
+  // Entrance animation plays on load — no scroll lock
+  // Heart arrow appears after delay as a scroll nudge only
+
+  // When sticky: hide arrow near the footer
+  useEffect(() => {
+    if (arrowState === "locked") return;
+    const onScroll = () => {
+      const scrolled = window.scrollY + window.innerHeight;
+      const total = document.documentElement.scrollHeight;
+      if (arrowState === "sticky" && scrolled >= total - 120) setArrowState("hidden");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [arrowState]);
+
+  function handleScrollDown() {
+    setArrowState("sticky");
+    const target = document.getElementById("skills");
+    if (target) target.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function handleStickyClick() {
+    window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
+  }
+
   return (
     <section
       id="top"
+      ref={sectionRef}
       className="relative overflow-hidden"
       style={{
         minHeight: "calc(100vh - 65px)",
         background: "linear-gradient(155deg, #fde0d4 0%, #fdeae2 35%, #fef4f0 65%, #ffffff 100%)",
       }}
     >
-      {/* Floating triangles background */}
       <FloatingTriangles />
 
-      {/* Decorative dots — animated */}
+      {/* Decorative dots */}
       <motion.span
         initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 0.6, scale: 1 }}
         transition={{ delay: 0.8, duration: 0.5 }}
@@ -97,11 +118,15 @@ export default function Hero() {
         className="hidden md:block absolute top-[45%] left-[12%] text-emerald-400 text-lg"
       >✦</motion.span>
 
-      <div
+      {/* ── Page entrance — whole hero slides up from below ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-10 items-center"
         style={{ minHeight: "calc(100vh - 65px)" }}
       >
-        {/* LEFT — staggered text */}
+        {/* LEFT */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -128,16 +153,12 @@ export default function Hero() {
           </motion.p>
 
           <motion.div variants={fadeUp} custom={0.32} className="flex flex-wrap gap-3">
-            <a
-              href="#projects"
-              className="inline-flex items-center gap-2 bg-orange hover:bg-orange-dark text-white font-semibold px-6 py-3 rounded-full text-sm transition-colors"
-            >
+            <a href="#projects" data-magnetic
+              className="inline-flex items-center gap-2 bg-orange hover:bg-orange-dark text-white font-semibold px-6 py-3 rounded-full text-sm transition-colors">
               View My Work <FiArrowRight />
             </a>
-            <Link
-              to="/cv"
-              className="inline-flex items-center gap-2 bg-white border border-navy/20 hover:border-orange text-navy font-semibold px-6 py-3 rounded-full text-sm transition-colors"
-            >
+            <Link to="/cv" data-magnetic
+              className="inline-flex items-center gap-2 bg-white border border-navy/20 hover:border-orange text-navy font-semibold px-6 py-3 rounded-full text-sm transition-colors">
               Download CV <FiDownload />
             </Link>
           </motion.div>
@@ -145,7 +166,6 @@ export default function Hero() {
 
         {/* RIGHT — portrait + badges */}
         <div className="relative hidden lg:flex justify-center items-center">
-          {/* Portrait */}
           <motion.div
             variants={scaleIn} custom={0.2}
             initial="hidden" animate="show"
@@ -161,8 +181,7 @@ export default function Hero() {
 
           {/* Spring Boot badge */}
           <motion.div
-            initial={{ opacity: 0, x: 40, y: -20 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
+            initial={{ opacity: 0, x: 40, y: -20 }} animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ delay: 0.7, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ scale: 1.05 }}
             className="flex absolute top-10 right-2 xl:right-4 items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-3 z-20 max-w-[215px]"
@@ -176,8 +195,7 @@ export default function Hero() {
 
           {/* Node.js badge */}
           <motion.div
-            initial={{ opacity: 0, x: -40, y: 20 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
+            initial={{ opacity: 0, x: -40, y: 20 }} animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ delay: 0.85, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ scale: 1.05 }}
             className="flex absolute bottom-10 -left-4 items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-3 z-20 max-w-[215px]"
@@ -191,8 +209,7 @@ export default function Hero() {
 
           {/* TYPO3 badge */}
           <motion.div
-            initial={{ opacity: 0, x: -30, y: -10 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
+            initial={{ opacity: 0, x: -30, y: -10 }} animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ delay: 1.0, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ scale: 1.05 }}
             className="flex absolute top-1/2 -translate-y-1/2 -left-4 items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-3 z-20 max-w-[215px]"
@@ -206,8 +223,7 @@ export default function Hero() {
 
           {/* Side pill */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col items-center gap-3 absolute -right-24 xl:-right-20 top-1/2 -translate-y-1/2 bg-white rounded-3xl shadow-soft px-3 py-5 w-[86px] z-20"
           >
@@ -215,9 +231,7 @@ export default function Hero() {
               <FiCode size={17} />
             </span>
             <ul className="text-[10px] font-semibold text-navy/60 text-center leading-5">
-              {sideList.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
+              {sideList.map((item) => <li key={item}>{item}</li>)}
             </ul>
             <div className="flex flex-col gap-1.5 w-full px-2 mt-1">
               <span className="block h-1.5 bg-navy/10 rounded-full w-full" />
@@ -239,7 +253,68 @@ export default function Hero() {
             className="w-56 object-cover object-top rounded-3xl shadow-soft"
           />
         </motion.div>
-      </div>
+      </motion.div>
+
+      {/* ── Heart-arrow: locked position inside hero ── */}
+      <AnimatePresence>
+        {arrowState === "locked" && (
+          <HeartArrow
+            key="locked"
+            position="absolute"
+            onClick={handleScrollDown}
+            delay={1.5}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* ── Heart-arrow: sticky — rendered in fixed position ── */}
+      <AnimatePresence>
+        {arrowState === "sticky" && (
+          <HeartArrow
+            key="sticky"
+            position="fixed"
+            onClick={handleStickyClick}
+            delay={0}
+          />
+        )}
+      </AnimatePresence>
     </section>
+  );
+}
+
+// ── Shared heart-arrow button ─────────────────────────────────────────────
+function HeartArrow({ position, onClick, delay }) {
+  return (
+    <motion.button
+      onClick={onClick}
+      aria-label="Scroll down"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20, transition: { duration: 0.3 } }}
+      transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-1.5 cursor-pointer group"
+      style={{
+        position,
+        bottom: position === "fixed" ? "28px" : "28px",
+        background: "none",
+        border: "none",
+      }}
+    >
+      <motion.img
+        src="/heart-arrow.png"
+        alt="scroll down"
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+        className="w-14 h-14 group-hover:scale-110 transition-transform duration-300"
+        style={{ filter: "drop-shadow(0 2px 10px rgba(232,98,44,0.30))" }}
+      />
+      <motion.span
+        animate={{ opacity: [0.4, 0.9, 0.4] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="text-[10px] font-semibold uppercase tracking-widest text-navy/40"
+      >
+        scroll
+      </motion.span>
+    </motion.button>
   );
 }
