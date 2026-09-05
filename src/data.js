@@ -19,6 +19,7 @@ export const profile = {
 export const floatingBadges = [
   { icon: "spring", title: "Spring Boot", text: "Building robust backend systems" },
   { icon: "node",   title: "Node.js",     text: "Scalable server-side applications" },
+  { icon: "typo3",  title: "TYPO3",       text: "Enterprise CMS & web platform" },
 ];
 
 export const sideList = ["APIs", "Microservices", "Clean Code", "Scalable Systems"];
