@@ -30,7 +30,7 @@ public class MessageController {
         } catch (Exception e) {
             return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("success", false, "message", e.getMessage() != null ? e.getMessage() : e.getClass().getName()));
+                .body(Map.of("success", false, "message", "Failed to send message. Please try again."));
         }
     }
 }

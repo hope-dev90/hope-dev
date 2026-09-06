@@ -6,7 +6,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { fadeUp, staggerContainer } from "../lib/motion";
 
-const API_URL = "http://localhost:8080/api/message";
+const API_URL = `${import.meta.env.VITE_API_URL}/api/message`;
 
 export default function Contact() {
   const [form, setForm]     = useState({ name: "", email: "", subject: "", message: "" });

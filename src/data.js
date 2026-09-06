@@ -365,6 +365,16 @@ export const cvExperience = [
 
 export const cvProjects = [
   {
+    name: "CTF Sigma Seven",
+    url: "https://ctf-sigma-seven.vercel.app",
+    description:
+      "A structured repository of payloads, scripts, and command-line techniques collected from CTF challenges, penetration testing practice, and day-to-day security research. Designed as a centralized reference to streamline exploitation workflows and improve efficiency during security assessments.",
+    tech: ["Security Research", "CTF", "Penetration Testing", "Payloads", "Scripts"],
+    type: "Built & Deployed",
+    color: "bg-red-50 border-red-200",
+    badge: "bg-red-100 text-red-700",
+  },
+  {
     name: "StaffNet",
     url: "https://staffnet.innov.rw",
     description:
