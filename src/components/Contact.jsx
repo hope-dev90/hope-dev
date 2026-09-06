@@ -1,28 +1,47 @@
 import { useState } from "react";
 import { profile } from "../data";
 import {
-  FiMail, FiPhone, FiMapPin, FiGithub, FiLinkedin, FiGlobe, FiSend,
+  FiMail, FiPhone, FiMapPin, FiGithub, FiLinkedin, FiGlobe, FiSend, FiCheckCircle, FiAlertCircle,
 } from "react-icons/fi";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { fadeUp, staggerContainer } from "../lib/motion";
 
+const API_URL = "http://localhost:8080/api/message";
+
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
-  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [form, setForm]     = useState({ name: "", email: "", subject: "", message: "" });
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [errMsg, setErrMsg] = useState("");
 
   function handleChange(e) {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setStatus("sending");
-    // mailto fallback — opens email client with pre-filled data
-    const mailto = `mailto:${profile.email}?subject=${encodeURIComponent(form.subject || "Portfolio enquiry")}&body=${encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
-    )}`;
-    window.location.href = mailto;
-    setTimeout(() => setStatus("sent"), 800);
+    setStatus("loading");
+    setErrMsg("");
+
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setStatus("success");
+        setForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setStatus("error");
+        setErrMsg(data.message || "Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      setStatus("error");
+      setErrMsg("Could not reach the server. Make sure the backend is running.");
+    }
   }
 
   return (
@@ -45,13 +64,13 @@ export default function Contact() {
 
         <div className="grid md:grid-cols-[1fr_1.4fr] gap-10 items-start">
 
-          {/* LEFT — Contact info */}
+          {/* LEFT — contact info */}
           <motion.div
             variants={staggerContainer} initial="hidden" whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
             className="flex flex-col gap-8"
           >
-            {/* Info block */}
+            {/* Contact info card */}
             <motion.div variants={fadeUp} custom={0} className="bg-white rounded-2xl shadow-card p-7 flex flex-col gap-5">
               <h3 className="text-lg font-bold text-navy">Contact Information</h3>
 
@@ -122,7 +141,7 @@ export default function Contact() {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT — Message form */}
+          {/* RIGHT — message form */}
           <motion.div
             variants={fadeUp} custom={0.1}
             initial="hidden" whileInView="show"
@@ -131,82 +150,132 @@ export default function Contact() {
           >
             <h3 className="text-xl font-bold text-navy mb-6">Send Me a Message</h3>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              {/* Name */}
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor="name" className="text-sm font-semibold text-navy">
-                  Name
-                </label>
-                <input
-                  id="name" name="name" type="text"
-                  placeholder="Your name"
-                  value={form.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full border border-navy/15 rounded-lg px-4 py-2.5 text-sm text-navy placeholder:text-navy/35 focus:outline-none focus:border-orange transition-colors"
-                />
-              </div>
+            {/* Success state */}
+            <AnimatePresence mode="wait">
+              {status === "success" ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="flex flex-col items-center justify-center gap-4 py-14 text-center"
+                >
+                  <span className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center">
+                    <FiCheckCircle size={32} className="text-emerald-500" />
+                  </span>
+                  <h4 className="text-lg font-bold text-navy">Message sent!</h4>
+                  <p className="text-sm text-navy/55 max-w-xs">
+                    Thanks for reaching out. I'll get back to you shortly — a confirmation email is on its way to you.
+                  </p>
+                  <button
+                    onClick={() => setStatus("idle")}
+                    className="mt-2 text-sm font-semibold text-orange hover:underline"
+                  >
+                    Send another message
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onSubmit={handleSubmit}
+                  className="flex flex-col gap-5"
+                >
+                  {/* Error banner */}
+                  <AnimatePresence>
+                    {status === "error" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm"
+                      >
+                        <FiAlertCircle size={15} className="shrink-0" />
+                        {errMsg}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
-              {/* Email */}
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor="email" className="text-sm font-semibold text-navy">
-                  Email
-                </label>
-                <input
-                  id="email" name="email" type="email"
-                  placeholder="Your email"
-                  value={form.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full border border-navy/15 rounded-lg px-4 py-2.5 text-sm text-navy placeholder:text-navy/35 focus:outline-none focus:border-orange transition-colors"
-                />
-              </div>
+                  {/* Name */}
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="name" className="text-sm font-semibold text-navy">Name</label>
+                    <input
+                      id="name" name="name" type="text"
+                      placeholder="Your name"
+                      value={form.name}
+                      onChange={handleChange}
+                      required
+                      disabled={status === "loading"}
+                      className="w-full border border-navy/15 rounded-lg px-4 py-2.5 text-sm text-navy placeholder:text-navy/35 focus:outline-none focus:border-orange transition-colors disabled:opacity-50"
+                    />
+                  </div>
 
-              {/* Subject */}
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor="subject" className="text-sm font-semibold text-navy">
-                  Subject
-                </label>
-                <input
-                  id="subject" name="subject" type="text"
-                  placeholder="Subject"
-                  value={form.subject}
-                  onChange={handleChange}
-                  className="w-full border border-navy/15 rounded-lg px-4 py-2.5 text-sm text-navy placeholder:text-navy/35 focus:outline-none focus:border-orange transition-colors"
-                />
-              </div>
+                  {/* Email */}
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="email" className="text-sm font-semibold text-navy">Email</label>
+                    <input
+                      id="email" name="email" type="email"
+                      placeholder="Your email"
+                      value={form.email}
+                      onChange={handleChange}
+                      required
+                      disabled={status === "loading"}
+                      className="w-full border border-navy/15 rounded-lg px-4 py-2.5 text-sm text-navy placeholder:text-navy/35 focus:outline-none focus:border-orange transition-colors disabled:opacity-50"
+                    />
+                  </div>
 
-              {/* Message */}
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor="message" className="text-sm font-semibold text-navy">
-                  Message
-                </label>
-                <textarea
-                  id="message" name="message"
-                  placeholder="Your message"
-                  rows={5}
-                  value={form.message}
-                  onChange={handleChange}
-                  required
-                  className="w-full border border-navy/15 rounded-lg px-4 py-2.5 text-sm text-navy placeholder:text-navy/35 focus:outline-none focus:border-orange transition-colors resize-none"
-                />
-              </div>
+                  {/* Subject */}
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="subject" className="text-sm font-semibold text-navy">Subject</label>
+                    <input
+                      id="subject" name="subject" type="text"
+                      placeholder="Subject"
+                      value={form.subject}
+                      onChange={handleChange}
+                      required
+                      disabled={status === "loading"}
+                      className="w-full border border-navy/15 rounded-lg px-4 py-2.5 text-sm text-navy placeholder:text-navy/35 focus:outline-none focus:border-orange transition-colors disabled:opacity-50"
+                    />
+                  </div>
 
-              {/* Submit */}
-              <button
-                type="submit"
-                disabled={status === "sending" || status === "sent"}
-                className="w-full inline-flex items-center justify-center gap-2 bg-orange hover:bg-orange-dark disabled:opacity-60 text-white font-semibold px-6 py-3 rounded-lg text-sm transition-colors"
-              >
-                {status === "sent" ? (
-                  "Message Sent ✓"
-                ) : (
-                  <>
-                    Send Message <FiSend size={14} />
-                  </>
-                )}
-              </button>
-            </form>
+                  {/* Message */}
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="message" className="text-sm font-semibold text-navy">Message</label>
+                    <textarea
+                      id="message" name="message"
+                      placeholder="Your message"
+                      rows={5}
+                      value={form.message}
+                      onChange={handleChange}
+                      required
+                      disabled={status === "loading"}
+                      className="w-full border border-navy/15 rounded-lg px-4 py-2.5 text-sm text-navy placeholder:text-navy/35 focus:outline-none focus:border-orange transition-colors resize-none disabled:opacity-50"
+                    />
+                  </div>
+
+                  {/* Submit */}
+                  <button
+                    type="submit"
+                    disabled={status === "loading"}
+                    className="w-full inline-flex items-center justify-center gap-2 bg-orange hover:bg-orange-dark disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 rounded-lg text-sm transition-colors"
+                  >
+                    {status === "loading" ? (
+                      <>
+                        <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                        </svg>
+                        Sending…
+                      </>
+                    ) : (
+                      <>Send Message <FiSend size={14} /></>
+                    )}
+                  </button>
+                </motion.form>
+              )}
+            </AnimatePresence>
           </motion.div>
 
         </div>
