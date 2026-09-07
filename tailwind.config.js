@@ -14,7 +14,7 @@ export default {
         lavender: "#f0eefa",
       },
       fontFamily: {
-        sans: ["Poppins", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["Outfit", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       boxShadow: {
         soft: "0 8px 32px -8px rgba(27,42,74,0.18)",
