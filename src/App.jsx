@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import TechStack from "./components/TechStack";
+import WhatIDo from "./components/WhatIDo";
 import Projects from "./components/Projects";
 import InfoGrid from "./components/InfoGrid";
 import Contact from "./components/Contact";
@@ -30,6 +31,7 @@ function Portfolio() {
       <Navbar />
       <Hero />
       <TechStack />
+      <WhatIDo />
       <Projects />
       <InfoGrid />
       <Contact />

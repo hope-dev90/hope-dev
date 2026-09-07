@@ -1,9 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { profile, floatingBadges, sideList } from "../data";
 import TechIcon from "./TechIcon";
 import { Link } from "react-router-dom";
 import { FiDownload, FiArrowRight, FiCode } from "react-icons/fi";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  SiReact, SiNodedotjs, SiSpringboot, SiPostgresql, SiDocker,
+} from "react-icons/si";
+import { motion } from "framer-motion";
 import { fadeUp, scaleIn, staggerContainer } from "../lib/motion";
 
 // ── Floating triangles ──────────────────────────────────────────────────────
@@ -39,10 +42,7 @@ function FloatingTriangles() {
             borderBottom: `${t.size * 0.87}px solid ${t.color}`,
             opacity: t.opacity,
           }}
-          animate={{
-            y: [0, -1100],
-            rotate: [0, t.id % 2 === 0 ? 15 : -15],
-          }}
+          animate={{ y: [0, -1100], rotate: [0, t.id % 2 === 0 ? 15 : -15] }}
           transition={{
             y:      { duration: t.duration, repeat: Infinity, ease: "linear",    delay: t.delay },
             rotate: { duration: t.duration, repeat: Infinity, ease: "easeInOut", delay: t.delay },
@@ -53,187 +53,213 @@ function FloatingTriangles() {
   );
 }
 
+// ── Brand / tech logos row ──────────────────────────────────────────────────
+const brandLogos = [
+  { Icon: SiReact,      color: "#61dafb", label: "React"      },
+  { Icon: SiNodedotjs,  color: "#3c873a", label: "Node.js"    },
+  { Icon: SiSpringboot, color: "#6db33f", label: "Spring"     },
+  { Icon: SiPostgresql, color: "#336791", label: "PostgreSQL" },
+  { Icon: SiDocker,     color: "#2496ed", label: "Docker"     },
+];
+
 // ── Hero ────────────────────────────────────────────────────────────────────
 export default function Hero() {
-  const sectionRef = useRef(null);
-  // 3 states: "locked" (scroll off, arrow in hero) → "sticky" (scroll on, arrow fixed) → "hidden" (near footer)
-  const [arrowState, setArrowState] = useState("locked");
-
-  // Entrance animation plays on load — no scroll lock
-  // Heart arrow appears after delay as a scroll nudge only
-
-  // When sticky: hide arrow near the footer
-  useEffect(() => {
-    if (arrowState === "locked") return;
-    const onScroll = () => {
-      const scrolled = window.scrollY + window.innerHeight;
-      const total = document.documentElement.scrollHeight;
-      if (arrowState === "sticky" && scrolled >= total - 120) setArrowState("hidden");
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [arrowState]);
-
-  function handleScrollDown() {
-    setArrowState("sticky");
-    const target = document.getElementById("skills");
-    if (target) target.scrollIntoView({ behavior: "smooth" });
-  }
-
-  function handleStickyClick() {
-    window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
-  }
-
   return (
     <section
       id="top"
-      ref={sectionRef}
       className="relative overflow-hidden"
       style={{
-        minHeight: "calc(100vh - 65px)",
-        background: "linear-gradient(155deg, #fde0d4 0%, #fdeae2 35%, #fef4f0 65%, #ffffff 100%)",
+        minHeight: "100vh",
+        background: "linear-gradient(150deg, #fde0d4 0%, #fdeae2 30%, #fef4f0 60%, #f9f5ff 100%)",
       }}
     >
       <FloatingTriangles />
 
-      {/* Decorative dots */}
-      <motion.span
-        initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 0.6, scale: 1 }}
-        transition={{ delay: 0.8, duration: 0.5 }}
-        className="hidden md:block absolute top-[12%] left-[28%] w-7 h-7 rounded-full border-2 border-pink-300"
-      />
-      <motion.span
-        initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 0.5, scale: 1 }}
-        transition={{ delay: 1, duration: 0.5 }}
-        className="hidden md:block absolute top-[8%] right-[7%] w-3.5 h-3.5 rounded-full border-2 border-rose-300"
-      />
-      <motion.span
-        initial={{ opacity: 0 }} animate={{ opacity: 0.4 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
-        className="hidden md:block absolute bottom-[20%] left-[7%] w-2.5 h-2.5 rounded-full bg-violet-400"
-      />
-      <motion.span
-        initial={{ opacity: 0, rotate: -30 }} animate={{ opacity: 0.6, rotate: 0 }}
+      {/* ── Decorative scattered shapes ── */}
+      {/* top-left star */}
+      <motion.span initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1.0, duration: 0.4 }}
+        className="hidden md:block absolute top-[18%] left-[6%] text-2xl select-none pointer-events-none">⭐</motion.span>
+      {/* top-right circle outline */}
+      <motion.span initial={{ opacity: 0 }} animate={{ opacity: 0.6 }}
+        transition={{ delay: 0.9, duration: 0.5 }}
+        className="hidden md:block absolute top-[10%] right-[12%] w-4 h-4 rounded-full border-2 border-blue-400 pointer-events-none" />
+      {/* mid-left dot */}
+      <motion.span initial={{ opacity: 0 }} animate={{ opacity: 0.5 }}
         transition={{ delay: 1.1, duration: 0.5 }}
-        className="hidden md:block absolute top-[45%] left-[12%] text-emerald-400 text-lg"
-      >✦</motion.span>
+        className="hidden md:block absolute top-[55%] left-[4%] w-3 h-3 rounded-full bg-violet-400 pointer-events-none" />
+      {/* sparkle */}
+      <motion.span initial={{ opacity: 0, rotate: -20 }} animate={{ opacity: 0.7, rotate: 0 }}
+        transition={{ delay: 1.2, duration: 0.5 }}
+        className="hidden md:block absolute top-[40%] left-[14%] text-emerald-400 text-xl select-none pointer-events-none">✦</motion.span>
+      {/* bottom-right circle */}
+      <motion.span initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 0.5, scale: 1 }}
+        transition={{ delay: 1.3, duration: 0.4 }}
+        className="hidden md:block absolute bottom-[22%] right-[6%] w-5 h-5 rounded-full border-2 border-pink-300 pointer-events-none" />
 
-      {/* ── Page entrance — whole hero slides up from below ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 60 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-10 items-center"
-        style={{ minHeight: "calc(100vh - 65px)" }}
+      {/* ── Main content ── */}
+      <div
+        className="relative max-w-7xl mx-auto px-6 md:px-10 grid lg:grid-cols-2 gap-8 items-center pt-24"
+        style={{ minHeight: "100vh" }}
       >
-        {/* LEFT */}
+        {/* LEFT — text */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate="show"
-          className="z-10 py-16 lg:py-0"
+          className="z-10 pt-16 pb-8 lg:py-0 flex flex-col"
         >
+          {/* Greeting */}
           <motion.p
             variants={fadeUp} custom={0}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy leading-tight"
+            className="text-2xl sm:text-3xl font-extrabold text-navy/80 leading-tight mb-1"
           >
-            Hi! I'm
+            Hi! I Am
           </motion.p>
+
+          {/* Name — big, two colors */}
           <motion.h1
             variants={fadeUp} custom={0.08}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-orange leading-tight mb-4"
+            className="text-4xl sm:text-5xl lg:text-[3.6rem] font-extrabold leading-tight mb-4"
           >
-            {profile.name}
+            <span className="text-navy">{profile.name.split(" ")[0]} </span>
+            <span className="text-orange">{profile.name.split(" ").slice(1).join(" ")}</span>
           </motion.h1>
-          <motion.p variants={fadeUp} custom={0.16} className="text-xl lg:text-2xl font-bold text-navy mb-5">
+
+          {/* Role tag */}
+          <motion.p variants={fadeUp} custom={0.14}
+            className="text-base lg:text-lg font-bold text-navy/70 mb-4">
             {profile.role}
           </motion.p>
-          <motion.p variants={fadeUp} custom={0.24} className="text-navy/60 leading-relaxed max-w-sm text-sm mb-10">
+
+          {/* Intro */}
+          <motion.p variants={fadeUp} custom={0.2}
+            className="text-sm text-navy/55 leading-relaxed max-w-sm mb-10">
             {profile.intro}
           </motion.p>
 
-          <motion.div variants={fadeUp} custom={0.32} className="flex flex-wrap gap-3">
-            <a href="#projects" data-magnetic
-              className="inline-flex items-center gap-2 bg-orange hover:bg-orange-dark text-white font-semibold px-6 py-3 rounded-full text-sm transition-colors">
-              View My Work <FiArrowRight />
-            </a>
-            <Link to="/cv" data-magnetic
-              className="inline-flex items-center gap-2 bg-white border border-navy/20 hover:border-orange text-navy font-semibold px-6 py-3 rounded-full text-sm transition-colors">
+          {/* CTAs */}
+          <motion.div variants={fadeUp} custom={0.28} className="flex flex-wrap gap-3 mb-14">
+            <motion.a
+              href="#contact"
+              data-magnetic
+              whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
+              className="inline-flex items-center gap-2 bg-orange hover:bg-orange-dark text-white font-bold px-7 py-3 rounded-full text-sm shadow-lg shadow-orange/30 transition-colors"
+            >
+              Hire Me <FiArrowRight />
+            </motion.a>
+            <Link
+              to="/cv"
+              data-magnetic
+              className="inline-flex items-center gap-2 bg-white border border-navy/15 hover:border-orange text-navy font-bold px-7 py-3 rounded-full text-sm transition-colors"
+            >
               Download CV <FiDownload />
             </Link>
           </motion.div>
+
+          {/* Brand logos row */}
+          <motion.div variants={fadeUp} custom={0.36}>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-navy/35 mb-3">
+              Work For All This Brand &amp; Client
+            </p>
+            <div className="flex items-center gap-5 flex-wrap">
+              {brandLogos.map(({ Icon, color, label }) => (
+                <motion.span
+                  key={label}
+                  whileHover={{ scale: 1.2, rotate: -5 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  title={label}
+                  className="text-navy/30 hover:text-current transition-colors cursor-default"
+                  style={{ color: "inherit" }}
+                >
+                  <Icon size={26} color={color} style={{ opacity: 0.65 }} />
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
         </motion.div>
 
-        {/* RIGHT — portrait + badges */}
+        {/* RIGHT — portrait + floating cards */}
         <div className="relative hidden lg:flex justify-center items-center">
+
+          {/* Portrait */}
           <motion.div
-            variants={scaleIn} custom={0.2}
+            variants={scaleIn} custom={0.15}
             initial="hidden" animate="show"
-            className="relative z-10 w-72 xl:w-80"
+            className="relative z-10 w-72 xl:w-[300px]"
           >
+            {/* Soft blob behind portrait */}
+            <div
+              className="absolute inset-0 -z-10 rounded-[40%_60%_55%_45%/45%_55%_60%_40%] blur-2xl opacity-40"
+              style={{ background: "radial-gradient(circle, #fca5a5 0%, #fdba74 60%, transparent 100%)" }}
+            />
             <img
               src="/1773993979501.jpg"
               alt="Hope Mutimutuje"
-              className="w-full object-cover"
-              style={{ borderRadius: "2rem", height: "520px", objectFit: "cover", objectPosition: "top center" }}
+              className="w-full object-cover object-top"
+              style={{
+                height: "480px",
+                borderRadius: "2rem",
+                objectFit: "cover",
+              }}
             />
           </motion.div>
 
-          {/* Spring Boot badge */}
+          {/* Spring Boot badge — top right */}
           <motion.div
             initial={{ opacity: 0, x: 40, y: -20 }} animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ delay: 0.7, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ scale: 1.05 }}
-            className="flex absolute top-10 right-2 xl:right-4 items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-3 z-20 max-w-[215px]"
+            whileHover={{ scale: 1.06 }}
+            className="flex absolute top-8 -right-4 xl:right-0 items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-3 z-20 max-w-[210px]"
           >
-            <TechIcon name={floatingBadges[0].icon} size={24} />
+            <TechIcon name={floatingBadges[0].icon} size={22} />
             <div>
               <p className="text-sm font-bold text-navy leading-tight">{floatingBadges[0].title}</p>
-              <p className="text-xs text-navy/50 leading-snug">{floatingBadges[0].text}</p>
+              <p className="text-xs text-navy/45 leading-snug">{floatingBadges[0].text}</p>
             </div>
           </motion.div>
 
-          {/* Node.js badge */}
+          {/* TYPO3 badge — mid left */}
           <motion.div
-            initial={{ opacity: 0, x: -40, y: 20 }} animate={{ opacity: 1, x: 0, y: 0 }}
+            initial={{ opacity: 0, x: -40, y: -10 }} animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ delay: 0.85, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ scale: 1.05 }}
-            className="flex absolute bottom-10 -left-4 items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-3 z-20 max-w-[215px]"
+            whileHover={{ scale: 1.06 }}
+            className="flex absolute top-1/2 -translate-y-1/2 -left-6 items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-3 z-20 max-w-[210px]"
           >
-            <TechIcon name={floatingBadges[1].icon} size={24} />
-            <div>
-              <p className="text-sm font-bold text-navy leading-tight">{floatingBadges[1].title}</p>
-              <p className="text-xs text-navy/50 leading-snug">{floatingBadges[1].text}</p>
-            </div>
-          </motion.div>
-
-          {/* TYPO3 badge */}
-          <motion.div
-            initial={{ opacity: 0, x: -30, y: -10 }} animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ scale: 1.05 }}
-            className="flex absolute top-1/2 -translate-y-1/2 -left-4 items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-3 z-20 max-w-[215px]"
-          >
-            <TechIcon name={floatingBadges[2].icon} size={24} />
+            <TechIcon name={floatingBadges[2].icon} size={22} />
             <div>
               <p className="text-sm font-bold text-navy leading-tight">{floatingBadges[2].title}</p>
-              <p className="text-xs text-navy/50 leading-snug">{floatingBadges[2].text}</p>
+              <p className="text-xs text-navy/45 leading-snug">{floatingBadges[2].text}</p>
             </div>
           </motion.div>
 
-          {/* Side pill */}
+          {/* Node.js badge — bottom left */}
+          <motion.div
+            initial={{ opacity: 0, x: -40, y: 20 }} animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ delay: 1.0, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ scale: 1.06 }}
+            className="flex absolute bottom-10 -left-6 items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-3 z-20 max-w-[210px]"
+          >
+            <TechIcon name={floatingBadges[1].icon} size={22} />
+            <div>
+              <p className="text-sm font-bold text-navy leading-tight">{floatingBadges[1].title}</p>
+              <p className="text-xs text-navy/45 leading-snug">{floatingBadges[1].text}</p>
+            </div>
+          </motion.div>
+
+          {/* Side pill — far right */}
           <motion.div
             initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col items-center gap-3 absolute -right-24 xl:-right-20 top-1/2 -translate-y-1/2 bg-white rounded-3xl shadow-soft px-3 py-5 w-[86px] z-20"
+            transition={{ delay: 1.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col items-center gap-3 absolute -right-24 xl:-right-20 top-1/2 -translate-y-1/2 bg-white rounded-3xl shadow-soft px-3 py-5 w-[82px] z-20"
           >
             <span className="w-10 h-10 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center shrink-0">
-              <FiCode size={17} />
+              <FiCode size={16} />
             </span>
-            <ul className="text-[10px] font-semibold text-navy/60 text-center leading-5">
+            <ul className="text-[10px] font-semibold text-navy/55 text-center leading-[1.6]">
               {sideList.map((item) => <li key={item}>{item}</li>)}
             </ul>
-            <div className="flex flex-col gap-1.5 w-full px-2 mt-1">
+            <div className="flex flex-col gap-1.5 w-full px-2">
               <span className="block h-1.5 bg-navy/10 rounded-full w-full" />
               <span className="block h-1.5 bg-navy/10 rounded-full w-3/4 mx-auto" />
               <span className="block h-1.5 bg-navy/10 rounded-full w-full" />
@@ -245,76 +271,16 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.55 }}
-          className="lg:hidden flex justify-center pb-8"
+          className="lg:hidden flex justify-center pb-10"
         >
           <img
             src="/1773993979501.jpg"
             alt="Hope Mutimutuje"
-            className="w-56 object-cover object-top rounded-3xl shadow-soft"
+            className="w-56 h-72 object-cover object-top rounded-3xl shadow-soft"
           />
         </motion.div>
-      </motion.div>
+      </div>
 
-      {/* ── Heart-arrow: locked position inside hero ── */}
-      <AnimatePresence>
-        {arrowState === "locked" && (
-          <HeartArrow
-            key="locked"
-            position="absolute"
-            onClick={handleScrollDown}
-            delay={1.5}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* ── Heart-arrow: sticky — rendered in fixed position ── */}
-      <AnimatePresence>
-        {arrowState === "sticky" && (
-          <HeartArrow
-            key="sticky"
-            position="fixed"
-            onClick={handleStickyClick}
-            delay={0}
-          />
-        )}
-      </AnimatePresence>
     </section>
-  );
-}
-
-// ── Shared heart-arrow button ─────────────────────────────────────────────
-function HeartArrow({ position, onClick, delay }) {
-  return (
-    <motion.button
-      onClick={onClick}
-      aria-label="Scroll down"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20, transition: { duration: 0.3 } }}
-      transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-1.5 cursor-pointer group"
-      style={{
-        position,
-        bottom: position === "fixed" ? "28px" : "28px",
-        background: "none",
-        border: "none",
-      }}
-    >
-      <motion.img
-        src="/heart-arrow.png"
-        alt="scroll down"
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-        className="w-14 h-14 group-hover:scale-110 transition-transform duration-300"
-        style={{ filter: "drop-shadow(0 2px 10px rgba(232,98,44,0.30))" }}
-      />
-      <motion.span
-        animate={{ opacity: [0.4, 0.9, 0.4] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="text-[10px] font-semibold uppercase tracking-widest text-navy/40"
-      >
-        scroll
-      </motion.span>
-    </motion.button>
   );
 }
