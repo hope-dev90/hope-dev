@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { realCertificates } from "../data";
-import { FiArrowRight, FiEye, FiX, FiExternalLink } from "react-icons/fi";
+import { FiArrowRight, FiEye, FiX, FiExternalLink, FiStar } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { staggerContainer, fadeUp, scaleIn } from "../lib/motion";
@@ -69,7 +69,10 @@ export default function Certifications() {
   const [activeCert, setActiveCert] = useState(null);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const preview = realCertificates.slice(0, 8);
+  const highlighted = realCertificates.filter((c) => c.highlight);
+  const rest = realCertificates.filter((c) => !c.highlight);
+  // always show highlighted ones first, then fill up to 8 total
+  const preview = [...highlighted, ...rest].slice(0, 8);
 
   return (
     <>
@@ -96,13 +99,26 @@ export default function Certifications() {
                 whileHover={{ x: 4, scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className={`w-full text-left flex items-center gap-3 rounded-xl border p-2.5 transition-shadow hover:shadow-sm ${cert.color}`}
+                className={`w-full text-left flex items-center gap-3 rounded-xl border p-2.5 transition-shadow hover:shadow-sm ${
+                  cert.highlight
+                    ? "bg-gradient-to-r from-orange/10 to-amber-50 border-orange/30 ring-1 ring-orange/20"
+                    : cert.color
+                }`}
               >
-                <span className={`w-2 h-2 rounded-full shrink-0 ${categoryColors[cert.category] ?? "bg-navy/30"}`} />
+                {cert.highlight ? (
+                  <FiStar size={13} className="text-orange shrink-0 fill-orange" />
+                ) : (
+                  <span className={`w-2 h-2 rounded-full shrink-0 ${categoryColors[cert.category] ?? "bg-navy/30"}`} />
+                )}
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-semibold text-navy leading-tight line-clamp-1">{cert.name}</p>
+                  <p className={`text-xs font-semibold leading-tight line-clamp-1 ${cert.highlight ? "text-navy font-extrabold" : "text-navy"}`}>
+                    {cert.name}
+                  </p>
                   <p className="text-[10px] text-navy/45 mt-0.5">{cert.issuer} · {cert.date}</p>
                 </div>
+                {cert.highlight && (
+                  <span className="text-[9px] font-black text-orange uppercase tracking-wide shrink-0">Featured</span>
+                )}
                 <FiEye size={12} className="text-navy/30 shrink-0" />
               </motion.button>
             </motion.li>

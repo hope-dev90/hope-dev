@@ -130,6 +130,7 @@ export const realCertificates = [
     issuer: "Technovation",
     date: "2026",
     category: "Achievement",
+    highlight: true,
     color: "bg-pink-50 border-pink-200",
     badge: "bg-pink-100 text-pink-700",
     file: "/certificates/2026-semifinalist-270354-50509.pdf",
@@ -207,6 +208,7 @@ export const realCertificates = [
     issuer: "ICCA Cyber Community",
     date: "March 2026",
     category: "CTF / Competition",
+    highlight: true,
     color: "bg-blue-50 border-blue-200",
     badge: "bg-blue-100 text-blue-700",
     file: "/certificates/ICCA-Pass-international-cybersecurity-community-for-africa-(icca)-official-launch-2026.pdf",
@@ -229,6 +231,7 @@ export const realCertificates = [
     issuer: "Upanzi DPI Network",
     date: "June 2026",
     category: "CTF / Competition",
+    highlight: true,
     color: "bg-amber-50 border-amber-200",
     badge: "bg-amber-100 text-amber-700",
     file: "/certificates/picoCTF_certs_Upanzi_Africa_leaderboards_Teams_cert_best_team_individual-41.pdf",
@@ -281,6 +284,7 @@ export const realCertificates = [
 ];
 
 export const navLinks = [
+  { label: "Home",          href: "#top" },
   { label: "Skills",        href: "#skills" },
   { label: "About Me",      href: "#about" },
   { label: "Projects",      href: "#projects" },
@@ -364,19 +368,13 @@ export const cvExperience = [
 ];
 
 export const cvProjects = [
-  {
-    name: "CTF Sigma Seven",
-    url: "https://ctf-sigma-seven.vercel.app",
-    description:
-      "A structured repository of payloads, scripts, and command-line techniques collected from CTF challenges, penetration testing practice, and day-to-day security research. Designed as a centralized reference to streamline exploitation workflows and improve efficiency during security assessments.",
-    tech: ["Security Research", "CTF", "Penetration Testing", "Payloads", "Scripts"],
-    type: "Built & Deployed",
-    color: "bg-red-50 border-red-200",
-    badge: "bg-red-100 text-red-700",
-  },
+  // ── Visible on homepage ──────────────────────────────────────────────────
   {
     name: "StaffNet",
     url: "https://staffnet.innov.rw",
+    preview: "/projects/staffnet.png",
+    device: "desktop",
+    showOnHome: true,
     description:
       "A comprehensive staff management system built for Innov. Features employee records, leave management, payroll tracking and role-based access control.",
     tech: ["React", "Node.js", "PostgreSQL", "Express", "JWT"],
@@ -385,28 +383,11 @@ export const cvProjects = [
     badge: "bg-violet-100 text-violet-700",
   },
   {
-    name: "RCA Website & MIS",
-    url: "https://rca.ac.rw",
-    description:
-      "Official website and Management Information System for Rwanda Coding Academy. Handles admissions, student records, academic content and institutional data.",
-    tech: ["TYPO3", "PHP", "MySQL", "JavaScript"],
-    type: "Maintainer",
-    color: "bg-emerald-50 border-emerald-200",
-    badge: "bg-emerald-100 text-emerald-700",
-  },
-  {
-    name: "CodeBrige",
-    url: "https://codebrige.rw",
-    description:
-      "A developer community and opportunity platform for Rwandan tech talent. Connects developers with jobs, projects, and learning resources.",
-    tech: ["React", "Node.js", "MongoDB", "Express"],
-    type: "Contributor",
-    color: "bg-orange-50 border-orange-200",
-    badge: "bg-orange-100 text-orange-700",
-  },
-  {
     name: "Umuco Core",
     url: "https://umuco-core.vercel.app",
+    preview: "/projects/umuco.png",
+    device: "desktop",
+    showOnHome: true,
     description:
       "A cultural content platform preserving and sharing Rwandan heritage through digital media. Built with a modern web stack and deployed on Vercel.",
     tech: ["React", "TypeScript", "Node.js", "MongoDB"],
@@ -417,6 +398,9 @@ export const cvProjects = [
   {
     name: "Kamme — Hospital Scheduler",
     url: null,
+    preview: "/projects/kamme.png",
+    device: "phone",
+    showOnHome: true,
     description:
       "A mobile application for hospital appointment scheduling. Patients book appointments, doctors manage schedules, and admins oversee hospital workflows.",
     tech: ["React Native", "Node.js", "PostgreSQL", "Push Notifications"],
@@ -425,8 +409,20 @@ export const cvProjects = [
     badge: "bg-rose-100 text-rose-700",
   },
   {
+    name: "CTF Sigma Seven",
+    url: "https://ctf-sigma-seven.vercel.app",
+    showOnHome: true,
+    description:
+      "A structured repository of payloads, scripts, and command-line techniques collected from CTF challenges, penetration testing practice, and day-to-day security research. Designed as a centralized reference to streamline exploitation workflows and improve efficiency during security assessments.",
+    tech: ["Security Research", "CTF", "Penetration Testing", "Payloads", "Scripts"],
+    type: "Built & Deployed",
+    color: "bg-red-50 border-red-200",
+    badge: "bg-red-100 text-red-700",
+  },
+  {
     name: "HerIngress",
-    url: null,
+    url: "https://github.com/Her-Access",
+    showOnHome: true,
     description:
       "An app empowering women in tech with resources, mentorship matching, and community features. Achieved semifinalist status at Technovation Girls competition.",
     tech: ["React Native", "Firebase", "Node.js"],
@@ -435,8 +431,32 @@ export const cvProjects = [
     badge: "bg-pink-100 text-pink-700",
   },
   {
+    name: "RCA Website & MIS",
+    url: "https://rca.ac.rw",
+    showOnHome: true,
+    description:
+      "Official website and Management Information System for Rwanda Coding Academy. Handles admissions, student records, academic content and institutional data.",
+    tech: ["TYPO3", "PHP", "MySQL", "JavaScript"],
+    type: "Maintainer",
+    color: "bg-emerald-50 border-emerald-200",
+    badge: "bg-emerald-100 text-emerald-700",
+  },
+  // ── CV only ───────────────────────────────────────────────────────────────
+  {
+    name: "CodeBrige",
+    url: "https://codebrige.rw",
+    showOnHome: false,
+    description:
+      "A developer community and opportunity platform for Rwandan tech talent. Connects developers with jobs, projects, and learning resources.",
+    tech: ["TYPO3", "PHP", "MySQL", "JavaScript"],
+    type: "Contributor",
+    color: "bg-orange-50 border-orange-200",
+    badge: "bg-orange-100 text-orange-700",
+  },
+  {
     name: "GWIZA AI",
     url: null,
+    showOnHome: false,
     description:
       "An AI-powered intelligent assistant developed under Umurava. Contributed to backend API integration and AI model connectivity layer.",
     tech: ["Python", "Node.js", "REST APIs", "AI/ML"],
