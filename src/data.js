@@ -10,8 +10,8 @@ export const profile = {
   quote: "Code is like humor. When you have to explain it, it's bad.",
   quoteAuthor: "Cory House",
   socials: {
-    github: "github.com/hope-dev90",
-    linkedin: "linkedin.com/in/mutimutuje-hope-492006396",
+    github: "https://github.com/hope-dev90",
+    linkedin: "https://www.linkedin.com/in/mutimutujehope",
     website: "hope-dev.vercel.app",
   },
 };
