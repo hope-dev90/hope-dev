@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import { profile } from "../data";
 import {
   FiMail, FiPhone, FiMapPin, FiGithub, FiLinkedin, FiGlobe, FiSend, FiCheckCircle, FiAlertCircle,
@@ -6,9 +7,18 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { fadeUp, staggerContainer } from "../lib/motion";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/api/message`;
+// ── EmailJS config ─────────────────────────────────────────────────────────
+// 1. Sign up at https://www.emailjs.com (free)
+// 2. Add a Gmail service → copy the Service ID below
+// 3. Create an email template → copy the Template ID below
+//    Template variables used: {{from_name}}, {{from_email}}, {{subject}}, {{message}}
+// 4. Copy your Public Key from Account → API Keys
+const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 export default function Contact() {
+  const formRef = useRef(null);
   const [form, setForm]     = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [errMsg, setErrMsg] = useState("");
@@ -23,24 +33,23 @@ export default function Contact() {
     setErrMsg("");
 
     try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      const data = await res.json();
-
-      if (res.ok && data.success) {
-        setStatus("success");
-        setForm({ name: "", email: "", subject: "", message: "" });
-      } else {
-        setStatus("error");
-        setErrMsg(data.message || "Something went wrong. Please try again.");
-      }
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name:  form.name,
+          from_email: form.email,
+          subject:    form.subject,
+          message:    form.message,
+          to_email:   profile.email,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+      setStatus("success");
+      setForm({ name: "", email: "", subject: "", message: "" });
     } catch (err) {
       setStatus("error");
-      setErrMsg("Could not reach the server. Make sure the backend is running.");
+      setErrMsg("Failed to send. Please email me directly at " + profile.email);
     }
   }
 
