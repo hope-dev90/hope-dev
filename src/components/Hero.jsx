@@ -146,7 +146,7 @@ export default function Hero() {
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
               className="inline-flex items-center gap-2 bg-orange hover:bg-orange-dark text-white font-bold px-7 py-3 rounded-full text-sm shadow-lg shadow-orange/30 transition-colors"
             >
-              Hire Me <FiArrowRight />
+              Get In Touch <FiArrowRight />
             </motion.a>
             <Link
               to="/cv"

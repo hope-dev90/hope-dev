@@ -128,7 +128,7 @@ export default function Footer() {
         {/* bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6">
           <p className="text-xs text-white/30">
-            © {year} <span className="text-white/50 font-semibold">{profile.name}</span>. All rights reserved.
+            © 2025–2026 <span className="text-white/50 font-semibold">{profile.name}</span>. All rights reserved.
           </p>
           <p className="text-xs text-white/20">
             Designed & built by Hope

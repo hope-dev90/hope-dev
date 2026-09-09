@@ -100,7 +100,7 @@ export default function WhatIDo() {
               href="#contact"
               className="inline-flex items-center bg-orange hover:bg-orange-dark text-white font-bold px-7 py-3 rounded-full text-sm transition-colors"
             >
-              Hire CV
+              Get In Touch
             </a>
           </motion.div>
 
