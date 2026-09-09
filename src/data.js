@@ -82,28 +82,28 @@ export const whatIDo = [
 
 export const experience = [
   {
-    period: "2023 — Present",
+    period: "2025 — Present",
     role: "Fullstack Developer",
     place: "Freelance",
     text: "Building fullstack web applications using Node.js, TypeScript, React, PostgreSQL and MongoDB. Implementing microservices and CI/CD pipelines.",
     dot: "bg-violet-500",
   },
   {
-    period: "2022 — 2023",
+    period: "2025",
     role: "Backend Developer",
     place: "Personal Projects",
     text: "Developed RESTful APIs and microservices with Node.js and Express. Integrated databases and third-party services.",
     dot: "bg-emerald-500",
   },
   {
-    period: "2021 — 2022",
+    period: "2025",
     role: "Web Developer",
     place: "Learning & Practice",
     text: "Built responsive websites and web apps while learning modern web technologies and best practices.",
     dot: "bg-rose-500",
   },
   {
-    period: "2020 — 2021",
+    period: "2025",
     role: "IT Enthusiast",
     place: "Self Learning",
     text: "Explored programming, networking and cybersecurity. Completed various courses and small projects.",
@@ -297,14 +297,14 @@ export const navLinks = [
 
 export const cvEducation = [
   {
-    period: "2022 — 2025",
+    period: "2025 — 2026",
     degree: "Software Engineering & Embedded Systems",
     school: "Rwanda Coding Academy (RCA)",
     location: "Nyabihu, Rwanda",
     note: "Interdisciplinary program in AI, Robotics, Creative Computing and Scientific Research.",
   },
   {
-    period: "2023",
+    period: "2025",
     degree: "Nazli Tech Schools — Technical Training",
     school: "Nazli Tech Schools",
     location: "Rwanda",
@@ -314,7 +314,7 @@ export const cvEducation = [
 
 export const cvExperience = [
   {
-    period: "2024 — Present",
+    period: "2025 — Present",
     role: "Software Developer Intern",
     company: "Velora Tech Labs",
     location: "Kigali, Rwanda",
@@ -327,7 +327,7 @@ export const cvExperience = [
     dot: "bg-violet-500",
   },
   {
-    period: "2024 — Present",
+    period: "2025 — Present",
     role: "Web Developer & Maintainer",
     company: "Rwanda Coding Academy — MIS",
     location: "Nyabihu, Rwanda",
@@ -340,7 +340,7 @@ export const cvExperience = [
     dot: "bg-emerald-500",
   },
   {
-    period: "2024",
+    period: "2025",
     role: "Fullstack Developer",
     company: "CodeBrige",
     location: "Kigali, Rwanda",
@@ -353,7 +353,7 @@ export const cvExperience = [
     dot: "bg-orange-500",
   },
   {
-    period: "2024",
+    period: "2025",
     role: "AI & Backend Contributor",
     company: "GWIZA AI — Umurava",
     location: "Rwanda",
