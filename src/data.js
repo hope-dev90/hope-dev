@@ -1,8 +1,8 @@
 export const profile = {
   name: "Hope Mutimutuje",
-  role: "Fullstack Developer",
+  role: "Backend Developer",
   intro:
-    "I build modern, scalable and secure web applications using cutting-edge technologies. Passionate about clean code, system design, and solving real-world problems with impactful solutions.",
+    "I build robust, scalable and secure backend systems and APIs using cutting-edge technologies. Passionate about clean architecture, system design, and solving real-world problems with impactful backend solutions.",
   email: "mutimutujehope90@gmail.com",
   phone: "+250 729 963 185",
   location: "Kigali, Rwanda",
@@ -49,8 +49,8 @@ export const techStack = [
 
 export const whatIDo = [
   {
-    title: "Fullstack Development",
-    text: "Building end-to-end web applications using modern frameworks and tools.",
+    title: "Backend Development",
+    text: "Building robust, scalable server-side systems, REST APIs and microservices using modern backend frameworks and tools.",
     icon: "code",
     color: "bg-violet-100 text-violet-600",
   },
@@ -83,9 +83,9 @@ export const whatIDo = [
 export const experience = [
   {
     period: "2025 — Present",
-    role: "Fullstack Developer",
+    role: "Backend Developer",
     place: "Freelance",
-    text: "Building fullstack web applications using Node.js, TypeScript, React, PostgreSQL and MongoDB. Implementing microservices and CI/CD pipelines.",
+    text: "Building robust backend systems, REST APIs and microservices using Node.js, TypeScript, Java and Spring Boot. Designing scalable database schemas and CI/CD pipelines.",
     dot: "bg-violet-500",
   },
   {
@@ -320,7 +320,7 @@ export const cvExperience = [
     location: "Kigali, Rwanda",
     type: "Internship",
     points: [
-      "Contributed to fullstack web projects using React, Node.js and PostgreSQL.",
+      "Contributed to backend web projects using Node.js, PostgreSQL and REST APIs.",
       "Collaborated in agile sprints, code reviews and technical design discussions.",
       "Assisted in building scalable REST APIs and microservices.",
     ],
@@ -341,7 +341,7 @@ export const cvExperience = [
   },
   {
     period: "2025",
-    role: "Fullstack Developer",
+    role: "Backend Developer",
     company: "CodeBrige",
     location: "Kigali, Rwanda",
     type: "Contract",
@@ -376,7 +376,7 @@ export const cvProjects = [
     device: "desktop",
     showOnHome: true,
     description:
-      "A comprehensive staff management system built for Innov. Features employee records, leave management, payroll tracking and role-based access control.",
+      "A comprehensive staff management system built for Innov. Responsible for backend development including REST APIs, role-based access control, leave management logic and PostgreSQL database design.",
     tech: ["React", "Node.js", "PostgreSQL", "Express", "JWT"],
     type: "Built & Deployed",
     color: "bg-violet-50 border-violet-200",
@@ -384,16 +384,29 @@ export const cvProjects = [
   },
   {
     name: "Umuco Core",
-    url: "https://umuco-core.vercel.app",
+    url: "https://umucocore.rw",
     preview: "/projects/umuco.png",
     device: "desktop",
     showOnHome: true,
     description:
-      "A cultural content platform preserving and sharing Rwandan heritage through digital media. Built with a modern web stack and deployed on Vercel.",
-    tech: ["React", "TypeScript", "Node.js", "MongoDB"],
+      "A cultural content platform preserving and sharing Rwandan heritage through digital media. Responsible for backend API development, database architecture and server-side logic.",
+    tech: ["Node.js", "TypeScript", "MongoDB", "REST API"],
     type: "Built & Deployed",
     color: "bg-sky-50 border-sky-200",
     badge: "bg-sky-100 text-sky-700",
+  },
+  {
+    name: "GWIZA AI",
+    url: "https://umurava.africa",
+    preview: "/projects/gwiza.png",
+    device: "desktop",
+    showOnHome: true,
+    description:
+      "An AI-powered intelligent assistant developed under Umurava. Contributed to backend API integration, AI model connectivity layer and system architecture design.",
+    tech: ["Python", "Node.js", "REST APIs", "AI/ML"],
+    type: "Built & Deployed",
+    color: "bg-indigo-50 border-indigo-200",
+    badge: "bg-indigo-100 text-indigo-700",
   },
   {
     name: "Kamme — Hospital Scheduler",
@@ -402,7 +415,7 @@ export const cvProjects = [
     device: "phone",
     showOnHome: true,
     description:
-      "A mobile application for hospital appointment scheduling. Patients book appointments, doctors manage schedules, and admins oversee hospital workflows.",
+      "A mobile application for hospital appointment scheduling. Built the backend including appointment booking APIs, doctor schedule management, push notification services and PostgreSQL database schemas.",
     tech: ["React Native", "Node.js", "PostgreSQL", "Push Notifications"],
     type: "Built",
     color: "bg-rose-50 border-rose-200",
@@ -424,45 +437,37 @@ export const cvProjects = [
     url: "https://github.com/Her-Access",
     showOnHome: true,
     description:
-      "An app empowering women in tech with resources, mentorship matching, and community features. Achieved semifinalist status at Technovation Girls competition.",
+      "An app empowering women in tech with resources, mentorship matching, and community features. Developed backend APIs, Firebase integration and server-side logic. Achieved semifinalist status at Technovation Girls competition.",
     tech: ["React Native", "Firebase", "Node.js"],
     type: "Technovation Semifinalist",
     color: "bg-pink-50 border-pink-200",
     badge: "bg-pink-100 text-pink-700",
   },
   {
-    name: "RCA Website & MIS",
+    name: "RCA Website",
     url: "https://rca.ac.rw",
+    preview: "/projects/rca.png",
+    device: "desktop",
     showOnHome: true,
     description:
-      "Official website and Management Information System for Rwanda Coding Academy. Handles admissions, student records, academic content and institutional data.",
+      "Official website and Management Information System for Rwanda Coding Academy. Maintaining backend infrastructure, server configuration, database management and CMS customisation.",
     tech: ["TYPO3", "PHP", "MySQL", "JavaScript"],
-    type: "Maintainer",
+    type: "TYPO3 Developer",
     color: "bg-emerald-50 border-emerald-200",
     badge: "bg-emerald-100 text-emerald-700",
   },
-  // ── CV only ───────────────────────────────────────────────────────────────
   {
     name: "CodeBrige",
     url: "https://codebrige.rw",
-    showOnHome: false,
+    preview: "/projects/codebridge.png",
+    device: "desktop",
+    showOnHome: true,
     description:
-      "A developer community and opportunity platform for Rwandan tech talent. Connects developers with jobs, projects, and learning resources.",
+      "A developer community and opportunity platform for Rwandan tech talent. Contributed to backend development, API design and database management.",
     tech: ["TYPO3", "PHP", "MySQL", "JavaScript"],
-    type: "Contributor",
+    type: "Built & Deployed",
     color: "bg-orange-50 border-orange-200",
     badge: "bg-orange-100 text-orange-700",
-  },
-  {
-    name: "GWIZA AI",
-    url: null,
-    showOnHome: false,
-    description:
-      "An AI-powered intelligent assistant developed under Umurava. Contributed to backend API integration and AI model connectivity layer.",
-    tech: ["Python", "Node.js", "REST APIs", "AI/ML"],
-    type: "Contributor",
-    color: "bg-indigo-50 border-indigo-200",
-    badge: "bg-indigo-100 text-indigo-700",
   },
 ];
 
