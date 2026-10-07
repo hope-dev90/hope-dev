@@ -131,7 +131,7 @@ export default function CV() {
             style={{ background: "linear-gradient(135deg,#fde0d4 0%,#fdeae2 50%,#ffffff 100%)" }}>
             <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
               <img src="/1773993979501.jpg" alt="Hope Mutimutuje"
-                className="w-24 h-24 rounded-2xl object-cover object-top shadow-soft shrink-0 border-2 border-white" />
+                className="w-24 h-24 rounded-2xl object-cover object-top shadow-soft shrink-0 border-2 border-white rotate-180" />
               <div className="flex-1">
                 <h1 className="text-3xl sm:text-4xl font-extrabold text-navy">{profile.name}</h1>
                 <p className="text-orange font-bold text-lg mt-0.5">{profile.role}</p>

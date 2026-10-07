@@ -281,6 +281,18 @@ export const realCertificates = [
     file: "/certificates/MUTIMUTUJE Hope.pdf",
     type: "pdf",
   },
+  {
+    id: 15,
+    name: "MUTIMUTUJE Hope — Certificate of Completion",
+    issuer: "Nazli Tech School",
+    date: "September 2026",
+    category: "AI & Tech",
+    highlight: true,
+    color: "bg-violet-50 border-violet-200",
+    badge: "bg-violet-100 text-violet-700",
+    file: "/certificates/MUTIMUTUJE Hope CERTIFICATE OF COMPLETION.pdf",
+    type: "pdf",
+  },
 ];
 
 export const navLinks = [
@@ -290,6 +302,7 @@ export const navLinks = [
   { label: "Projects",      href: "#projects" },
   { label: "Experience",    href: "#experience" },
   { label: "Certifications",href: "#certifications" },
+  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact",       href: "#contact" },
 ];
 
@@ -397,7 +410,7 @@ export const cvProjects = [
   },
   {
     name: "GWIZA AI",
-    url: "https://umurava.africa",
+    url: "https://umurava-frontend-orpin.vercel.app/",
     preview: "/projects/gwiza.jpg",
     device: "desktop",
     showOnHome: true,
@@ -468,6 +481,17 @@ export const cvProjects = [
     type: "Built & Deployed",
     color: "bg-orange-50 border-orange-200",
     badge: "bg-orange-100 text-orange-700",
+  },
+  {
+    name: "Ubutaberahub",
+    url: "https://github.com/blaisekwizera31-hash/Ubutaberahub",
+    showOnHome: true,
+    description:
+      "A project presented at the Rwanda Coding Academy Hackathon 2025–2026.",
+    tech: ["RCA Hackathon", "2025–2026"],
+    type: "RCA Hackathon 2025–2026",
+    color: "bg-sky-50 border-sky-200",
+    badge: "bg-sky-100 text-sky-700",
   },
 ];
 

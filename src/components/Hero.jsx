@@ -9,50 +9,6 @@ import {
 import { motion } from "framer-motion";
 import { fadeUp, scaleIn, staggerContainer } from "../lib/motion";
 
-// ── Floating triangles ──────────────────────────────────────────────────────
-const TRIANGLES = [
-  { id: 0,  size: 38, color: "#e8622c", opacity: 0.85, left: "8%",  delay: 0,   duration: 3.5 },
-  { id: 1,  size: 18, color: "#f4a07a", opacity: 0.55, left: "18%", delay: 0.6, duration: 4.5 },
-  { id: 2,  size: 26, color: "#f9c4aa", opacity: 0.45, left: "33%", delay: 0.2, duration: 5.5 },
-  { id: 3,  size: 14, color: "#e8622c", opacity: 0.35, left: "47%", delay: 1.0, duration: 4   },
-  { id: 4,  size: 32, color: "#f87171", opacity: 0.65, left: "60%", delay: 0.4, duration: 5   },
-  { id: 5,  size: 20, color: "#fca5a5", opacity: 0.40, left: "72%", delay: 0.8, duration: 6.5 },
-  { id: 6,  size: 44, color: "#fb923c", opacity: 0.50, left: "82%", delay: 0.1, duration: 4.5 },
-  { id: 7,  size: 16, color: "#fde0d4", opacity: 0.55, left: "91%", delay: 1.2, duration: 3.5 },
-  { id: 8,  size: 22, color: "#e8622c", opacity: 0.30, left: "25%", delay: 1.5, duration: 6   },
-  { id: 9,  size: 30, color: "#f4a07a", opacity: 0.60, left: "55%", delay: 0.9, duration: 4   },
-  { id: 10, size: 12, color: "#f87171", opacity: 0.35, left: "70%", delay: 0.3, duration: 7   },
-  { id: 11, size: 36, color: "#fca5a5", opacity: 0.45, left: "40%", delay: 1.4, duration: 5   },
-];
-
-function FloatingTriangles() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      {TRIANGLES.map((t) => (
-        <motion.div
-          key={t.id}
-          style={{
-            position: "absolute",
-            left: t.left,
-            bottom: "-60px",
-            width: 0,
-            height: 0,
-            borderLeft:   `${t.size / 2}px solid transparent`,
-            borderRight:  `${t.size / 2}px solid transparent`,
-            borderBottom: `${t.size * 0.87}px solid ${t.color}`,
-            opacity: t.opacity,
-          }}
-          animate={{ y: [0, -1100], rotate: [0, t.id % 2 === 0 ? 15 : -15] }}
-          transition={{
-            y:      { duration: t.duration, repeat: Infinity, ease: "linear",    delay: t.delay },
-            rotate: { duration: t.duration, repeat: Infinity, ease: "easeInOut", delay: t.delay },
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
 // ── Brand / tech logos row ──────────────────────────────────────────────────
 const brandLogos = [
   { Icon: SiReact,      color: "#61dafb", label: "React"      },
@@ -73,8 +29,6 @@ export default function Hero() {
         background: "linear-gradient(150deg, #fde0d4 0%, #fdeae2 30%, #fef4f0 60%, #f9f5ff 100%)",
       }}
     >
-      <FloatingTriangles />
-
       {/* ── Decorative scattered shapes ── */}
       {/* top-left star */}
       <motion.span initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }}
@@ -196,7 +150,7 @@ export default function Hero() {
             <img
               src="/1773993979501.jpg"
               alt="Hope Mutimutuje"
-              className="w-full object-cover object-top"
+              className="w-full object-cover object-top rotate-180"
               style={{
                 height: "480px",
                 borderRadius: "2rem",
@@ -276,7 +230,7 @@ export default function Hero() {
           <img
             src="/1773993979501.jpg"
             alt="Hope Mutimutuje"
-            className="w-56 h-72 object-cover object-top rounded-3xl shadow-soft"
+            className="w-56 h-72 object-cover object-top rounded-3xl shadow-soft rotate-180"
           />
         </motion.div>
       </div>
