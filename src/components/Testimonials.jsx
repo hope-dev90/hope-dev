@@ -26,6 +26,14 @@ const collaborators = [
     quote:
       "Working with Hope means having a developer who can think through backend design and security while staying open, supportive, and easy to collaborate with. His technical ability is matched by a great team spirit and personality that bring out the best in a project.",
   },
+  {
+    name: "Nancy Mizero Stella",
+    initials: "NMS",
+    role: "Co-founder of ZERO Bite",
+    image: "/nancy.png",
+    quote:
+      "Hope combines strong backend development skills with a careful approach to security and data. He is dependable, communicates well, and brings a positive team spirit that makes it easier to turn ideas into working solutions.",
+  },
 ];
 
 function CollaboratorAvatar({ person }) {

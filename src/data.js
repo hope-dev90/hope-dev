@@ -493,6 +493,18 @@ export const cvProjects = [
     color: "bg-sky-50 border-sky-200",
     badge: "bg-sky-100 text-sky-700",
   },
+  {
+    name: "ZERO Bite",
+    url: "https://github.com/Aubierge-codes/Zero-bite",
+    preview: "/zerobite.png",
+    device: "desktop",
+    showOnHome: true,
+    description: "A collaborative project developed with the ZERO Bite team.",
+    tech: ["GitHub", "Collaborative Project"],
+    type: "Collaborative Project",
+    color: "bg-rose-50 border-rose-200",
+    badge: "bg-rose-100 text-rose-700",
+  },
 ];
 
 export const cvAchievements = [
