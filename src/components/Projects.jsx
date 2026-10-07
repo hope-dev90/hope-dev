@@ -263,34 +263,39 @@ export default function Projects() {
         )}
 
         {/* ── show more ── */}
-        <div className="mt-8">
-          <button
-            onClick={() => setShowMore((v) => !v)}
-            className="flex items-center gap-2 text-xs font-bold text-navy/40 hover:text-orange transition-colors"
-          >
-            {showMore ? <FiChevronUp size={14} /> : <FiChevronDown size={14} />}
-            {showMore ? "Show less" : `Show ${hidden.length} more projects`}
-          </button>
+        {hidden.length > 0 && (
+          <div className="mt-8">
+            <button
+              onClick={() => setShowMore((v) => !v)}
+              aria-expanded={showMore}
+              aria-controls="hidden-projects"
+              className="flex items-center gap-2 text-xs font-bold text-navy/40 hover:text-orange transition-colors"
+            >
+              {showMore ? <FiChevronUp size={14} /> : <FiChevronDown size={14} />}
+              {showMore ? "Show less" : `Show ${hidden.length} more projects`}
+            </button>
 
-          <AnimatePresence>
-            {showMore && (
-              <motion.div
-                key="hidden-projects"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className="overflow-hidden"
-              >
-                <div className="pt-4">
-                  {hidden.map((proj, i) => (
-                    <CompactProject key={proj.name} proj={proj} index={i} inView={showMore} delay={i * 0.08} />
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+            <AnimatePresence>
+              {showMore && (
+                <motion.div
+                  id="hidden-projects"
+                  key="hidden-projects"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="pt-4">
+                    {hidden.map((proj, i) => (
+                      <CompactProject key={proj.name} proj={proj} index={i} inView={showMore} delay={i * 0.08} />
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
 
         {/* mobile "full cv" link */}
         <div className="mt-8 flex justify-center sm:hidden">
