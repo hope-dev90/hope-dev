@@ -1,25 +1,67 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { FiUsers } from "react-icons/fi";
 
 const collaborators = [
-  { name: "Umurerwa Aubierge", initials: "UA", accent: "from-orange-400 to-rose-400" },
-  { name: "Uwase Mugisha Esther", initials: "UME", accent: "from-violet-400 to-indigo-400" },
-  { name: "Shimirwa Teta Sonia", initials: "STS", accent: "from-emerald-400 to-teal-400" },
+  {
+    name: "Umurerwa Aubierge",
+    initials: "UA",
+    role: "Co-founder of Umuco Core",
+    image: "/aubie.png",
+    quote:
+      "Hope was one of the best backend developers I worked with on Umuco Core. He brought strong thinking to APIs, data design, and security, while keeping the team focused on building something useful. His openness, reliability, and positive energy made working together a great experience.",
+  },
+  {
+    name: "Irasubiza Sally Nelson",
+    initials: "ISN",
+    role: "Co-founder of Velora Tech Labs",
+    image: "/nelson.png",
+    quote:
+      "Hope brings more than backend knowledge to a project. He thinks carefully about security and databases, communicates clearly, and works with the whole team to solve problems. His talent and generous, upbeat personality make him someone I would be glad to work with again.",
+  },
+  {
+    name: "Shimirwa Teta Sonia",
+    initials: "STS",
+    role: "Founder of StaffNet Rwanda",
+    image: "/sonia.png",
+    quote:
+      "Hope is a thoughtful backend developer who looks beyond the code to what a project and its people need. He brings care to database design and security, follows through on his work, and makes collaboration feel easy through his teamwork and great personality.",
+  },
+  {
+    name: "Uwase Mugisha Esther",
+    initials: "UME",
+    role: "Founder of Dinesphere",
+    quote:
+      "Working with Hope means having a developer who can think through backend design and security while staying open, supportive, and easy to collaborate with. His technical ability is matched by a great team spirit and personality that bring out the best in a project.",
+  },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 28 },
-  show: (index) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] },
-  }),
-};
+function CollaboratorAvatar({ person }) {
+  const [imageFailed, setImageFailed] = useState(false);
+
+  return (
+    <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full bg-white/15 ring-2 ring-white/10">
+      {person.image && !imageFailed ? (
+        <img
+          src={person.image}
+          alt={person.name}
+          loading="lazy"
+          decoding="async"
+          onError={() => setImageFailed(true)}
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <span className="flex h-full w-full items-center justify-center text-xs font-bold text-white">
+          {person.initials}
+        </span>
+      )}
+    </div>
+  );
+}
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="scroll-mt-24 bg-[#f0eefa] py-20">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="testimonials" className="scroll-mt-24 bg-[#faf6f2] py-20 sm:py-24">
+      <div className="mx-auto max-w-[1500px] px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -27,51 +69,41 @@ export default function Testimonials() {
           transition={{ duration: 0.5 }}
           className="mb-10"
         >
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-orange mb-2">
-            Project Teammates
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-navy">Testimonials</h2>
-          <p className="text-sm text-navy/55 mt-3 max-w-xl">
-            People I’ve had the chance to work alongside on projects.
+          <h2 className="text-3xl font-extrabold text-navy sm:text-4xl">Testimonials</h2>
+          <p className="mt-3 max-w-xl text-sm text-navy/55">
+            A few words from people Hope has worked with on projects.
           </p>
         </motion.div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid md:grid-cols-3 gap-5"
-        >
+        <div className="grid items-stretch gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {collaborators.map((person, index) => (
             <motion.article
               key={person.name}
-              custom={index}
-              variants={cardVariants}
-              whileHover={{ y: -7, scale: 1.015 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
-              className="group relative overflow-hidden rounded-3xl bg-white p-7 shadow-card ring-1 ring-black/5"
+              initial={{ opacity: 0, y: 36, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.12,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              whileHover={{ y: -8, scale: 1.015 }}
+              className="group relative flex h-full min-h-[390px] flex-col overflow-hidden rounded-[1.7rem] bg-[#191919] p-6 text-white shadow-xl shadow-black/10 sm:p-7"
             >
-              <div className="absolute -right-8 -top-10 h-28 w-28 rounded-full bg-orange/5 transition-transform duration-500 group-hover:scale-150" />
-              <div className="relative flex items-center gap-4">
-                <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${person.accent} text-sm font-extrabold text-white shadow-lg shadow-navy/10`}>
-                  {person.initials}
+              <span className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-orange/10 blur-2xl transition-transform duration-700 group-hover:scale-150" />
+              <p className="relative flex-1 text-[15px] leading-[1.65] tracking-[-0.02em] text-white/90 sm:text-base">
+                “{person.quote}”
+              </p>
+              <div className="relative mt-8 flex items-center gap-3 border-t border-white/10 pt-5">
+                <CollaboratorAvatar person={person} />
+                <div className="min-w-0">
+                  <h3 className="text-sm font-semibold leading-snug text-white">{person.name}</h3>
+                  <p className="mt-1 text-xs leading-snug text-white/65">{person.role}</p>
                 </div>
-                <div>
-                  <h3 className="font-extrabold text-navy">{person.name}</h3>
-                  <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-orange/80">
-                    Project collaborator
-                  </p>
-                </div>
-              </div>
-              <div className="relative mt-6 flex items-start gap-3 border-t border-navy/8 pt-5">
-                <FiUsers className="mt-0.5 shrink-0 text-orange" size={17} aria-hidden="true" />
-                <p className="text-sm leading-relaxed text-navy/60">
-                  Worked alongside Hope on project work and collaboration.
-                </p>
               </div>
             </motion.article>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

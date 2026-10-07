@@ -147,10 +147,12 @@ export default function Hero() {
               className="absolute inset-0 -z-10 rounded-[40%_60%_55%_45%/45%_55%_60%_40%] blur-2xl opacity-40"
               style={{ background: "radial-gradient(circle, #fca5a5 0%, #fdba74 60%, transparent 100%)" }}
             />
-            <img
+            <motion.img
               src="/1773993979501.jpg"
               alt="Hope Mutimutuje"
-              className="w-full object-cover object-top rotate-180"
+              className="w-full object-cover object-top"
+              animate={{ rotate: [0, 180] }}
+              transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
               style={{
                 height: "480px",
                 borderRadius: "2rem",
@@ -227,10 +229,12 @@ export default function Hero() {
           transition={{ delay: 0.4, duration: 0.55 }}
           className="lg:hidden flex justify-center pb-10"
         >
-          <img
+          <motion.img
             src="/1773993979501.jpg"
             alt="Hope Mutimutuje"
-            className="w-56 h-72 object-cover object-top rounded-3xl shadow-soft rotate-180"
+            className="w-56 h-72 object-cover object-top rounded-3xl shadow-soft"
+            animate={{ rotate: [0, 180] }}
+            transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
           />
         </motion.div>
       </div>
