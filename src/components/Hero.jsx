@@ -151,8 +151,8 @@ export default function Hero() {
               src="/1773993979501.jpg"
               alt="Hope Mutimutuje"
               className="w-full object-cover object-top"
-              animate={{ rotate: [0, 180] }}
-              transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               style={{
                 height: "480px",
                 borderRadius: "2rem",
@@ -233,8 +233,8 @@ export default function Hero() {
             src="/1773993979501.jpg"
             alt="Hope Mutimutuje"
             className="w-56 h-72 object-cover object-top rounded-3xl shadow-soft"
-            animate={{ rotate: [0, 180] }}
-            transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           />
         </motion.div>
       </div>
