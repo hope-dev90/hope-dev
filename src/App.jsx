@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "./components/Navbar";
@@ -6,6 +7,7 @@ import TechStack from "./components/TechStack";
 import WhatIDo from "./components/WhatIDo";
 import Projects from "./components/Projects";
 import InfoGrid from "./components/InfoGrid";
+import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import CursorFollower from "./components/CursorFollower";
@@ -34,6 +36,7 @@ function Portfolio() {
       <WhatIDo />
       <Projects />
       <InfoGrid />
+      <Testimonials />
       <Contact />
       <Footer />
     </div>
@@ -42,13 +45,50 @@ function Portfolio() {
 
 function AnimatedRoutes() {
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(location.pathname === "/");
+
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setIsLoading(false);
+      return undefined;
+    }
+
+    setIsLoading(true);
+    const timeout = window.setTimeout(() => setIsLoading(false), 2000);
+    return () => window.clearTimeout(timeout);
+  }, [location.pathname]);
+
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageWrapper><Portfolio /></PageWrapper>} />
-        <Route path="/cv" element={<PageWrapper><CV /></PageWrapper>} />
-      </Routes>
-    </AnimatePresence>
+    <>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<PageWrapper><Portfolio /></PageWrapper>} />
+          <Route path="/cv" element={<PageWrapper><CV /></PageWrapper>} />
+        </Routes>
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            key="portfolio-loader"
+            role="status"
+            aria-label="Loading portfolio"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[10000] flex items-center justify-center bg-[#fff7f3]"
+          >
+            <motion.img
+              src="/logo.png"
+              alt=""
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              className="h-20 w-20 rounded-full object-cover"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
