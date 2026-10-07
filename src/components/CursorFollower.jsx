@@ -172,7 +172,7 @@ export default function CursorFollower() {
       {/* Fish */}
       <img
         ref={fishRef}
-        src="/image.png"
+        src="/image.webp"
         alt=""
         aria-hidden="true"
         className="fixed top-0 left-0 pointer-events-none z-[9999] select-none"

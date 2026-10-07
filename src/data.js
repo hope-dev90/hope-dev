@@ -188,7 +188,7 @@ export const realCertificates = [
     category: "Cybersecurity",
     color: "bg-indigo-50 border-indigo-200",
     badge: "bg-indigo-100 text-indigo-700",
-    file: "/certificates/opswat-introduction-to-critical-infrastructure-protection-icip.png",
+    file: "/certificates/opswat-introduction-to-critical-infrastructure-protection-icip.webp",
     type: "image",
   },
   {
@@ -199,7 +199,7 @@ export const realCertificates = [
     category: "Cybersecurity",
     color: "bg-indigo-50 border-indigo-200",
     badge: "bg-indigo-100 text-indigo-700",
-    file: "/certificates/introduction_to_cip.png",
+    file: "/certificates/introduction_to_cip.webp",
     type: "image",
   },
   {
@@ -222,7 +222,7 @@ export const realCertificates = [
     category: "CTF / Competition",
     color: "bg-orange-50 border-orange-200",
     badge: "bg-orange-100 text-orange-700",
-    file: "/certificates/OPRIX-CTF-2026-HTNDTSRY.png",
+    file: "/certificates/OPRIX-CTF-2026-HTNDTSRY.webp",
     type: "image",
   },
   {
