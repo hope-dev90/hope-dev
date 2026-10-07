@@ -47,8 +47,9 @@ export default function Navbar() {
         {/* ── Logo (circular avatar) ── */}
         <Link to="/" className="shrink-0 flex items-center">
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt="Logo"
+            decoding="async"
             className="h-11 w-11 rounded-full object-cover"
           />
         </Link>

@@ -188,7 +188,7 @@ export const realCertificates = [
     category: "Cybersecurity",
     color: "bg-indigo-50 border-indigo-200",
     badge: "bg-indigo-100 text-indigo-700",
-    file: "/certificates/opswat-introduction-to-critical-infrastructure-protection-icip.png",
+    file: "/certificates/opswat-introduction-to-critical-infrastructure-protection-icip.webp",
     type: "image",
   },
   {
@@ -199,7 +199,7 @@ export const realCertificates = [
     category: "Cybersecurity",
     color: "bg-indigo-50 border-indigo-200",
     badge: "bg-indigo-100 text-indigo-700",
-    file: "/certificates/introduction_to_cip.png",
+    file: "/certificates/introduction_to_cip.webp",
     type: "image",
   },
   {
@@ -222,7 +222,7 @@ export const realCertificates = [
     category: "CTF / Competition",
     color: "bg-orange-50 border-orange-200",
     badge: "bg-orange-100 text-orange-700",
-    file: "/certificates/OPRIX-CTF-2026-HTNDTSRY.png",
+    file: "/certificates/OPRIX-CTF-2026-HTNDTSRY.webp",
     type: "image",
   },
   {
@@ -372,7 +372,7 @@ export const cvProjects = [
   {
     name: "StaffNet",
     url: "https://staffnet.innov.rw",
-    preview: "/projects/staffnet.png",
+    preview: "/projects/staffnet.jpg",
     device: "desktop",
     showOnHome: true,
     description:
@@ -385,7 +385,7 @@ export const cvProjects = [
   {
     name: "Umuco Core",
     url: "https://umucocore.rw",
-    preview: "/projects/umuco.png",
+    preview: "/projects/umuco.jpg",
     device: "desktop",
     showOnHome: true,
     description:
@@ -398,7 +398,7 @@ export const cvProjects = [
   {
     name: "GWIZA AI",
     url: "https://umurava.africa",
-    preview: "/projects/gwiza.png",
+    preview: "/projects/gwiza.jpg",
     device: "desktop",
     showOnHome: true,
     description:
@@ -446,7 +446,7 @@ export const cvProjects = [
   {
     name: "RCA Website",
     url: "https://rca.ac.rw",
-    preview: "/projects/rca.png",
+    preview: "/projects/rca.jpg",
     device: "desktop",
     showOnHome: true,
     description:
@@ -459,7 +459,7 @@ export const cvProjects = [
   {
     name: "CodeBrige",
     url: "https://codebrige.rw",
-    preview: "/projects/codebridge.png",
+    preview: "/projects/codebridge.jpg",
     device: "desktop",
     showOnHome: true,
     description:

@@ -25,6 +25,8 @@ function DesktopMockup({ src, alt, color }) {
             <img
               src={src}
               alt={alt}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover object-left-top"
             />
           ) : (
@@ -38,6 +40,8 @@ function DesktopMockup({ src, alt, color }) {
         <img
           src="/projects/monitor.png"
           alt="monitor frame"
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 w-full h-full z-10 pointer-events-none"
           draggable={false}
         />
@@ -59,6 +63,8 @@ function PhoneMockup({ src, alt, color }) {
             <img
               src={src}
               alt={alt}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover object-top"
             />
           ) : (
