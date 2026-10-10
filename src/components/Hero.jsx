@@ -112,7 +112,7 @@ export default function Hero() {
       />
 
       {/* ---------- Content ---------- */}
-      <div className="relative mx-auto flex flex-1 flex-col items-center justify-center px-6 pb-4 text-center sm:px-8">
+      <div className="relative mx-auto flex flex-1 flex-col items-center justify-center px-6 text-center sm:px-8">
         {/* Avatar */}
         <motion.div {...enter(0.1)} className="relative mb-3">
           <div
@@ -173,33 +173,33 @@ export default function Hero() {
             Download CV <FiDownload aria-hidden="true" />
           </Link>
         </motion.div>
-
-        {/* Technologies */}
-        <motion.div {...enter(0.52)} className="mt-5 w-full max-w-[480px]">
-          <div className="flex items-center gap-4">
-            <span className="h-px flex-1" style={{ backgroundColor: "rgba(31,34,51,0.12)" }} />
-            <p
-              className="whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.16em] sm:text-[11px]"
-              style={{ color: "rgba(31,34,51,0.40)" }}
-            >
-              Work for all this brand &amp; client
-            </p>
-            <span className="h-px flex-1" style={{ backgroundColor: "rgba(31,34,51,0.12)" }} />
-          </div>
-          <div className="mt-3 flex items-center justify-center gap-4 sm:gap-6">
-            {brandLogos.map(({ Icon, color, label }) => (
-              <span
-                key={label}
-                title={label}
-                aria-label={label}
-                className="transition-transform duration-200 hover:-translate-y-1"
-              >
-                <Icon size={22} color={color} />
-              </span>
-            ))}
-          </div>
-        </motion.div>
       </div>
+
+      {/* ---------- Technologies — pinned to bottom ---------- */}
+      <motion.div {...enter(0.52)} className="relative shrink-0 pb-6 pt-4 text-center">
+        <div className="mx-auto flex max-w-[480px] items-center gap-4 px-6">
+          <span className="h-px flex-1" style={{ backgroundColor: "rgba(31,34,51,0.12)" }} />
+          <p
+            className="whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.16em] sm:text-[11px]"
+            style={{ color: "rgba(31,34,51,0.40)" }}
+          >
+            Work for all this brand &amp; client
+          </p>
+          <span className="h-px flex-1" style={{ backgroundColor: "rgba(31,34,51,0.12)" }} />
+        </div>
+        <div className="mt-3 flex items-center justify-center gap-4 sm:gap-6">
+          {brandLogos.map(({ Icon, color, label }) => (
+            <span
+              key={label}
+              title={label}
+              aria-label={label}
+              className="transition-transform duration-200 hover:-translate-y-1"
+            >
+              <Icon size={22} color={color} />
+            </span>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }
