@@ -54,11 +54,11 @@ export default function Hero() {
     <section
       id="top"
       aria-labelledby="hero-title"
-      className="relative isolate min-h-screen overflow-hidden"
+      className="relative isolate flex h-screen max-h-screen flex-col overflow-hidden"
       style={{ backgroundColor: "#faf7f4" }}
     >
       {/* ---------- Navbar ---------- */}
-      <header className="relative z-10 mx-auto flex max-w-[1511px] items-center justify-between px-6 py-5 sm:px-12 sm:py-6 lg:px-[72px]">
+      <header className="relative z-10 mx-auto flex w-full max-w-[1511px] shrink-0 items-center justify-between px-6 py-4 sm:px-12 lg:px-[72px]">
         <a
           href="#top"
           className="shrink-0"
@@ -112,32 +112,32 @@ export default function Hero() {
       />
 
       {/* ---------- Content ---------- */}
-      <div className="relative mx-auto flex max-w-4xl flex-col items-center px-6 pb-7 text-center sm:px-8 sm:pb-8">
+      <div className="relative mx-auto flex flex-1 flex-col items-center justify-center px-6 pb-4 text-center sm:px-8">
         {/* Avatar */}
-        <motion.div {...enter(0.1)} className="relative mb-4 sm:mb-5">
+        <motion.div {...enter(0.1)} className="relative mb-3">
           <div
-            className="absolute inset-4 -z-10 rounded-full blur-2xl"
-            style={{ backgroundColor: "rgba(122,10,13,0.12)" }}
+            className="absolute inset-3 -z-10 rounded-full blur-xl"
+            style={{ backgroundColor: "rgba(122,10,13,0.10)" }}
           />
           <img
             src="/pof.png"
             alt="Hope Mutimutuje"
-            className="h-56 w-56 rounded-full border-[5px] border-white object-cover object-top shadow-[0_18px_40px_rgba(26,26,46,0.16)] sm:h-72 sm:w-72"
+            className="h-24 w-24 rounded-full border-4 border-white object-cover object-top shadow-[0_10px_28px_rgba(26,26,46,0.14)] sm:h-32 sm:w-32"
           />
         </motion.div>
 
         {/* Title */}
         <motion.p
           {...enter(0.2)}
-          className="font-heading text-4xl font-black uppercase tracking-[0.18em] sm:text-5xl md:text-6xl"
-          style={{ color: INK, letterSpacing: "0.18em" }}
+          className="font-heading text-2xl font-black uppercase tracking-[0.2em] sm:text-3xl md:text-4xl"
+          style={{ color: INK }}
         >
           Backend
         </motion.p>
         <motion.h1
           {...enter(0.28)}
           id="hero-title"
-          className="font-heading mt-1 text-7xl font-black uppercase leading-[0.9] tracking-[-0.02em] sm:text-8xl md:text-[108px]"
+          className="font-heading mt-0.5 text-[clamp(2.8rem,8vw,5.5rem)] font-black uppercase leading-[0.9] tracking-[-0.02em]"
           style={{ color: MAROON }}
         >
           Developer
@@ -146,27 +146,20 @@ export default function Hero() {
         {/* Intro */}
         <motion.p
           {...enter(0.36)}
-          className="mt-5 max-w-[640px] text-base leading-7 sm:mt-6 sm:text-lg sm:leading-8"
-          style={{ color: "rgba(31,34,51,0.62)", fontWeight: 300 }}
+          className="mt-3 max-w-[520px] text-sm leading-6 sm:text-[15px] sm:leading-7"
+          style={{ color: "rgba(31,34,51,0.60)", fontWeight: 300 }}
         >
           I build robust, scalable and secure backend systems and APIs using
           cutting-edge technologies. Passionate about clean architecture, system
-          design, and solving real-world problems with impactful backend
-          solutions.
+          design, and solving real-world problems with impactful backend solutions.
         </motion.p>
 
         {/* Buttons */}
-        <motion.div
-          {...enter(0.44)}
-          className="mt-5 flex flex-wrap justify-center gap-3 sm:mt-6"
-        >
+        <motion.div {...enter(0.44)} className="mt-4 flex flex-wrap justify-center gap-2.5">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2.5 rounded-full px-8 py-3.5 text-base font-bold text-white shadow-lg transition hover:-translate-y-0.5"
-            style={{
-              backgroundColor: MAROON,
-              boxShadow: "0 10px 24px rgba(122,10,13,0.28)",
-            }}
+            className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5"
+            style={{ backgroundColor: MAROON, boxShadow: "0 8px 20px rgba(122,10,13,0.26)" }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = MAROON_DARK)}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = MAROON)}
           >
@@ -174,27 +167,26 @@ export default function Hero() {
           </a>
           <Link
             to="/cv"
-            className="inline-flex items-center gap-2.5 rounded-full border bg-white px-8 py-3.5 text-base font-bold shadow-[0_8px_22px_rgba(26,26,46,0.08)] transition hover:-translate-y-0.5"
-            style={{ color: INK, borderColor: "rgba(31,34,51,0.08)" }}
+            className="inline-flex items-center gap-2 rounded-full border bg-white px-6 py-2.5 text-sm font-bold shadow-[0_4px_14px_rgba(26,26,46,0.08)] transition hover:-translate-y-0.5"
+            style={{ color: INK, borderColor: "rgba(31,34,51,0.10)" }}
           >
             Download CV <FiDownload aria-hidden="true" />
           </Link>
         </motion.div>
 
         {/* Technologies */}
-        <motion.div {...enter(0.52)} className="mt-7 w-full max-w-[540px] sm:mt-8">
-          <div className="flex items-center gap-5">
+        <motion.div {...enter(0.52)} className="mt-5 w-full max-w-[480px]">
+          <div className="flex items-center gap-4">
             <span className="h-px flex-1" style={{ backgroundColor: "rgba(31,34,51,0.12)" }} />
             <p
-              className="whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[12px]"
-              style={{ color: "rgba(31,34,51,0.45)" }}
+              className="whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.16em] sm:text-[11px]"
+              style={{ color: "rgba(31,34,51,0.40)" }}
             >
               Work for all this brand &amp; client
             </p>
             <span className="h-px flex-1" style={{ backgroundColor: "rgba(31,34,51,0.12)" }} />
           </div>
-
-          <div className="mt-4 flex items-center justify-center gap-5 sm:gap-8">
+          <div className="mt-3 flex items-center justify-center gap-4 sm:gap-6">
             {brandLogos.map(({ Icon, color, label }) => (
               <span
                 key={label}
@@ -202,7 +194,7 @@ export default function Hero() {
                 aria-label={label}
                 className="transition-transform duration-200 hover:-translate-y-1"
               >
-                <Icon size={32} color={color} />
+                <Icon size={22} color={color} />
               </span>
             ))}
           </div>
