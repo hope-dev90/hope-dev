@@ -61,10 +61,16 @@ export default function Hero() {
       <header className="relative z-10 mx-auto flex w-full max-w-[1511px] shrink-0 items-center justify-between px-6 py-4 sm:px-12 lg:px-[72px]">
         <a
           href="#top"
-          className="shrink-0"
+          className="flex shrink-0 items-center gap-3"
           aria-label="Hope Mutimutuje home"
         >
           <img src="/logo-touch.png" alt="" className="h-11 w-11 rounded-xl object-contain sm:h-12 sm:w-12" />
+          <span
+            className="font-heading text-sm font-semibold sm:text-base"
+            style={{ color: INK }}
+          >
+            Mutimutuje Hope
+          </span>
         </a>
 
         <nav aria-label="Primary" className="flex items-center gap-3 sm:gap-7 lg:gap-10">
@@ -114,7 +120,7 @@ export default function Hero() {
       {/* ---------- Content ---------- */}
       <div className="relative mx-auto flex flex-1 flex-col items-center justify-center px-6 text-center sm:px-8">
         {/* Avatar */}
-        <motion.div {...enter(0.1)} className="relative mb-7">
+        <motion.div {...enter(0.1)} className="relative mb-4 sm:mb-5">
           <div
             className="absolute inset-3 -z-10 rounded-full blur-xl"
             style={{ backgroundColor: "rgba(122,10,13,0.10)" }}
@@ -122,14 +128,16 @@ export default function Hero() {
           <img
             src="/pof.png"
             alt="Hope Mutimutuje"
-            className="h-24 w-24 rounded-full border-4 border-white object-cover object-top shadow-[0_10px_28px_rgba(26,26,46,0.14)] sm:h-32 sm:w-32"
+            className="h-32 w-32 rounded-full border-4 border-white object-cover object-top shadow-[0_10px_28px_rgba(26,26,46,0.14)] sm:h-40 sm:w-40"
           />
         </motion.div>
 
         {/* Title */}
         <motion.p
           {...enter(0.2)}
-          className="font-heading text-2xl font-black uppercase tracking-[0.2em] sm:text-3xl md:text-4xl"
+          animate={{ opacity: [1, 0.68, 1], y: [0, -4, 0] }}
+          transition={{ delay: 0.75, duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          className="font-heading text-xl font-black uppercase tracking-[0.18em] sm:text-2xl md:text-3xl"
           style={{ color: INK }}
         >
           Backend
@@ -137,7 +145,7 @@ export default function Hero() {
         <motion.h1
           {...enter(0.28)}
           id="hero-title"
-          className="font-heading mt-2 text-[clamp(2.8rem,8vw,5.5rem)] font-black uppercase leading-[0.9] tracking-[-0.02em]"
+          className="font-heading mt-1 text-[clamp(2.25rem,6vw,4.25rem)] font-black uppercase leading-[0.9] tracking-[-0.02em]"
           style={{ color: MAROON }}
         >
           Developer
@@ -146,7 +154,7 @@ export default function Hero() {
         {/* Intro */}
         <motion.p
           {...enter(0.36)}
-          className="mt-6 max-w-[520px] text-sm leading-7 sm:text-[25px] sm:leading-8"
+          className="mt-4 max-w-[520px] text-xs leading-5 sm:mt-5 sm:text-base sm:leading-6"
           style={{ color: "rgba(31,34,51,0.60)", fontWeight: 300 }}
         >
           I build robust, scalable and secure backend systems and APIs using
@@ -155,7 +163,7 @@ export default function Hero() {
         </motion.p>
 
         {/* Buttons */}
-        <motion.div {...enter(0.44)} className="mt-7 flex flex-wrap justify-center gap-3">
+        <motion.div {...enter(0.44)} className="mt-5 flex flex-wrap justify-center gap-3">
           <a
             href="#contact"
             className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5"
@@ -176,7 +184,7 @@ export default function Hero() {
       </div>
 
       {/* ---------- Technologies — pinned to bottom ---------- */}
-      <motion.div {...enter(0.52)} className="relative shrink-0 pb-6 pt-4 text-center">
+      <motion.div {...enter(0.52)} className="relative shrink-0 pb-5 pt-3 text-center">
         <div className="mx-auto flex max-w-[480px] items-center gap-4 px-6">
           <span className="h-px flex-1" style={{ backgroundColor: "rgba(31,34,51,0.12)" }} />
           <p
@@ -187,7 +195,7 @@ export default function Hero() {
           </p>
           <span className="h-px flex-1" style={{ backgroundColor: "rgba(31,34,51,0.12)" }} />
         </div>
-        <div className="mt-3 flex items-center justify-center gap-4 sm:gap-6">
+        <div className="mt-3 flex items-center justify-center gap-5 sm:gap-7">
           {brandLogos.map(({ Icon, color, label }) => (
             <span
               key={label}
@@ -195,7 +203,7 @@ export default function Hero() {
               aria-label={label}
               className="transition-transform duration-200 hover:-translate-y-1"
             >
-              <Icon size={22} color={color} />
+              <Icon size={30} color={color} />
             </span>
           ))}
         </div>
