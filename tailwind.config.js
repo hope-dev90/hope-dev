@@ -6,8 +6,8 @@ export default {
       colors: {
         navy: "#1b2a4a",
         orange: {
-          DEFAULT: "#e8622c",
-          dark: "#d65420",
+          DEFAULT: "#780000",
+          dark: "#5e0000",
         },
         cream: "#fdf1ec",
         blush: "#fde8e0",
