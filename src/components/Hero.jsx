@@ -1,13 +1,25 @@
-import { profile } from "../data";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { FiArrowRight, FiDownload } from "react-icons/fi";
 import { FaGithub, FaJava, FaLinux } from "react-icons/fa";
-import { SiDocker, SiPostgresql, SiSpringboot } from "react-icons/si";
-import { motion } from "framer-motion";
+import { SiDocker, SiPostgresql, SiSpringboot, SiTypo3 } from "react-icons/si";
+
+const MAROON = "#7a0a0d";
+const MAROON_DARK = "#5e070a";
+const INK = "#1f2233";
+
+const navLinks = [
+  { label: "Home", href: "#top", active: true },
+  { label: "About", href: "#about" },
+  { label: "Projects", href: "#projects" },
+  { label: "Certifications", href: "#certifications" },
+  { label: "Contact", href: "#contact" },
+];
 
 const brandLogos = [
   { Icon: FaJava, color: "#e76f00", label: "Java" },
   { Icon: SiSpringboot, color: "#6db33f", label: "Spring Boot" },
+  { Icon: SiTypo3, color: "#ff8700", label: "TYPO3" },
   { Icon: SiPostgresql, color: "#336791", label: "PostgreSQL" },
   { Icon: SiDocker, color: "#2496ed", label: "Docker" },
   { Icon: FaGithub, color: "#24292f", label: "GitHub" },
@@ -20,75 +32,177 @@ const enter = (delay = 0) => ({
   transition: { delay, duration: 0.55, ease: [0.22, 1, 0.36, 1] },
 });
 
+function DotGrid({ className = "" }) {
+  return (
+    <div
+      className={`pointer-events-none absolute hidden grid-cols-5 gap-[14px] md:grid ${className}`}
+      aria-hidden="true"
+    >
+      {Array.from({ length: 20 }, (_, i) => (
+        <span
+          key={i}
+          className="h-[3px] w-[3px] rounded-full"
+          style={{ backgroundColor: "rgba(122,10,13,0.22)" }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function Hero() {
   return (
     <section
       id="top"
-      className="relative isolate min-h-screen overflow-hidden bg-[#fdfaf7] pt-28 sm:pt-32"
       aria-labelledby="hero-title"
+      className="relative isolate min-h-screen overflow-hidden font-sans"
+      style={{ backgroundColor: "#faf7f4" }}
     >
-      <div className="pointer-events-none absolute left-[7%] top-[20%] hidden grid-cols-4 gap-2 opacity-45 md:grid">
-        {Array.from({ length: 20 }, (_, index) => <span key={index} className="h-1 w-1 rounded-full bg-orange" />)}
-      </div>
-      <div className="pointer-events-none absolute bottom-[10%] right-[7%] hidden grid-cols-4 gap-2 opacity-35 md:grid">
-        {Array.from({ length: 20 }, (_, index) => <span key={index} className="h-1 w-1 rounded-full bg-orange" />)}
-      </div>
-      <span className="pointer-events-none absolute -left-16 bottom-[-5rem] h-56 w-56 rounded-full border-2 border-orange/15 sm:h-72 sm:w-72" />
-      <span className="pointer-events-none absolute -right-12 top-8 h-36 w-36 rounded-full border-2 border-orange/10" />
-      <span className="pointer-events-none absolute left-[10%] top-1/2 hidden h-5 w-5 rounded-full bg-orange/15 md:block" />
+      {/* ---------- Navbar ---------- */}
+      <header className="relative z-10 mx-auto flex max-w-[1511px] items-center justify-between px-6 py-5 sm:px-12 sm:py-6 lg:px-[72px]">
+        <a
+          href="#top"
+          className="shrink-0"
+          aria-label="Hope Mutimutuje home"
+        >
+          <img src="/logo-touch.png" alt="" className="h-11 w-11 rounded-xl object-contain sm:h-12 sm:w-12" />
+        </a>
 
-      <div className="relative mx-auto flex min-h-[calc(100vh-7rem)] max-w-4xl flex-col items-center px-6 pb-14 text-center sm:px-8">
-        <motion.div {...enter(0.1)} className="relative mb-6 sm:mb-7">
-          <div className="absolute inset-3 -z-10 rounded-full bg-orange/15 blur-2xl" />
+        <nav aria-label="Primary" className="flex items-center gap-3 sm:gap-7 lg:gap-10">
+          {navLinks.map(({ label, href, active }, index) => (
+            <a
+              key={label}
+              href={href}
+              className={`relative pb-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] transition-colors sm:text-[12px] sm:tracking-[0.14em] ${index > 0 && index < navLinks.length - 1 ? "hidden sm:inline" : ""}`}
+              style={{ color: active ? MAROON : "rgba(31,34,51,0.75)" }}
+            >
+              {label}
+              {active && (
+                <span
+                  className="absolute inset-x-0 -bottom-px h-[2px]"
+                  style={{ backgroundColor: MAROON }}
+                />
+              )}
+            </a>
+          ))}
+        </nav>
+      </header>
+
+      {/* ---------- Decorations ---------- */}
+      <DotGrid className="left-[6.8%] top-[20%]" />
+      <DotGrid className="bottom-[8%] right-[8.5%]" />
+
+      {/* big arcs, bottom-left */}
+      <span
+        className="pointer-events-none absolute -left-[22rem] bottom-[-14rem] hidden h-[26rem] w-[26rem] rounded-full border md:block"
+        style={{ borderColor: "rgba(122,10,13,0.10)" }}
+      />
+      <span
+        className="pointer-events-none absolute -left-32 bottom-[-6rem] h-72 w-72 rounded-full border-[1.5px] sm:h-[22rem] sm:w-[22rem]"
+        style={{ borderColor: "rgba(122,10,13,0.18)" }}
+      />
+      {/* arc, top-right */}
+      <span
+        className="pointer-events-none absolute -right-20 top-14 h-44 w-44 rounded-full border-[1.5px]"
+        style={{ borderColor: "rgba(122,10,13,0.14)" }}
+      />
+      {/* small filled dot */}
+      <span
+        className="pointer-events-none absolute left-[11.4%] top-[45.5%] hidden h-[22px] w-[22px] rounded-full md:block"
+        style={{ backgroundColor: "rgba(122,10,13,0.16)" }}
+      />
+
+      {/* ---------- Content ---------- */}
+      <div className="relative mx-auto flex max-w-4xl flex-col items-center px-6 pb-7 text-center sm:px-8 sm:pb-8">
+        {/* Avatar */}
+        <motion.div {...enter(0.1)} className="relative mb-4 sm:mb-5">
+          <div
+            className="absolute inset-4 -z-10 rounded-full blur-2xl"
+            style={{ backgroundColor: "rgba(122,10,13,0.12)" }}
+          />
           <img
             src="/pof.png"
             alt="Hope Mutimutuje"
-            className="h-48 w-48 rounded-full border-[6px] border-white object-cover object-top shadow-[0_18px_40px_rgba(26,26,46,0.16)] sm:h-64 sm:w-64"
+            className="h-48 w-48 rounded-full border-[5px] border-white object-cover object-top shadow-[0_18px_40px_rgba(26,26,46,0.16)] sm:h-60 sm:w-60"
           />
         </motion.div>
 
-        <motion.p {...enter(0.2)} className="text-3xl font-medium uppercase tracking-[0.16em] text-navy sm:text-5xl">
+        {/* Title */}
+        <motion.p
+          {...enter(0.2)}
+          className="text-3xl font-bold uppercase tracking-[0.2em] sm:text-[42px] sm:leading-none"
+          style={{ color: INK }}
+        >
           Backend
         </motion.p>
         <motion.h1
           {...enter(0.28)}
           id="hero-title"
-          className="mt-1 text-5xl font-black uppercase leading-none tracking-[-0.04em] text-orange sm:text-7xl md:text-8xl"
+          className="mt-1 text-5xl font-bold uppercase leading-[0.95] tracking-[-0.03em] sm:text-6xl md:text-[68px]"
+          style={{ color: MAROON }}
         >
           Developer
         </motion.h1>
 
-        <motion.p {...enter(0.36)} className="mt-6 max-w-2xl text-sm leading-7 text-navy/60 sm:mt-7 sm:text-lg sm:leading-8">
-          {profile.intro}
+        {/* Intro */}
+        <motion.p
+          {...enter(0.36)}
+          className="mt-4 max-w-[600px] text-sm leading-6 sm:mt-5 sm:text-[15px] sm:leading-6"
+          style={{ color: "rgba(31,34,51,0.62)" }}
+        >
+          I build robust, scalable and secure backend systems and APIs using
+          cutting-edge technologies. Passionate about clean architecture, system
+          design, and solving real-world problems with impactful backend
+          solutions.
         </motion.p>
 
-        <motion.div {...enter(0.44)} className="mt-7 flex flex-wrap justify-center gap-3 sm:mt-8">
+        {/* Buttons */}
+        <motion.div
+          {...enter(0.44)}
+          className="mt-5 flex flex-wrap justify-center gap-3 sm:mt-6"
+        >
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-orange/25 transition hover:bg-orange-dark hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2.5 rounded-full px-7 py-3 text-sm font-bold text-white shadow-lg transition hover:-translate-y-0.5"
+            style={{
+              backgroundColor: MAROON,
+              boxShadow: "0 10px 24px rgba(122,10,13,0.28)",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = MAROON_DARK)}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = MAROON)}
           >
             Get In Touch <FiArrowRight aria-hidden="true" />
           </a>
           <Link
             to="/cv"
-            className="inline-flex items-center gap-2 rounded-full border border-navy/10 bg-white px-7 py-3.5 text-sm font-bold text-navy shadow-card transition hover:-translate-y-0.5 hover:border-orange/30"
+            className="inline-flex items-center gap-2.5 rounded-full border bg-white px-7 py-3 text-sm font-bold shadow-[0_8px_22px_rgba(26,26,46,0.08)] transition hover:-translate-y-0.5"
+            style={{ color: INK, borderColor: "rgba(31,34,51,0.08)" }}
           >
             Download CV <FiDownload aria-hidden="true" />
           </Link>
         </motion.div>
 
-        <motion.div {...enter(0.52)} className="mt-10 w-full max-w-xl sm:mt-12">
-          <div className="flex items-center gap-4">
-            <span className="h-px flex-1 bg-navy/10" />
-            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-navy/45 sm:text-xs">
-              Core technologies
+        {/* Technologies */}
+        <motion.div {...enter(0.52)} className="mt-7 w-full max-w-[540px] sm:mt-8">
+          <div className="flex items-center gap-5">
+            <span className="h-px flex-1" style={{ backgroundColor: "rgba(31,34,51,0.12)" }} />
+            <p
+              className="whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[12px]"
+              style={{ color: "rgba(31,34,51,0.45)" }}
+            >
+              Work for all this brand &amp; client
             </p>
-            <span className="h-px flex-1 bg-navy/10" />
+            <span className="h-px flex-1" style={{ backgroundColor: "rgba(31,34,51,0.12)" }} />
           </div>
-          <div className="mt-5 flex items-center justify-center gap-5 sm:gap-7">
+
+          <div className="mt-4 flex items-center justify-center gap-5 sm:gap-8">
             {brandLogos.map(({ Icon, color, label }) => (
-              <span key={label} title={label} className="transition-transform duration-200 hover:-translate-y-1" aria-label={label}>
-                <Icon size={30} color={color} />
+              <span
+                key={label}
+                title={label}
+                aria-label={label}
+                className="transition-transform duration-200 hover:-translate-y-1"
+              >
+                <Icon size={32} color={color} />
               </span>
             ))}
           </div>

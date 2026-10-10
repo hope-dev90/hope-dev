@@ -76,7 +76,7 @@ export default function Testimonials() {
           </p>
         </motion.div>
 
-        <div className="grid items-stretch gap-5 md:grid-cols-3">
+        <div className="grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {collaborators.map((person, index) => (
             <motion.article
               key={person.name}

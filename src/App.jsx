@@ -29,7 +29,6 @@ function PageWrapper({ children }) {
 function Portfolio() {
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
       <Hero />
       <TechStack />
       <WhatIDo />
@@ -94,6 +93,7 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <AnimatedRoutes />
     </BrowserRouter>
   );

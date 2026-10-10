@@ -1,24 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
 const landingLinks = [
-  { label: "Home", href: "#top" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "#top", id: "top" },
+  { label: "About", href: "#about", id: "about" },
+  { label: "Projects", href: "#projects", id: "projects" },
+  { label: "Certifications", href: "#certifications", id: "certifications" },
+  { label: "Contact", href: "#contact", id: "contact" },
 ];
+
+function useActiveSection() {
+  const [active, setActive] = useState("top");
+
+  useEffect(() => {
+    const sectionIds = landingLinks.map((l) => l.id);
+
+    const observers = sectionIds.map((id) => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActive(id);
+        },
+        { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
+      );
+      observer.observe(el);
+      return observer;
+    });
+
+    return () => observers.forEach((obs) => obs?.disconnect());
+  }, []);
+
+  return active;
+}
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const isCV = location.pathname === "/cv";
+  const activeSection = useActiveSection();
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
-      <nav className="mx-auto flex h-24 max-w-[88rem] items-center justify-between px-6 sm:px-10">
-        <Link to="/" className="text-4xl font-black leading-none tracking-[-0.08em] text-navy" aria-label="Hope Mutimutuje home">
-          HM<span className="text-orange">.</span>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-navy/5 bg-[#faf7f4]/95 backdrop-blur-md">
+      <nav className="mx-auto flex h-20 max-w-[88rem] items-center justify-between px-6 sm:px-10">
+        <Link to="/" className="shrink-0" aria-label="Hope Mutimutuje home">
+          <img src="/logo-touch.png" alt="" className="h-11 w-11 rounded-xl object-contain" />
         </Link>
 
         {isCV ? (
@@ -28,17 +56,25 @@ export default function Navbar() {
         ) : (
           <>
             <ul className="hidden items-center gap-10 md:flex">
-              {landingLinks.map((link, index) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className={`relative text-sm font-bold uppercase tracking-[0.08em] transition-colors hover:text-orange ${index === 0 ? "text-orange" : "text-navy/65"}`}
-                  >
-                    {link.label}
-                    {index === 0 && <span className="absolute -bottom-3 left-0 h-px w-full bg-orange" />}
-                  </a>
-                </li>
-              ))}
+              {landingLinks.map((link) => {
+                const isActive = activeSection === link.id;
+                return (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className={`relative text-sm font-bold uppercase tracking-[0.08em] transition-colors hover:text-orange ${isActive ? "text-orange" : "text-navy/65"}`}
+                    >
+                      {link.label}
+                      {isActive && (
+                        <motion.span
+                          layoutId="nav-underline"
+                          className="absolute -bottom-3 left-0 h-px w-full bg-orange"
+                        />
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
             <button
               type="button"
