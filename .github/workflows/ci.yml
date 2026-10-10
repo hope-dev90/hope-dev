@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: spring-boot-application
-          path: message/target/*.jar
+          path: target/*.jar
 
 
   frontend:
@@ -97,11 +97,11 @@ jobs:
         if: github.event_name == 'push'
         run: |
           docker build \
-            -t ghcr.io/${{ github.repository_owner }}/portifolio:latest \
+            -t ghcr.io/${{ github.repository_owner }}/portfolio:latest \
             .
 
       - name: Push Docker image to GHCR
         if: github.event_name == 'push'
         run: |
           docker push \
-            ghcr.io/${{ github.repository_owner }}/portifolio:latest
+            ghcr.io/${{ github.repository_owner }}/portfolio:latest

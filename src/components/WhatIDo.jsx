@@ -12,7 +12,7 @@ const iconMap = {
   lock: FiLock,
 };
 
-const GRAD_ACTIVE = "linear-gradient(135deg, #f9a8d4 0%, #fb923c 50%, #a78bfa 100%)";
+const GRAD_ACTIVE = "linear-gradient(135deg, #780000 0%, #a30000 50%, #5e0000 100%)";
 
 export default function WhatIDo() {
   const ref = useRef(null);
@@ -33,7 +33,7 @@ export default function WhatIDo() {
           >
             <div
               className="w-full max-w-sm rounded-[2rem] p-5 flex flex-col gap-4"
-              style={{ background: "linear-gradient(160deg, #fde9e0 0%, #fdf3ef 100%)" }}
+              style={{ background: "linear-gradient(160deg, #f5e6e8 0%, #fdf0f0 100%)" }}
             >
               {whatIDo.map((item, i) => {
                 const isActive = active === i;

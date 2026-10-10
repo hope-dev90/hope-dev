@@ -26,7 +26,7 @@ export default function Hero() {
       className="relative overflow-hidden"
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(150deg, #fde0d4 0%, #fdeae2 30%, #fef4f0 60%, #f9f5ff 100%)",
+        background: "linear-gradient(150deg, #f5e6e8 0%, #faeaea 30%, #fdf6f0 60%, #fdf4f4 100%)",
       }}
     >
       {/* ── Decorative scattered shapes ── */}
@@ -35,21 +35,21 @@ export default function Hero() {
         transition={{ delay: 1.0, duration: 0.4 }}
         className="hidden md:block absolute top-[18%] left-[6%] text-2xl select-none pointer-events-none">⭐</motion.span>
       {/* top-right circle outline */}
-      <motion.span initial={{ opacity: 0 }} animate={{ opacity: 0.6 }}
-        transition={{ delay: 0.9, duration: 0.5 }}
-        className="hidden md:block absolute top-[10%] right-[12%] w-4 h-4 rounded-full border-2 border-blue-400 pointer-events-none" />
-      {/* mid-left dot */}
       <motion.span initial={{ opacity: 0 }} animate={{ opacity: 0.5 }}
+        transition={{ delay: 0.9, duration: 0.5 }}
+        className="hidden md:block absolute top-[10%] right-[12%] w-4 h-4 rounded-full border-2 border-orange/40 pointer-events-none" />
+      {/* mid-left dot */}
+      <motion.span initial={{ opacity: 0 }} animate={{ opacity: 0.4 }}
         transition={{ delay: 1.1, duration: 0.5 }}
-        className="hidden md:block absolute top-[55%] left-[4%] w-3 h-3 rounded-full bg-violet-400 pointer-events-none" />
+        className="hidden md:block absolute top-[55%] left-[4%] w-3 h-3 rounded-full bg-orange/30 pointer-events-none" />
       {/* sparkle */}
-      <motion.span initial={{ opacity: 0, rotate: -20 }} animate={{ opacity: 0.7, rotate: 0 }}
+      <motion.span initial={{ opacity: 0, rotate: -20 }} animate={{ opacity: 0.6, rotate: 0 }}
         transition={{ delay: 1.2, duration: 0.5 }}
-        className="hidden md:block absolute top-[40%] left-[14%] text-emerald-400 text-xl select-none pointer-events-none">✦</motion.span>
+        className="hidden md:block absolute top-[40%] left-[14%] text-orange/50 text-xl select-none pointer-events-none">✦</motion.span>
       {/* bottom-right circle */}
-      <motion.span initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 0.5, scale: 1 }}
+      <motion.span initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 0.4, scale: 1 }}
         transition={{ delay: 1.3, duration: 0.4 }}
-        className="hidden md:block absolute bottom-[22%] right-[6%] w-5 h-5 rounded-full border-2 border-pink-300 pointer-events-none" />
+        className="hidden md:block absolute bottom-[22%] right-[6%] w-5 h-5 rounded-full border-2 border-orange/30 pointer-events-none" />
 
       {/* ── Main content ── */}
       <div
@@ -145,7 +145,7 @@ export default function Hero() {
             {/* Soft blob behind portrait */}
             <div
               className="absolute inset-0 -z-10 rounded-[40%_60%_55%_45%/45%_55%_60%_40%] blur-2xl opacity-40"
-              style={{ background: "radial-gradient(circle, #fca5a5 0%, #fdba74 60%, transparent 100%)" }}
+              style={{ background: "radial-gradient(circle, #f5c6c6 0%, #f5e0e0 60%, transparent 100%)" }}
             />
             <motion.img
               src="/1773993979501.jpg"
@@ -209,7 +209,7 @@ export default function Hero() {
             transition={{ delay: 1.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col items-center gap-3 absolute -right-24 xl:-right-20 top-1/2 -translate-y-1/2 bg-white rounded-3xl shadow-soft px-3 py-5 w-[82px] z-20"
           >
-            <span className="w-10 h-10 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center shrink-0">
+            <span className="w-10 h-10 rounded-full bg-orange/10 text-orange flex items-center justify-center shrink-0">
               <FiCode size={16} />
             </span>
             <ul className="text-[10px] font-semibold text-navy/55 text-center leading-[1.6]">

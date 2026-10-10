@@ -106,7 +106,7 @@ export default function CV() {
     : realCertificates.filter((c) => c.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-[#f8f7fc] font-sans">
+    <div className="min-h-screen bg-[#fdf6f0] font-sans">
 
       {/* top bar */}
       <div className="bg-white border-b border-navy/8 print:hidden">
@@ -128,7 +128,7 @@ export default function CV() {
 
           {/* ═══ HEADER ═══════════════════════════════════════════════════════ */}
           <div className="relative px-8 sm:px-12 py-10"
-            style={{ background: "linear-gradient(135deg,#fde0d4 0%,#fdeae2 50%,#ffffff 100%)" }}>
+            style={{ background: "linear-gradient(135deg,#f5e6e8 0%,#faeaea 50%,#ffffff 100%)" }}>
             <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
               <img src="/1773993979501.jpg" alt="Hope Mutimutuje"
                 className="w-24 h-24 rounded-2xl object-cover object-top shadow-soft shrink-0 border-2 border-white" />

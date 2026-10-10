@@ -10,7 +10,6 @@ import InfoGrid from "./components/InfoGrid";
 import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import CursorFollower from "./components/CursorFollower";
 import CV from "./pages/CV";
 
 const pageVariants = {
@@ -76,7 +75,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[10000] flex items-center justify-center bg-[#fff7f3]"
+            className="fixed inset-0 z-[10000] flex items-center justify-center bg-[#fdf6f0]"
           >
             <motion.img
               src="/logo.png"
@@ -95,7 +94,6 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
-      <CursorFollower />
       <AnimatedRoutes />
     </BrowserRouter>
   );

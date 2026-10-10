@@ -36,8 +36,8 @@ export default function CursorFollower() {
       const b = document.createElement("div");
       b.style.cssText = `
         position:fixed; top:0; left:0; pointer-events:none; z-index:9998;
-        border-radius:50%; border:1.5px solid rgba(232,98,44,0.55);
-        background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.6), rgba(232,98,44,0.08));
+        border-radius:50%; border:1.5px solid rgba(120,0,0,0.45);
+        background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.6), rgba(120,0,0,0.08));
         will-change:transform,opacity; opacity:0;
       `;
       wrap.appendChild(b);
@@ -180,7 +180,7 @@ export default function CursorFollower() {
           width: 120, height: 120,
           objectFit: "contain",
           willChange: "transform",
-          filter: "drop-shadow(0 4px 16px rgba(232,98,44,0.25))",
+          filter: "drop-shadow(0 4px 16px rgba(120,0,0,0.22))",
         }}
       />
       {/* Cursor dot */}
@@ -190,7 +190,7 @@ export default function CursorFollower() {
         style={{
           width: 8, height: 8,
           borderRadius: "50%",
-          background: "#e8622c",
+          background: "#780000",
           willChange: "transform",
         }}
       />
