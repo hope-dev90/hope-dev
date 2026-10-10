@@ -124,7 +124,7 @@ function FeaturedProject({ proj, index, inView }) {
         </div>
 
         {/* title */}
-        <h3 className="font-heading text-2xl sm:text-3xl font-black text-navy leading-tight">
+        <h3 className="text-2xl sm:text-3xl font-black text-navy leading-tight">
           {proj.name}
         </h3>
 
@@ -235,7 +235,7 @@ export default function Projects() {
         >
           <div>
             <p className="text-xs font-semibold text-orange uppercase tracking-widest mb-1">What I've Built</p>
-            <h2 className="font-heading text-2xl sm:text-3xl font-black text-navy">Projects</h2>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-navy">Projects</h2>
           </div>
           <Link
             to="/cv"
