@@ -114,7 +114,7 @@ export default function Hero() {
       {/* ---------- Content ---------- */}
       <div className="relative mx-auto flex flex-1 flex-col items-center justify-center px-6 text-center sm:px-8">
         {/* Avatar */}
-        <motion.div {...enter(0.1)} className="relative mb-3">
+        <motion.div {...enter(0.1)} className="relative mb-7">
           <div
             className="absolute inset-3 -z-10 rounded-full blur-xl"
             style={{ backgroundColor: "rgba(122,10,13,0.10)" }}
@@ -137,7 +137,7 @@ export default function Hero() {
         <motion.h1
           {...enter(0.28)}
           id="hero-title"
-          className="font-heading mt-0.5 text-[clamp(2.8rem,8vw,5.5rem)] font-black uppercase leading-[0.9] tracking-[-0.02em]"
+          className="font-heading mt-2 text-[clamp(2.8rem,8vw,5.5rem)] font-black uppercase leading-[0.9] tracking-[-0.02em]"
           style={{ color: MAROON }}
         >
           Developer
@@ -146,7 +146,7 @@ export default function Hero() {
         {/* Intro */}
         <motion.p
           {...enter(0.36)}
-          className="mt-3 max-w-[520px] text-sm leading-6 sm:text-[15px] sm:leading-7"
+          className="mt-6 max-w-[520px] text-sm leading-7 sm:text-[25px] sm:leading-8"
           style={{ color: "rgba(31,34,51,0.60)", fontWeight: 300 }}
         >
           I build robust, scalable and secure backend systems and APIs using
@@ -155,7 +155,7 @@ export default function Hero() {
         </motion.p>
 
         {/* Buttons */}
-        <motion.div {...enter(0.44)} className="mt-4 flex flex-wrap justify-center gap-2.5">
+        <motion.div {...enter(0.44)} className="mt-7 flex flex-wrap justify-center gap-3">
           <a
             href="#contact"
             className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5"
