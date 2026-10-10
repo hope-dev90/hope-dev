@@ -41,7 +41,7 @@ export default function Hero() {
         <motion.div {...enter(0.1)} className="relative mb-6 sm:mb-7">
           <div className="absolute inset-3 -z-10 rounded-full bg-orange/15 blur-2xl" />
           <img
-            src="/1773993979501.jpg"
+            src="/pof.png"
             alt="Hope Mutimutuje"
             className="h-48 w-48 rounded-full border-[6px] border-white object-cover object-top shadow-[0_18px_40px_rgba(26,26,46,0.16)] sm:h-64 sm:w-64"
           />
