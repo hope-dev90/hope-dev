@@ -1,66 +1,64 @@
-import { useRef } from "react";
 import { techStack } from "../data";
 import TechIcon from "./TechIcon";
-import { motion, useInView } from "framer-motion";
-import { fadeUp } from "../lib/motion";
+import { motion } from "framer-motion";
 import { useReveal } from "../hooks/useReveal";
 
-// Duplicate items for seamless infinite loop
-const track = [...techStack, ...techStack];
+const groups = [
+  { label: "Backend", keys: ["java", "spring", "node", "express", "typescript"] },
+  { label: "Data & CMS", keys: ["postgresql", "mongodb", "php", "typo3"] },
+  { label: "Cloud & Delivery", keys: ["docker", "kubernetes", "cicd", "git", "linux"] },
+  { label: "Web & Security", keys: ["react", "html", "css", "networking", "cybersecurity"] },
+];
+
+const technologiesByKey = Object.fromEntries(techStack.map((tech) => [tech.key, tech]));
 
 export default function TechStack() {
   const ref = useReveal();
-  const inViewRef = useRef(null);
-  const inView = useInView(inViewRef, { once: true, margin: "-80px" });
 
   return (
-    <section id="skills" className="bg-white py-10 overflow-hidden" ref={inViewRef}>
+    <section id="skills" className="bg-white py-12 sm:py-16" aria-labelledby="skills-title">
       <div className="max-w-7xl mx-auto px-6" ref={ref}>
-        <motion.div
-          className="bg-white rounded-3xl shadow-card ring-1 ring-black/5 px-8 sm:px-10 pt-8 pb-6 overflow-hidden"
-          data-reveal-item
-          initial={{ opacity: 0, y: 28 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <motion.p
-            className="text-sm font-semibold text-navy/60 mb-7"
-            initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.2, duration: 0.4 }}
-          >
-            Technologies I work with
-          </motion.p>
-
-          {/* ── Infinite marquee track ── */}
-          <div className="relative">
-            {/* left fade */}
-            <div className="pointer-events-none absolute left-0 top-0 h-full w-16 z-10"
-              style={{ background: "linear-gradient(to right, white, transparent)" }} />
-            {/* right fade */}
-            <div className="pointer-events-none absolute right-0 top-0 h-full w-16 z-10"
-              style={{ background: "linear-gradient(to left, white, transparent)" }} />
-
-            <motion.div
-              className="flex gap-8 w-max"
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{ repeat: Infinity, duration: 28, ease: "linear" }}
-              whileHover={{ animationPlayState: "paused" }}
-              style={{ willChange: "transform" }}
-            >
-              {track.map((tech, i) => (
-                <motion.div
-                  key={`${tech.key}-${i}`}
-                  whileHover={{ scale: 1.18, y: -4 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 18 }}
-                  className="flex flex-col items-center gap-2 text-center w-16 shrink-0 cursor-default"
-                >
-                  <TechIcon name={tech.key} size={30} />
-                  <span className="text-[10px] font-medium text-navy/65 leading-tight">{tech.name}</span>
-                </motion.div>
-              ))}
-            </motion.div>
+        <div className="rounded-3xl border border-navy/8 bg-[#fcfbfa] p-6 shadow-card sm:p-10" data-reveal-item>
+          <div className="mb-8 flex flex-col gap-3 border-b border-navy/10 pb-7 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-orange">Technical toolkit</p>
+              <h2 id="skills-title" className="text-2xl font-bold tracking-tight text-navy sm:text-3xl">
+                Technologies I work with
+              </h2>
+            </div>
+            <p className="max-w-sm text-sm leading-6 text-navy/60 sm:text-right">
+              A focused stack for reliable backend systems and polished web experiences.
+            </p>
           </div>
-        </motion.div>
+
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {groups.map((group, index) => (
+              <motion.div
+                key={group.label}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ delay: index * 0.07, duration: 0.4 }}
+                className="rounded-2xl border border-navy/8 bg-white p-5"
+              >
+                <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.14em] text-navy/55">{group.label}</h3>
+                <ul className="grid grid-cols-2 gap-2" aria-label={`${group.label} technologies`}>
+                  {group.keys.map((key) => {
+                    const tech = technologiesByKey[key];
+                    return (
+                      <li key={key} className="flex min-w-0 items-center gap-2 rounded-lg px-1 py-1.5">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-navy/[0.035]">
+                          <TechIcon name={tech.key} size={17} />
+                        </span>
+                        <span className="truncate text-xs font-medium text-navy/75">{tech.name}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

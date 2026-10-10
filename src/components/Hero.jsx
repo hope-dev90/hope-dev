@@ -1,244 +1,99 @@
-import { useRef } from "react";
-import { profile, floatingBadges, sideList } from "../data";
-import TechIcon from "./TechIcon";
+import { profile } from "../data";
 import { Link } from "react-router-dom";
-import { FiDownload, FiArrowRight, FiCode } from "react-icons/fi";
-import {
-  SiReact, SiNodedotjs, SiSpringboot, SiPostgresql, SiDocker,
-} from "react-icons/si";
+import { FiArrowRight, FiDownload } from "react-icons/fi";
+import { FaGithub, FaJava, FaLinux } from "react-icons/fa";
+import { SiDocker, SiPostgresql, SiSpringboot } from "react-icons/si";
 import { motion } from "framer-motion";
-import { fadeUp, scaleIn, staggerContainer } from "../lib/motion";
 
-// ── Brand / tech logos row ──────────────────────────────────────────────────
 const brandLogos = [
-  { Icon: SiReact,      color: "#61dafb", label: "React"      },
-  { Icon: SiNodedotjs,  color: "#3c873a", label: "Node.js"    },
-  { Icon: SiSpringboot, color: "#6db33f", label: "Spring"     },
+  { Icon: FaJava, color: "#e76f00", label: "Java" },
+  { Icon: SiSpringboot, color: "#6db33f", label: "Spring Boot" },
   { Icon: SiPostgresql, color: "#336791", label: "PostgreSQL" },
-  { Icon: SiDocker,     color: "#2496ed", label: "Docker"     },
+  { Icon: SiDocker, color: "#2496ed", label: "Docker" },
+  { Icon: FaGithub, color: "#24292f", label: "GitHub" },
+  { Icon: FaLinux, color: "#111111", label: "Linux" },
 ];
 
-// ── Hero ────────────────────────────────────────────────────────────────────
+const enter = (delay = 0) => ({
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+  transition: { delay, duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+});
+
 export default function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden"
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(150deg, #f5e6e8 0%, #faeaea 30%, #fdf6f0 60%, #fdf4f4 100%)",
-      }}
+      className="relative isolate min-h-screen overflow-hidden bg-[#fdfaf7] pt-28 sm:pt-32"
+      aria-labelledby="hero-title"
     >
-      {/* ── Decorative scattered shapes ── */}
-      {/* top-left star */}
-      <motion.span initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1.0, duration: 0.4 }}
-        className="hidden md:block absolute top-[18%] left-[6%] text-2xl select-none pointer-events-none">⭐</motion.span>
-      {/* top-right circle outline */}
-      <motion.span initial={{ opacity: 0 }} animate={{ opacity: 0.5 }}
-        transition={{ delay: 0.9, duration: 0.5 }}
-        className="hidden md:block absolute top-[10%] right-[12%] w-4 h-4 rounded-full border-2 border-orange/40 pointer-events-none" />
-      {/* mid-left dot */}
-      <motion.span initial={{ opacity: 0 }} animate={{ opacity: 0.4 }}
-        transition={{ delay: 1.1, duration: 0.5 }}
-        className="hidden md:block absolute top-[55%] left-[4%] w-3 h-3 rounded-full bg-orange/30 pointer-events-none" />
-      {/* sparkle */}
-      <motion.span initial={{ opacity: 0, rotate: -20 }} animate={{ opacity: 0.6, rotate: 0 }}
-        transition={{ delay: 1.2, duration: 0.5 }}
-        className="hidden md:block absolute top-[40%] left-[14%] text-orange/50 text-xl select-none pointer-events-none">✦</motion.span>
-      {/* bottom-right circle */}
-      <motion.span initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 0.4, scale: 1 }}
-        transition={{ delay: 1.3, duration: 0.4 }}
-        className="hidden md:block absolute bottom-[22%] right-[6%] w-5 h-5 rounded-full border-2 border-orange/30 pointer-events-none" />
+      <div className="pointer-events-none absolute left-[7%] top-[20%] hidden grid-cols-4 gap-2 opacity-45 md:grid">
+        {Array.from({ length: 20 }, (_, index) => <span key={index} className="h-1 w-1 rounded-full bg-orange" />)}
+      </div>
+      <div className="pointer-events-none absolute bottom-[10%] right-[7%] hidden grid-cols-4 gap-2 opacity-35 md:grid">
+        {Array.from({ length: 20 }, (_, index) => <span key={index} className="h-1 w-1 rounded-full bg-orange" />)}
+      </div>
+      <span className="pointer-events-none absolute -left-16 bottom-[-5rem] h-56 w-56 rounded-full border-2 border-orange/15 sm:h-72 sm:w-72" />
+      <span className="pointer-events-none absolute -right-12 top-8 h-36 w-36 rounded-full border-2 border-orange/10" />
+      <span className="pointer-events-none absolute left-[10%] top-1/2 hidden h-5 w-5 rounded-full bg-orange/15 md:block" />
 
-      {/* ── Main content ── */}
-      <div
-        className="relative max-w-7xl mx-auto px-6 md:px-10 grid lg:grid-cols-2 gap-8 items-center pt-24"
-        style={{ minHeight: "100vh" }}
-      >
-        {/* LEFT — text */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="show"
-          className="z-10 pt-16 pb-8 lg:py-0 flex flex-col"
-        >
-          {/* Greeting */}
-          <motion.p
-            variants={fadeUp} custom={0}
-            className="text-2xl sm:text-3xl font-extrabold text-navy/80 leading-tight mb-1"
-          >
-            Hi! I Am
-          </motion.p>
-
-          {/* Name — big, two colors */}
-          <motion.h1
-            variants={fadeUp} custom={0.08}
-            className="text-4xl sm:text-5xl lg:text-[3.6rem] font-extrabold leading-tight mb-4"
-          >
-            <span className="text-navy">{profile.name.split(" ")[0]} </span>
-            <span className="text-orange">{profile.name.split(" ").slice(1).join(" ")}</span>
-          </motion.h1>
-
-          {/* Role tag */}
-          <motion.p variants={fadeUp} custom={0.14}
-            className="text-base lg:text-lg font-bold text-navy/70 mb-4">
-            {profile.role}
-          </motion.p>
-
-          {/* Intro */}
-          <motion.p variants={fadeUp} custom={0.2}
-            className="text-sm text-navy/55 leading-relaxed max-w-sm mb-10">
-            {profile.intro}
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div variants={fadeUp} custom={0.28} className="flex flex-wrap gap-3 mb-14">
-            <motion.a
-              href="#contact"
-              data-magnetic
-              whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
-              className="inline-flex items-center gap-2 bg-orange hover:bg-orange-dark text-white font-bold px-7 py-3 rounded-full text-sm shadow-lg shadow-orange/30 transition-colors"
-            >
-              Get In Touch <FiArrowRight />
-            </motion.a>
-            <Link
-              to="/cv"
-              data-magnetic
-              className="inline-flex items-center gap-2 bg-white border border-navy/15 hover:border-orange text-navy font-bold px-7 py-3 rounded-full text-sm transition-colors"
-            >
-              Download CV <FiDownload />
-            </Link>
-          </motion.div>
-
-          {/* Brand logos row */}
-          <motion.div variants={fadeUp} custom={0.36}>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-navy/35 mb-3">
-              Work For All This Brand &amp; Client
-            </p>
-            <div className="flex items-center gap-5 flex-wrap">
-              {brandLogos.map(({ Icon, color, label }) => (
-                <motion.span
-                  key={label}
-                  whileHover={{ scale: 1.2, rotate: -5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  title={label}
-                  className="text-navy/30 hover:text-current transition-colors cursor-default"
-                  style={{ color: "inherit" }}
-                >
-                  <Icon size={26} color={color} style={{ opacity: 0.65 }} />
-                </motion.span>
-              ))}
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* RIGHT — portrait + floating cards */}
-        <div className="relative hidden lg:flex justify-center items-center">
-
-          {/* Portrait */}
-          <motion.div
-            variants={scaleIn} custom={0.15}
-            initial="hidden" animate="show"
-            className="relative z-10 w-72 xl:w-[300px]"
-          >
-            {/* Soft blob behind portrait */}
-            <div
-              className="absolute inset-0 -z-10 rounded-[40%_60%_55%_45%/45%_55%_60%_40%] blur-2xl opacity-40"
-              style={{ background: "radial-gradient(circle, #f5c6c6 0%, #f5e0e0 60%, transparent 100%)" }}
-            />
-            <motion.img
-              src="/1773993979501.jpg"
-              alt="Hope Mutimutuje"
-              className="w-full object-cover object-top"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              style={{
-                height: "480px",
-                borderRadius: "2rem",
-                objectFit: "cover",
-              }}
-            />
-          </motion.div>
-
-          {/* Spring Boot badge — top right */}
-          <motion.div
-            initial={{ opacity: 0, x: 40, y: -20 }} animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ scale: 1.06 }}
-            className="flex absolute top-8 -right-4 xl:right-0 items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-3 z-20 max-w-[210px]"
-          >
-            <TechIcon name={floatingBadges[0].icon} size={22} />
-            <div>
-              <p className="text-sm font-bold text-navy leading-tight">{floatingBadges[0].title}</p>
-              <p className="text-xs text-navy/45 leading-snug">{floatingBadges[0].text}</p>
-            </div>
-          </motion.div>
-
-          {/* TYPO3 badge — mid left */}
-          <motion.div
-            initial={{ opacity: 0, x: -40, y: -10 }} animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ delay: 0.85, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ scale: 1.06 }}
-            className="flex absolute top-1/2 -translate-y-1/2 -left-6 items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-3 z-20 max-w-[210px]"
-          >
-            <TechIcon name={floatingBadges[2].icon} size={22} />
-            <div>
-              <p className="text-sm font-bold text-navy leading-tight">{floatingBadges[2].title}</p>
-              <p className="text-xs text-navy/45 leading-snug">{floatingBadges[2].text}</p>
-            </div>
-          </motion.div>
-
-          {/* Node.js badge — bottom left */}
-          <motion.div
-            initial={{ opacity: 0, x: -40, y: 20 }} animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ scale: 1.06 }}
-            className="flex absolute bottom-10 -left-6 items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-3 z-20 max-w-[210px]"
-          >
-            <TechIcon name={floatingBadges[1].icon} size={22} />
-            <div>
-              <p className="text-sm font-bold text-navy leading-tight">{floatingBadges[1].title}</p>
-              <p className="text-xs text-navy/45 leading-snug">{floatingBadges[1].text}</p>
-            </div>
-          </motion.div>
-
-          {/* Side pill — far right */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col items-center gap-3 absolute -right-24 xl:-right-20 top-1/2 -translate-y-1/2 bg-white rounded-3xl shadow-soft px-3 py-5 w-[82px] z-20"
-          >
-            <span className="w-10 h-10 rounded-full bg-orange/10 text-orange flex items-center justify-center shrink-0">
-              <FiCode size={16} />
-            </span>
-            <ul className="text-[10px] font-semibold text-navy/55 text-center leading-[1.6]">
-              {sideList.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-            <div className="flex flex-col gap-1.5 w-full px-2">
-              <span className="block h-1.5 bg-navy/10 rounded-full w-full" />
-              <span className="block h-1.5 bg-navy/10 rounded-full w-3/4 mx-auto" />
-              <span className="block h-1.5 bg-navy/10 rounded-full w-full" />
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Mobile portrait */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.55 }}
-          className="lg:hidden flex justify-center pb-10"
-        >
-          <motion.img
+      <div className="relative mx-auto flex min-h-[calc(100vh-7rem)] max-w-4xl flex-col items-center px-6 pb-14 text-center sm:px-8">
+        <motion.div {...enter(0.1)} className="relative mb-6 sm:mb-7">
+          <div className="absolute inset-3 -z-10 rounded-full bg-orange/15 blur-2xl" />
+          <img
             src="/1773993979501.jpg"
             alt="Hope Mutimutuje"
-            className="w-56 h-72 object-cover object-top rounded-3xl shadow-soft"
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="h-48 w-48 rounded-full border-[6px] border-white object-cover object-top shadow-[0_18px_40px_rgba(26,26,46,0.16)] sm:h-64 sm:w-64"
           />
         </motion.div>
-      </div>
 
+        <motion.p {...enter(0.2)} className="text-3xl font-medium uppercase tracking-[0.16em] text-navy sm:text-5xl">
+          Backend
+        </motion.p>
+        <motion.h1
+          {...enter(0.28)}
+          id="hero-title"
+          className="mt-1 text-5xl font-black uppercase leading-none tracking-[-0.04em] text-orange sm:text-7xl md:text-8xl"
+        >
+          Developer
+        </motion.h1>
+
+        <motion.p {...enter(0.36)} className="mt-6 max-w-2xl text-sm leading-7 text-navy/60 sm:mt-7 sm:text-lg sm:leading-8">
+          {profile.intro}
+        </motion.p>
+
+        <motion.div {...enter(0.44)} className="mt-7 flex flex-wrap justify-center gap-3 sm:mt-8">
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-orange/25 transition hover:bg-orange-dark hover:-translate-y-0.5"
+          >
+            Get In Touch <FiArrowRight aria-hidden="true" />
+          </a>
+          <Link
+            to="/cv"
+            className="inline-flex items-center gap-2 rounded-full border border-navy/10 bg-white px-7 py-3.5 text-sm font-bold text-navy shadow-card transition hover:-translate-y-0.5 hover:border-orange/30"
+          >
+            Download CV <FiDownload aria-hidden="true" />
+          </Link>
+        </motion.div>
+
+        <motion.div {...enter(0.52)} className="mt-10 w-full max-w-xl sm:mt-12">
+          <div className="flex items-center gap-4">
+            <span className="h-px flex-1 bg-navy/10" />
+            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-navy/45 sm:text-xs">
+              Core technologies
+            </p>
+            <span className="h-px flex-1 bg-navy/10" />
+          </div>
+          <div className="mt-5 flex items-center justify-center gap-5 sm:gap-7">
+            {brandLogos.map(({ Icon, color, label }) => (
+              <span key={label} title={label} className="transition-transform duration-200 hover:-translate-y-1" aria-label={label}>
+                <Icon size={30} color={color} />
+              </span>
+            ))}
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }
