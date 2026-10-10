@@ -70,7 +70,7 @@ export default function Testimonials() {
           transition={{ duration: 0.5 }}
           className="mb-10"
         >
-          <h2 className="text-3xl font-extrabold text-navy sm:text-4xl">Testimonials</h2>
+          <h2 className="font-heading text-3xl font-black text-navy sm:text-4xl">Testimonials</h2>
           <p className="mt-3 max-w-xl text-sm text-navy/55">
             A few words from people Hope has worked with on projects.
           </p>

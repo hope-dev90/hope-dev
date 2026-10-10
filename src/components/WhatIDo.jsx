@@ -86,7 +86,7 @@ export default function WhatIDo() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h2 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
+            <h2 className="font-heading text-3xl sm:text-4xl font-black leading-tight mb-4">
               <span className="text-navy">My Awesome</span>
               <br />
               <span className="text-orange">Services</span>

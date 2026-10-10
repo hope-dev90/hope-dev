@@ -15,6 +15,7 @@ export default {
       },
       fontFamily: {
         sans: ["Urbanist", "ui-sans-serif", "system-ui", "sans-serif"],
+        heading: ["Bricolage Grotesque", "Inter", "sans-serif"],
       },
       boxShadow: {
         soft: "0 8px 32px -8px rgba(26,26,46,0.18)",

@@ -55,7 +55,7 @@ export default function Hero() {
       id="top"
       aria-labelledby="hero-title"
       className="relative isolate min-h-screen overflow-hidden"
-      style={{ backgroundColor: "#faf7f4", fontFamily: "'Urbanist', sans-serif" }}
+      style={{ backgroundColor: "#faf7f4" }}
     >
       {/* ---------- Navbar ---------- */}
       <header className="relative z-10 mx-auto flex max-w-[1511px] items-center justify-between px-6 py-5 sm:px-12 sm:py-6 lg:px-[72px]">
@@ -129,15 +129,15 @@ export default function Hero() {
         {/* Title */}
         <motion.p
           {...enter(0.2)}
-          className="text-4xl font-extrabold uppercase tracking-[0.22em] sm:text-5xl md:text-6xl"
-          style={{ color: INK, letterSpacing: "0.22em" }}
+          className="font-heading text-4xl font-black uppercase tracking-[0.18em] sm:text-5xl md:text-6xl"
+          style={{ color: INK, letterSpacing: "0.18em" }}
         >
           Backend
         </motion.p>
         <motion.h1
           {...enter(0.28)}
           id="hero-title"
-          className="mt-1 text-6xl font-extrabold uppercase leading-[0.92] tracking-[-0.02em] sm:text-7xl md:text-[96px]"
+          className="font-heading mt-1 text-7xl font-black uppercase leading-[0.9] tracking-[-0.02em] sm:text-8xl md:text-[108px]"
           style={{ color: MAROON }}
         >
           Developer

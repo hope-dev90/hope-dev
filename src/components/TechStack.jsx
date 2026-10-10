@@ -22,7 +22,7 @@ export default function TechStack() {
           <div className="mb-8 flex flex-col gap-3 border-b border-navy/10 pb-7 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-orange">Technical toolkit</p>
-              <h2 id="skills-title" className="text-2xl font-bold tracking-tight text-navy sm:text-3xl">
+              <h2 id="skills-title" className="font-heading text-2xl font-black tracking-tight text-navy sm:text-3xl">
                 Technologies I work with
               </h2>
             </div>

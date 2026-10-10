@@ -66,7 +66,7 @@ export default function Contact() {
           <motion.p variants={fadeUp} custom={0} className="text-[11px] font-semibold uppercase tracking-widest text-orange mb-2">
             Get In Touch
           </motion.p>
-          <motion.h2 variants={fadeUp} custom={0.08} className="text-3xl sm:text-4xl font-extrabold text-navy">
+          <motion.h2 variants={fadeUp} custom={0.08} className="font-heading text-3xl sm:text-4xl font-black text-navy">
             Contact Me
           </motion.h2>
         </motion.div>

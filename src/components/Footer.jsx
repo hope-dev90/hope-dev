@@ -20,7 +20,7 @@ export default function Footer() {
           {/* brand */}
           <div className="flex flex-col gap-4">
             <div>
-              <p className="text-2xl font-black text-white tracking-tight leading-none">
+              <p className="font-heading text-2xl font-black text-white tracking-tight leading-none">
                 Hope<span className="text-orange">.</span>
               </p>
               <p className="text-sm text-white/50 mt-1 font-medium">{profile.role}</p>
