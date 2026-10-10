@@ -54,8 +54,8 @@ export default function Hero() {
     <section
       id="top"
       aria-labelledby="hero-title"
-      className="relative isolate min-h-screen overflow-hidden font-sans"
-      style={{ backgroundColor: "#faf7f4" }}
+      className="relative isolate min-h-screen overflow-hidden"
+      style={{ backgroundColor: "#faf7f4", fontFamily: "'Urbanist', sans-serif" }}
     >
       {/* ---------- Navbar ---------- */}
       <header className="relative z-10 mx-auto flex max-w-[1511px] items-center justify-between px-6 py-5 sm:px-12 sm:py-6 lg:px-[72px]">
@@ -122,22 +122,22 @@ export default function Hero() {
           <img
             src="/pof.png"
             alt="Hope Mutimutuje"
-            className="h-48 w-48 rounded-full border-[5px] border-white object-cover object-top shadow-[0_18px_40px_rgba(26,26,46,0.16)] sm:h-60 sm:w-60"
+            className="h-56 w-56 rounded-full border-[5px] border-white object-cover object-top shadow-[0_18px_40px_rgba(26,26,46,0.16)] sm:h-72 sm:w-72"
           />
         </motion.div>
 
         {/* Title */}
         <motion.p
           {...enter(0.2)}
-          className="text-3xl font-bold uppercase tracking-[0.2em] sm:text-[42px] sm:leading-none"
-          style={{ color: INK }}
+          className="text-4xl font-extrabold uppercase tracking-[0.22em] sm:text-5xl md:text-6xl"
+          style={{ color: INK, letterSpacing: "0.22em" }}
         >
           Backend
         </motion.p>
         <motion.h1
           {...enter(0.28)}
           id="hero-title"
-          className="mt-1 text-5xl font-bold uppercase leading-[0.95] tracking-[-0.03em] sm:text-6xl md:text-[68px]"
+          className="mt-1 text-6xl font-extrabold uppercase leading-[0.92] tracking-[-0.02em] sm:text-7xl md:text-[96px]"
           style={{ color: MAROON }}
         >
           Developer
@@ -146,8 +146,8 @@ export default function Hero() {
         {/* Intro */}
         <motion.p
           {...enter(0.36)}
-          className="mt-4 max-w-[600px] text-sm leading-6 sm:mt-5 sm:text-[15px] sm:leading-6"
-          style={{ color: "rgba(31,34,51,0.62)" }}
+          className="mt-5 max-w-[640px] text-base leading-7 sm:mt-6 sm:text-lg sm:leading-8"
+          style={{ color: "rgba(31,34,51,0.62)", fontWeight: 300 }}
         >
           I build robust, scalable and secure backend systems and APIs using
           cutting-edge technologies. Passionate about clean architecture, system
@@ -162,7 +162,7 @@ export default function Hero() {
         >
           <a
             href="#contact"
-            className="inline-flex items-center gap-2.5 rounded-full px-7 py-3 text-sm font-bold text-white shadow-lg transition hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2.5 rounded-full px-8 py-3.5 text-base font-bold text-white shadow-lg transition hover:-translate-y-0.5"
             style={{
               backgroundColor: MAROON,
               boxShadow: "0 10px 24px rgba(122,10,13,0.28)",
@@ -174,7 +174,7 @@ export default function Hero() {
           </a>
           <Link
             to="/cv"
-            className="inline-flex items-center gap-2.5 rounded-full border bg-white px-7 py-3 text-sm font-bold shadow-[0_8px_22px_rgba(26,26,46,0.08)] transition hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2.5 rounded-full border bg-white px-8 py-3.5 text-base font-bold shadow-[0_8px_22px_rgba(26,26,46,0.08)] transition hover:-translate-y-0.5"
             style={{ color: INK, borderColor: "rgba(31,34,51,0.08)" }}
           >
             Download CV <FiDownload aria-hidden="true" />
