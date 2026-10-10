@@ -2,7 +2,14 @@ import { useRef, useState } from "react";
 import { cvProjects } from "../data";
 import { FiExternalLink, FiArrowRight, FiGithub, FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useInView,
+  AnimatePresence,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 
 // ─── device mockups ──────────────────────────────────────────────────────────
 
@@ -27,11 +34,11 @@ function DesktopMockup({ src, alt, color }) {
               alt={alt}
               loading="lazy"
               decoding="async"
-              className="w-full h-full object-cover object-left-top"
+              className="h-full w-full object-cover object-left-top"
             />
           ) : (
-            <div className={`w-full h-full flex items-center justify-center ${color}`}>
-              <span className="text-navy/20 text-xs font-semibold tracking-widest uppercase">Preview</span>
+            <div className={`flex h-full w-full items-center justify-center ${color}`}>
+              <span className="text-xs font-semibold uppercase tracking-widest text-navy/20">Preview</span>
             </div>
           )}
         </div>
@@ -65,11 +72,11 @@ function PhoneMockup({ src, alt, color }) {
               alt={alt}
               loading="lazy"
               decoding="async"
-              className="w-full h-full object-cover object-top"
+              className="h-full w-full object-cover object-top"
             />
           ) : (
-            <div className={`w-full h-full flex items-center justify-center ${color}`}>
-              <span className="text-navy/20 text-[10px] font-semibold tracking-widest uppercase">Preview</span>
+            <div className={`flex h-full w-full items-center justify-center ${color}`}>
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-navy/20">Preview</span>
             </div>
           )}
         </div>
@@ -87,14 +94,27 @@ function PhoneMockup({ src, alt, color }) {
 function FeaturedProject({ proj, index, inView }) {
   const isPhone = proj.device === "phone";
   const isEven = index % 2 === 0;
-
   const isGithub = proj.url?.includes("github.com");
+  const cardRef = useRef(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"],
+  });
+  const clipPath = useTransform(
+    scrollYProgress,
+    [0.12, 0.52],
+    ["inset(0 50% 0 50%)", "inset(0 0% 0 0%)"],
+  );
+  const scale = useTransform(scrollYProgress, [0.12, 0.52], [0.96, 1]);
 
   return (
     <motion.div
+      ref={cardRef}
       initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: index * 0.12 }}
+      style={reduceMotion ? undefined : { clipPath, scale }}
       className={`flex flex-col ${isEven ? "lg:flex-row" : "lg:flex-row-reverse"} items-center gap-10 lg:gap-16 py-12 border-b border-navy/8 last:border-0`}
     >
       {/* device mockup */}

@@ -1,5 +1,6 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { FiArrowRight, FiDownload } from "react-icons/fi";
 import { FaGithub, FaJava, FaLinux } from "react-icons/fa";
 import { SiDocker, SiPostgresql, SiSpringboot, SiTypo3 } from "react-icons/si";
@@ -31,6 +32,49 @@ const enter = (delay = 0) => ({
   animate: { opacity: 1, y: 0 },
   transition: { delay, duration: 0.55, ease: [0.22, 1, 0.36, 1] },
 });
+
+function Typewriter({ children, delay = 620, speed = 105 }) {
+  const text = String(children);
+  const reduceMotion = useReducedMotion();
+  const [typedText, setTypedText] = useState(reduceMotion ? text : "");
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setTypedText(text);
+      return undefined;
+    }
+
+    setTypedText("");
+    let character = 0;
+    let typingTimer;
+    const startTimer = window.setTimeout(() => {
+      typingTimer = window.setInterval(() => {
+        character += 1;
+        setTypedText(text.slice(0, character));
+        if (character === text.length) window.clearInterval(typingTimer);
+      }, speed);
+    }, delay);
+
+    return () => {
+      window.clearTimeout(startTimer);
+      window.clearInterval(typingTimer);
+    };
+  }, [delay, reduceMotion, speed, text]);
+
+  return (
+    <span aria-label={text}>
+      <span aria-hidden="true">{typedText}</span>
+      {!reduceMotion && (
+        <motion.span
+          aria-hidden="true"
+          animate={{ opacity: [1, 0, 1] }}
+          transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+          className="ml-1 inline-block h-[0.78em] w-[0.07em] bg-current align-[-0.05em]"
+        />
+      )}
+    </span>
+  );
+}
 
 function DotGrid({ className = "" }) {
   return (
@@ -142,14 +186,13 @@ export default function Hero() {
         >
           Backend
         </motion.p>
-        <motion.h1
-          {...enter(0.28)}
+        <h1
           id="hero-title"
           className="font-heading mt-1 text-[clamp(2.25rem,6vw,4.25rem)] font-black uppercase leading-[0.9] tracking-[-0.02em]"
           style={{ color: MAROON }}
         >
-          Developer
-        </motion.h1>
+          <Typewriter>Developer</Typewriter>
+        </h1>
 
         {/* Intro */}
         <motion.p
