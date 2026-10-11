@@ -132,10 +132,12 @@ const wrap = (min, max, value) => {
 function CertificateTicker({ certs, onOpen, baseSpeed = 50 }) {
   const reduceMotion = useReducedMotion();
   const x = useMotionValue(0);
+  const cursorShift = useMotionValue(0);
   const setRef = useRef(null);
   const [setWidth, setSetWidth] = useState(0);
   const direction = useRef(-1); // -1 = left, 1 = right
   const paused = useRef(false);
+  const combinedX = useTransform([x, cursorShift], ([baseX, shift]) => baseX + shift);
 
   // Page-scroll velocity -> smoothed speed multiplier
   const { scrollY } = useScroll();
@@ -182,6 +184,13 @@ function CertificateTicker({ certs, onOpen, baseSpeed = 50 }) {
     );
   }
 
+  const handlePointerMove = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const center = (event.clientX - rect.left) / rect.width;
+    const nextShift = (center - 0.5) * 180;
+    cursorShift.set(nextShift);
+  };
+
   return (
     <div
       className="overflow-hidden py-8"
@@ -190,9 +199,10 @@ function CertificateTicker({ certs, onOpen, baseSpeed = 50 }) {
         maskImage: "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
       }}
       onMouseEnter={() => { paused.current = true; }}
-      onMouseLeave={() => { paused.current = false; }}
+      onMouseLeave={() => { paused.current = false; cursorShift.set(0); }}
+      onMouseMove={handlePointerMove}
     >
-      <motion.div className="flex w-max will-change-transform" style={{ x }}>
+      <motion.div className="flex w-max will-change-transform" style={{ x: combinedX }}>
         <div ref={setRef} className="flex">
           {certs.map((cert, i) => (
             <CertificateCard key={cert.id} cert={cert} index={i} onOpen={onOpen} />
