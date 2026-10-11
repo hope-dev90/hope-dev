@@ -254,7 +254,7 @@ export default function Projects() {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           <div>
-            <p className="text-xs font-semibold text-orange uppercase tracking-widest mb-1">What I've Built</p>
+
             <h2 className="text-2xl sm:text-3xl font-extrabold text-navy">Projects</h2>
           </div>
           <Link

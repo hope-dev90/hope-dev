@@ -1,147 +1,67 @@
-import { profile, navLinks } from "../data";
-import { FiArrowUp, FiGithub, FiLinkedin, FiMail, FiMapPin } from "react-icons/fi";
+import { profile } from "../data";
+import { FiArrowUp, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { motion } from "framer-motion";
+
+const socialLinks = [
+  { label: "GitHub", href: profile.socials.github, Icon: FiGithub, external: true },
+  { label: "LinkedIn", href: profile.socials.linkedin, Icon: FiLinkedin, external: true },
+  { label: "Email", href: `mailto:${profile.email}`, Icon: FiMail },
+];
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-navy text-white relative overflow-hidden">
-
-      {/* subtle background glow */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 bg-orange/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-20 right-0 w-80 h-80 bg-orange/5 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="relative max-w-7xl mx-auto px-6 pt-16 pb-8">
-
-        {/* top grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12 mb-14">
-
-          {/* brand */}
-          <div className="flex flex-col gap-4">
-            <div>
-              <p className="font-heading text-2xl font-black text-white tracking-tight leading-none">
-                Hope<span className="text-orange">.</span>
-              </p>
-              <p className="text-sm text-white/50 mt-1 font-medium">{profile.role}</p>
-            </div>
-            <p className="text-sm text-white/40 leading-relaxed max-w-xs">
-              Building modern, scalable and secure web applications. Based in Kigali, Rwanda.
-            </p>
-            {/* social icons */}
-            <div className="flex items-center gap-3 mt-1">
-              <motion.a
-                href={profile.socials.github}
-                target="_blank" rel="noopener noreferrer"
-                whileHover={{ y: -3, scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="w-9 h-9 rounded-full bg-white/8 hover:bg-orange flex items-center justify-center transition-colors"
-                aria-label="GitHub"
-              >
-                <FiGithub size={16} />
-              </motion.a>
-              <motion.a
-                href={profile.socials.linkedin}
-                target="_blank" rel="noopener noreferrer"
-                whileHover={{ y: -3, scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="w-9 h-9 rounded-full bg-white/8 hover:bg-orange flex items-center justify-center transition-colors"
-                aria-label="LinkedIn"
-              >
-                <FiLinkedin size={16} />
-              </motion.a>
-              <motion.a
-                href={`mailto:${profile.email}`}
-                whileHover={{ y: -3, scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="w-9 h-9 rounded-full bg-white/8 hover:bg-orange flex items-center justify-center transition-colors"
-                aria-label="Email"
-              >
-                <FiMail size={16} />
-              </motion.a>
-            </div>
-          </div>
-
-          {/* nav links */}
-          <div>
-            <p className="text-[11px] font-bold text-white/30 uppercase tracking-widest mb-4">Navigation</p>
-            <ul className="flex flex-col gap-2.5">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-white/50 hover:text-orange transition-colors font-medium"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* contact info */}
-          <div>
-            <p className="text-[11px] font-bold text-white/30 uppercase tracking-widest mb-4">Contact</p>
-            <div className="flex flex-col gap-3">
-              <a
-                href={`mailto:${profile.email}`}
-                className="flex items-center gap-2.5 text-sm text-white/50 hover:text-orange transition-colors"
-              >
-                <FiMail size={14} className="shrink-0" />
-                {profile.email}
-              </a>
-              <div className="flex items-center gap-2.5 text-sm text-white/50">
-                <FiMapPin size={14} className="shrink-0" />
-                {profile.location}
-              </div>
-              <a
-                href={profile.socials.github}
-                target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2.5 text-sm text-white/50 hover:text-orange transition-colors"
-              >
-                <FiGithub size={14} className="shrink-0" />
-                github.com/hope-dev90
-              </a>
-              <a
-                href={profile.socials.linkedin}
-                target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2.5 text-sm text-white/50 hover:text-orange transition-colors"
-              >
-                <FiLinkedin size={14} className="shrink-0" />
-                linkedin.com/in/mutimutujehope
-              </a>
-            </div>
-
-            {/* quote */}
-            <div className="mt-8 border-l-2 border-orange/40 pl-3">
-              <p className="text-xs text-white/30 italic leading-relaxed">
-                "{profile.quote}"
-              </p>
-              <p className="text-[10px] text-orange/60 font-semibold mt-1">— {profile.quoteAuthor}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* divider */}
-        <div className="border-t border-white/8" />
-
-        {/* bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6">
-          <p className="text-xs text-white/30">
-            © 2025–2026 <span className="text-white/50 font-semibold">{profile.name}</span>. All rights reserved.
-          </p>
-          <p className="text-xs text-white/20">
-            Designed & built by Hope
-          </p>
+    <footer id="footer" className="overflow-hidden border-t border-[#faf7f4]/10 bg-[#5e070a] text-[#faf7f4]">
+      <div className="mx-auto max-w-[1440px] px-6 py-9 sm:px-10 sm:py-12 lg:px-16">
+        <div className="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-[0.08em] text-[#faf7f4]/65" style={{ fontFamily: "Outfit, ui-sans-serif, system-ui, sans-serif" }}>
+          <p>© {year}</p>
           <motion.a
             href="#top"
-            whileHover={{ y: -3 }}
-            transition={{ type: "spring", stiffness: 300 }}
-            className="w-9 h-9 rounded-full border border-white/15 hover:border-orange hover:bg-orange/10 flex items-center justify-center transition-colors shrink-0"
-            aria-label="Back to top"
+            whileHover={{ y: -2 }}
+            className="inline-flex items-center gap-3 transition-colors hover:text-white"
           >
-            <FiArrowUp size={15} />
+            Back to top
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#faf7f4] text-[#5e070a] transition-colors hover:bg-white">
+              <FiArrowUp size={16} aria-hidden="true" />
+            </span>
           </motion.a>
+        </div>
+
+        <div className="mt-20 sm:mt-28">
+          <p className="text-[11px] font-extrabold uppercase tracking-[0.08em] text-[#faf7f4]/70" style={{ fontFamily: "Outfit, ui-sans-serif, system-ui, sans-serif" }}>
+            Have a project in mind?
+          </p>
+          <a
+            href={`mailto:${profile.email}`}
+            className="mt-2 block w-fit font-heading text-[clamp(3.8rem,12vw,10.5rem)] font-black uppercase leading-[0.82] tracking-[-0.075em] text-[#d9b5b8] transition-colors duration-300 hover:text-white"
+          >
+            Let&apos;s talk
+          </a>
+        </div>
+
+        <div className="mt-16 flex flex-col gap-8 border-t border-[#faf7f4]/15 pt-7 sm:mt-20 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-wrap gap-3">
+            {socialLinks.map(({ label, href, Icon, external }) => (
+              <motion.a
+                key={label}
+                href={href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                whileHover={{ y: -3 }}
+                className="inline-flex min-w-28 items-center justify-center gap-2 rounded-full border border-[#faf7f4]/35 px-5 py-3 text-[10px] font-extrabold uppercase tracking-[0.08em] transition-colors hover:border-[#faf7f4] hover:bg-[#faf7f4] hover:text-[#5e070a]"
+                style={{ fontFamily: "Outfit, ui-sans-serif, system-ui, sans-serif" }}
+              >
+                <Icon size={13} aria-hidden="true" />
+                {label}
+              </motion.a>
+            ))}
+          </div>
+
+          <p className="text-right text-[10px] font-semibold uppercase leading-relaxed tracking-[0.06em] text-[#faf7f4]/55" style={{ fontFamily: "Outfit, ui-sans-serif, system-ui, sans-serif" }}>
+            Designed &amp; built by Hope Mutimutuje<br />
+            Kigali, Rwanda
+          </p>
         </div>
       </div>
     </footer>

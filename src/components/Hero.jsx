@@ -8,6 +8,11 @@ import { SiDocker, SiPostgresql, SiSpringboot, SiTypo3 } from "react-icons/si";
 const MAROON = "#7a0a0d";
 const MAROON_DARK = "#5e070a";
 const INK = "#1f2233";
+const rolePhrases = [
+  "Backend Developer",
+  "Cybersecurity Enthusiast",
+  "DevOps Developer",
+];
 
 const navLinks = [
   { label: "Home", href: "#top", active: true },
@@ -33,36 +38,60 @@ const enter = (delay = 0) => ({
   transition: { delay, duration: 0.55, ease: [0.22, 1, 0.36, 1] },
 });
 
-function Typewriter({ children, delay = 620, speed = 105 }) {
-  const text = String(children);
+function Typewriter({
+  phrases,
+  delay = 620,
+  typingSpeed = 92,
+  deletingSpeed = 52,
+  pause = 1800,
+}) {
   const reduceMotion = useReducedMotion();
-  const [typedText, setTypedText] = useState(reduceMotion ? text : "");
+  const [typedText, setTypedText] = useState(reduceMotion ? phrases[0] : "");
 
   useEffect(() => {
     if (reduceMotion) {
-      setTypedText(text);
+      setTypedText(phrases[0]);
       return undefined;
     }
 
     setTypedText("");
-    let character = 0;
-    let typingTimer;
-    const startTimer = window.setTimeout(() => {
-      typingTimer = window.setInterval(() => {
-        character += 1;
-        setTypedText(text.slice(0, character));
-        if (character === text.length) window.clearInterval(typingTimer);
-      }, speed);
-    }, delay);
+    let phraseIndex = 0;
+    let characterIndex = 0;
+    let deleting = false;
+    let timer;
 
-    return () => {
-      window.clearTimeout(startTimer);
-      window.clearInterval(typingTimer);
+    const animate = () => {
+      const phrase = phrases[phraseIndex];
+
+      if (!deleting) {
+        characterIndex += 1;
+        setTypedText(phrase.slice(0, characterIndex));
+        if (characterIndex === phrase.length) {
+          deleting = true;
+          timer = window.setTimeout(animate, pause);
+          return;
+        }
+      } else {
+        characterIndex -= 1;
+        setTypedText(phrase.slice(0, characterIndex));
+        if (characterIndex === 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          timer = window.setTimeout(animate, 360);
+          return;
+        }
+      }
+
+      timer = window.setTimeout(animate, deleting ? deletingSpeed : typingSpeed);
     };
-  }, [delay, reduceMotion, speed, text]);
+
+    timer = window.setTimeout(animate, delay);
+
+    return () => window.clearTimeout(timer);
+  }, [deletingSpeed, delay, pause, phrases, reduceMotion, typingSpeed]);
 
   return (
-    <span aria-label={text}>
+    <span aria-label={typedText || phrases[0]}>
       <span aria-hidden="true">{typedText}</span>
       {!reduceMotion && (
         <motion.span
@@ -184,14 +213,16 @@ export default function Hero() {
           className="font-heading text-xl font-black uppercase tracking-[0.18em] sm:text-2xl md:text-3xl"
           style={{ color: INK }}
         >
-          Backend
+          I am Hope
         </motion.p>
         <h1
           id="hero-title"
           className="font-heading mt-1 text-[clamp(2.25rem,6vw,4.25rem)] font-black uppercase leading-[0.9] tracking-[-0.02em]"
           style={{ color: MAROON }}
         >
-          <Typewriter>Developer</Typewriter>
+          <Typewriter
+            phrases={rolePhrases}
+          />
         </h1>
 
         {/* Intro */}

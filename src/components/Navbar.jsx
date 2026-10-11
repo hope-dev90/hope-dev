@@ -38,13 +38,58 @@ function useActiveSection() {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
   const location = useLocation();
   const isCV = location.pathname === "/cv";
   const activeSection = useActiveSection();
 
+  useEffect(() => {
+    if (isCV) {
+      setIsVisible(true);
+      return undefined;
+    }
+
+    setIsVisible(window.scrollY >= 80);
+    const updateVisibility = () => {
+      const currentScrollY = window.scrollY;
+      setIsVisible(currentScrollY >= 80);
+      if (currentScrollY < 80) setOpen(false);
+    };
+
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    return () => window.removeEventListener("scroll", updateVisibility);
+  }, [isCV]);
+
+  useEffect(() => {
+    const footer = document.getElementById("footer");
+    if (!footer) {
+      setIsFooterVisible(false);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsFooterVisible(entry.isIntersecting),
+      { threshold: 0.08 },
+    );
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, [location.pathname]);
+
+  const shouldShow = isVisible && !isFooterVisible;
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-navy/5 bg-[#faf7f4]/95 backdrop-blur-md">
-      <nav className="mx-auto flex h-20 max-w-[88rem] items-center justify-between px-6 sm:px-10">
+    <motion.header
+      initial={false}
+      animate={{ opacity: shouldShow ? 1 : 0, y: shouldShow ? 0 : -104 }}
+      transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
+      style={{ pointerEvents: shouldShow ? "auto" : "none" }}
+      className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 md:inset-x-auto md:right-6 md:top-[18%] md:w-[128px] md:p-0"
+    >
+      <nav
+        className="mx-auto flex h-16 max-w-5xl items-center justify-between rounded-full border border-navy/10 bg-[#faf7f4]/95 px-5 shadow-[0_14px_38px_rgba(31,34,51,0.12)] backdrop-blur-md sm:px-7 md:min-h-[440px] md:w-full md:flex-col md:justify-start md:gap-9 md:rounded-[2rem] md:px-3 md:py-6"
+        style={{ fontFamily: "Outfit, ui-sans-serif, system-ui, sans-serif" }}
+      >
         <Link to="/" className="shrink-0" aria-label="Hope Mutimutuje home">
           <img src="/logo-touch.png" alt="" className="h-11 w-11 rounded-xl object-contain" />
         </Link>
@@ -55,20 +100,20 @@ export default function Navbar() {
           </Link>
         ) : (
           <>
-            <ul className="hidden items-center gap-10 md:flex">
+            <ul className="hidden items-center gap-10 md:flex md:flex-col md:gap-8">
               {landingLinks.map((link) => {
                 const isActive = activeSection === link.id;
                 return (
                   <li key={link.href}>
                     <a
                       href={link.href}
-                      className={`relative text-sm font-bold uppercase tracking-[0.08em] transition-colors hover:text-orange ${isActive ? "text-orange" : "text-navy/65"}`}
+                      className={`relative block text-center text-[11px] font-extrabold uppercase tracking-[0.08em] transition-colors hover:text-orange ${isActive ? "text-orange" : "text-navy/65"}`}
                     >
                       {link.label}
                       {isActive && (
                         <motion.span
                           layoutId="nav-underline"
-                          className="absolute -bottom-3 left-0 h-px w-full bg-orange"
+                          className="absolute -bottom-1 left-1/2 h-px w-7 -translate-x-1/2 bg-orange"
                         />
                       )}
                     </a>
@@ -96,7 +141,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            className="mx-6 rounded-2xl border border-navy/10 bg-white p-5 shadow-soft md:hidden"
+            className="mx-auto mt-3 max-w-5xl rounded-3xl border border-navy/10 bg-[#faf7f4]/95 p-5 shadow-[0_14px_38px_rgba(31,34,51,0.12)] backdrop-blur-md md:hidden"
           >
             <ul className="flex flex-col gap-4">
               {landingLinks.map((link) => (
@@ -110,6 +155,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }
