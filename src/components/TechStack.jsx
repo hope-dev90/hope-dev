@@ -9,7 +9,7 @@ import {
 import { useReveal } from "../hooks/useReveal";
 
 const groups = [
-  { label: "Backend", keys: ["java", "spring", "node", "express", "typescript"] },
+  { label: "Backend", keys: ["java", "spring", "node", "express", "typescript","nest"] },
   { label: "Data & CMS", keys: ["postgresql", "mongodb", "php", "typo3"] },
   { label: "Cloud & Delivery", keys: ["docker", "kubernetes", "cicd", "git", "linux"] },
   { label: "Web & Security", keys: ["react", "html", "css", "networking", "cybersecurity"] },
@@ -106,7 +106,11 @@ function GroupCard({ group }) {
       <h3 className="relative mb-4 text-xs font-bold uppercase tracking-[0.14em] text-navy/55">{group.label}</h3>
       <ul className="relative grid grid-cols-2 gap-2" aria-label={`${group.label} technologies`}>
         {group.keys.map((key) => {
-          const tech = technologiesByKey[key];
+          const tech = technologiesByKey[key] ?? {
+            key,
+            name: key.charAt(0).toUpperCase() + key.slice(1),
+          };
+
           return (
             <motion.li
               key={key}

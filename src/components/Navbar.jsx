@@ -6,7 +6,7 @@ const landingLinks = [
   { label: "Home", href: "#top", id: "top" },
   { label: "About", href: "#about", id: "about" },
   { label: "Projects", href: "#projects", id: "projects" },
-  { label: "Certifications", href: "#certifications", id: "certifications" },
+  { label: "Certificates", href: "#certifications", id: "certifications" },
   { label: "Contact", href: "#contact", id: "contact" },
 ];
 

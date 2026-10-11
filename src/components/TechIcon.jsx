@@ -21,12 +21,14 @@ import {
   SiMongodb,
   SiKubernetes,
   SiTypo3,
+  SiNestjs,
 } from "react-icons/si";
 import { VscServerProcess } from "react-icons/vsc";
 import { TbInfinity } from "react-icons/tb";
 
 const map = {
   node:         { Icon: FaNodeJs,        color: "#3c873a" },
+nest:         { Icon: SiNestjs,        color: "#E0234E" },
   typescript:   { Icon: SiTypescript,    color: "#3178c6" },
   java:         { Icon: FaJava,          color: "#e76f00" },
   spring:       { Icon: SiSpringboot,    color: "#6db33f" },

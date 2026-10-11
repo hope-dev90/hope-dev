@@ -27,6 +27,7 @@ export const sideList = ["APIs", "Microservices", "Clean Code", "Scalable System
 export const techStack = [
   { name: "Node.js",       key: "node" },
   { name: "TypeScript",    key: "typescript" },
+  { name: "NestJS",        key: "nest" },
   { name: "Java",          key: "java" },
   { name: "Spring Boot",   key: "spring" },
   { name: "React",         key: "react" },
