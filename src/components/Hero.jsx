@@ -12,6 +12,7 @@ const rolePhrases = [
   "Backend Developer",
   "Cybersecurity Enthusiast",
   "DevOps Developer",
+  "Typo3 CMS Developer",
 ];
 
 const navLinks = [
