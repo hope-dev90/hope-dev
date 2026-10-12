@@ -10,8 +10,6 @@ const MAROON_DARK = "#5e070a";
 const INK = "#1f2233";
 const rolePhrases = [
   "Backend Developer",
-  "Cybersecurity Enthusiast",
-  "DevOps Developer",
   "Typo3 CMS Developer",
 ];
 
