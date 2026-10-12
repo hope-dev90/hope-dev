@@ -9,7 +9,10 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const year = new Date().getFullYear();
+  // Get current date, formatted month and day (e.g., "October 12"), and the year
+  const today = new Date();
+  const dayAndMonth = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+  const year = today.getFullYear();
 
   const pages = [
     { label: "Home", href: "#top" },
@@ -80,10 +83,10 @@ export default function Footer() {
           </div>
 
           <div className="mt-10 flex flex-col justify-between gap-4 border-t border-navy/15 pt-5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-navy/60 sm:flex-row sm:items-center">
-            <p>© {year} Hope Mutimutuje. All rights reserved.</p>
+            {/* Displaying updated text string here */}
+            <p>Lastly updated on {dayAndMonth}, {year}</p>
             <div className="flex items-center gap-5">
               <a href="#top" className="transition-colors hover:text-orange">Back to top</a>
-              <a href="#" className="transition-colors hover:text-orange">Privacy policy</a>
             </div>
           </div>
         </div>
