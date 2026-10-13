@@ -170,7 +170,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      <motion.div {...enter(0.52)} className="w-full shrink-0 pb-6 pt-3 text-center">
+      <motion.div {...enter(0.52)} className="w-full shrink-0 pb-24 pt-3 text-center sm:pb-8">
         <div className="mx-auto flex max-w-xs items-center gap-3 px-5 sm:max-w-sm">
           <span className="h-px flex-1" style={{ backgroundColor:"rgba(31,34,51,0.12)" }} />
           <p className="whitespace-nowrap text-[8px] font-semibold uppercase tracking-[0.12em] sm:text-[10px]" style={{ color:"rgba(31,34,51,0.40)" }}>Work for all this brand &amp; client</p>
@@ -181,6 +181,19 @@ export default function Hero() {
             <span key={label} title={label} aria-label={label} className="transition-transform duration-200 hover:-translate-y-1"><Icon size={20} color={color} /></span>
           ))}
         </div>
+
+        {/* scroll hint */}
+        <motion.a
+          href="#about"
+          aria-label="Scroll down"
+          className="mx-auto mt-6 flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-navy/30 sm:hidden"
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </motion.a>
       </motion.div>
     </section>
   );
