@@ -52,7 +52,7 @@ function AnimatedRoutes() {
     }
 
     setIsLoading(true);
-    const timeout = window.setTimeout(() => setIsLoading(false), 2000);
+    const timeout = window.setTimeout(() => setIsLoading(false), 2200);
     return () => window.clearTimeout(timeout);
   }, [location.pathname]);
 
@@ -71,17 +71,26 @@ function AnimatedRoutes() {
             key="portfolio-loader"
             role="status"
             aria-label="Loading portfolio"
-            initial={{ opacity: 1 }}
+            initial={{ backgroundColor: "#090b12" }}
+            animate={{ backgroundColor: "#fdf6f0" }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[10000] flex items-center justify-center bg-[#fdf6f0]"
+            transition={{ duration: 1.9, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-[10000] flex items-center justify-center overflow-hidden"
           >
+            <motion.div
+              aria-hidden="true"
+              initial={{ opacity: 0, scale: 0.15 }}
+              animate={{ opacity: [0, 0, 1, 0.35], scale: [0.15, 0.15, 0.9, 1.45] }}
+              transition={{ duration: 1.85, times: [0, 0.24, 0.65, 1], ease: "easeOut" }}
+              className="absolute h-[72vmax] w-[72vmax] rounded-full bg-[radial-gradient(circle,_rgba(255,255,255,0.98)_0%,_rgba(253,246,240,0.82)_32%,_rgba(253,246,240,0)_70%)]"
+            />
             <motion.img
               src="/logo.png"
               alt=""
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              className="h-20 w-20 rounded-full object-cover"
+              initial={{ opacity: 0, scale: 0.62, rotate: 0 }}
+              animate={{ opacity: [0, 0.3, 1, 1], scale: [0.62, 0.72, 0.94, 1], rotate: [0, 18, 150, 720] }}
+              transition={{ duration: 1.85, times: [0, 0.38, 0.67, 1], ease: "easeInOut" }}
+              className="relative h-20 w-20 rounded-full object-cover shadow-[0_14px_36px_rgba(31,34,51,0.22)]"
             />
           </motion.div>
         )}
