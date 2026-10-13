@@ -137,7 +137,7 @@ function HeroNav() {
 export default function Hero() {
   return (
     <section id="top" aria-labelledby="hero-title"
-      className="relative flex min-h-screen w-full flex-col items-center overflow-x-hidden"
+      className="relative flex w-full flex-col items-center overflow-x-hidden"
       style={{ backgroundColor: "#faf7f4" }}
     >
       <HeroNav />
@@ -152,7 +152,7 @@ export default function Hero() {
         <motion.p {...enter(0.2)} animate={{ opacity:[1,0.68,1], y:[0,-4,0] }} transition={{ delay:0.75, duration:2.4, repeat:Infinity, ease:"easeInOut" }}
           className="font-heading text-base font-black uppercase tracking-[0.18em] sm:text-xl md:text-2xl" style={{ color: INK }}
         >I am Hope</motion.p>
-        <h1 id="hero-title" className="font-heading mt-2 w-full text-[clamp(1.7rem,7vw,4rem)] font-black uppercase leading-[0.92] tracking-[-0.02em]" style={{ color: MAROON }}>
+        <h1 id="hero-title" className="font-heading mt-2 w-full whitespace-nowrap text-[clamp(1.1rem,5.5vw,4rem)] font-black uppercase leading-[0.92] tracking-[-0.02em]" style={{ color: MAROON }}>
           <Typewriter phrases={rolePhrases} />
         </h1>
         <motion.p {...enter(0.36)} className="mt-4 w-full max-w-[420px] text-sm leading-6 sm:text-base sm:leading-7" style={{ color:"rgba(31,34,51,0.60)", fontWeight:300 }}>
