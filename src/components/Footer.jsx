@@ -30,7 +30,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer id="footer" className="bg-lavender py-14 text-navy sm:py-20">
+    <footer id="footer" className="bg-lavender pb-24 pt-14 text-navy sm:pb-20 sm:pt-20 md:pb-20">
       <div className="mx-auto max-w-[1240px] px-5 sm:px-8 lg:px-10">
         <div className="rounded-[2rem] border-[3px] border-[#1d1d2a]/15 bg-[#f7f0ee] px-6 py-8 shadow-[0_18px_40px_rgba(31,34,51,0.08)] sm:px-8 lg:px-10">
           <div className="mb-10 flex items-center gap-3 sm:mb-12">
