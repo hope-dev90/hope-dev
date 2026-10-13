@@ -30,20 +30,20 @@ export default function Footer() {
   ];
 
   return (
-    <footer id="footer" className="bg-lavender py-14 text-navy sm:py-20" style={{ fontFamily: "Outfit, ui-sans-serif, system-ui, sans-serif" }}>
+    <footer id="footer" className="bg-lavender py-14 text-navy sm:py-20">
       <div className="mx-auto max-w-[1240px] px-5 sm:px-8 lg:px-10">
         <div className="rounded-[2rem] border-[3px] border-[#1d1d2a]/15 bg-[#f7f0ee] px-6 py-8 shadow-[0_18px_40px_rgba(31,34,51,0.08)] sm:px-8 lg:px-10">
-          <div className="mb-10 flex items-center gap-3 sm:mb-12" style={{ fontFamily: "Outfit, ui-sans-serif, system-ui, sans-serif" }}>
+          <div className="mb-10 flex items-center gap-3 sm:mb-12">
             <img src="/logo-touch.png" alt="Hope logo" className="h-10 w-10 rounded-xl object-contain shadow-inner" />
             <span className="text-2xl font-extrabold tracking-[-0.05em] text-navy">Hope</span>
           </div>
 
           <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
             <div className="space-y-4 text-navy">
-              <p className="text-[clamp(2.2rem,4vw,4rem)] font-black leading-[0.95] tracking-[-0.06em] text-navy">
+              <p className="text-[clamp(1.8rem,4vw,4rem)] font-black leading-[0.95] tracking-[-0.06em] text-navy">
                 Walk the
               </p>
-              <p className="text-[clamp(2.2rem,4vw,4rem)] font-black leading-[0.95] tracking-[-0.06em] text-orange">
+              <p className="text-[clamp(1.8rem,4vw,4rem)] font-black leading-[0.95] tracking-[-0.06em] text-orange">
                 Walk 🔮
               </p>
             </div>

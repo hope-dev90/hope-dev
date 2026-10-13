@@ -89,7 +89,7 @@ export default function Testimonials() {
                 ease: [0.22, 1, 0.36, 1],
               }}
               whileHover={{ y: -8, scale: 1.015 }}
-              className="group relative flex h-full min-h-[360px] flex-col overflow-hidden rounded-3xl bg-white p-6 text-navy shadow-card ring-1 ring-black/5 sm:p-7"
+              className="group relative flex h-full min-h-[300px] sm:min-h-[360px] flex-col overflow-hidden rounded-3xl bg-white p-6 text-navy shadow-card ring-1 ring-black/5 sm:p-7"
             >
               <span className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-orange/10 blur-2xl transition-transform duration-700 group-hover:scale-150" />
               <p className="relative flex-1 text-[15px] leading-[1.65] tracking-[-0.02em] text-navy/75 sm:text-base">

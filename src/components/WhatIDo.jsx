@@ -20,9 +20,9 @@ export default function WhatIDo() {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="about" ref={ref} className="py-20 scroll-mt-24 bg-white">
+    <section id="about" ref={ref} className="py-12 sm:py-20 scroll-mt-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
 
           {/* LEFT — service card stack */}
           <motion.div
@@ -32,7 +32,7 @@ export default function WhatIDo() {
             className="flex flex-col items-center"
           >
             <div
-              className="w-full max-w-sm rounded-[2rem] p-5 flex flex-col gap-4"
+              className="w-full max-w-sm mx-auto rounded-[2rem] p-5 flex flex-col gap-4"
               style={{ background: "linear-gradient(160deg, #f5e6e8 0%, #fdf0f0 100%)" }}
             >
               {whatIDo.map((item, i) => {
@@ -86,7 +86,7 @@ export default function WhatIDo() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h2 className="font-heading text-3xl sm:text-4xl font-black leading-tight mb-4">
+            <h2 className="font-heading text-3xl sm:text-4xl font-black leading-tight mb-4 text-center lg:text-left">
               <span className="text-navy">My Awesome</span>
               <br />
               <span className="text-orange">Services</span>

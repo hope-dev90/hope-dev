@@ -111,7 +111,7 @@ export default function CV() {
       {/* top bar */}
       <div className="bg-white border-b border-navy/8 print:hidden">
         <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
-          <a href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-navy/60 hover:text-orange transition-colors">
+          <a href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-navy/60 hover:text-orange transition-colors truncate">
             <FiArrowLeft size={15} /> Back to Portfolio
           </a>
           <button
@@ -137,7 +137,7 @@ export default function CV() {
                 <p className="text-orange font-bold text-lg mt-0.5">{profile.role}</p>
                 <p className="text-navy/55 text-sm mt-2 max-w-xl leading-relaxed">{profile.intro}</p>
               </div>
-              <div className="flex flex-col gap-2 text-sm shrink-0">
+              <div className="flex flex-col gap-2 text-sm shrink-0 w-full sm:w-auto">
                 <a href={`mailto:${profile.email}`} className="flex items-center gap-2 text-navy/70 hover:text-orange transition-colors">
                   <FiMail size={13} className="text-orange shrink-0" />{profile.email}
                 </a>
@@ -160,7 +160,7 @@ export default function CV() {
           </div>
 
           {/* ═══ BODY ══════════════════════════════════════════════════════════ */}
-          <div className="px-8 sm:px-12 py-10 grid lg:grid-cols-[1fr_300px] gap-10">
+          <div className="px-4 sm:px-8 lg:px-12 py-10 grid lg:grid-cols-[1fr_300px] gap-10">
 
             {/* ── LEFT ─────────────────────────────────────────────────────── */}
             <div className="flex flex-col gap-10">

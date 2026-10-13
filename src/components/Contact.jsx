@@ -54,7 +54,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="scroll-mt-24 bg-lavender py-20">
+    <section id="contact" className="scroll-mt-24 bg-lavender py-12 sm:py-20">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Section heading */}
@@ -71,7 +71,7 @@ export default function Contact() {
           </motion.h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-[1fr_1.4fr] gap-10 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 items-start">
 
           {/* LEFT — contact info */}
           <motion.div
@@ -155,7 +155,7 @@ export default function Contact() {
             variants={fadeUp} custom={0.1}
             initial="hidden" whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
-            className="bg-white rounded-2xl shadow-card p-8"
+            className="bg-white rounded-2xl shadow-card p-5 sm:p-8"
           >
             <h3 className="text-xl font-bold text-navy mb-6">Send Me a Message</h3>
 

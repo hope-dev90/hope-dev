@@ -118,7 +118,7 @@ function FeaturedProject({ proj, index, inView }) {
       className={`flex flex-col ${isEven ? "lg:flex-row" : "lg:flex-row-reverse"} items-center gap-10 lg:gap-16 py-12 border-b border-navy/8 last:border-0`}
     >
       {/* device mockup */}
-      <div className={`w-full ${isPhone ? "lg:w-64 shrink-0" : "lg:w-[58%] shrink-0"}`}>
+      <div className={`w-full ${isPhone ? "lg:w-64 shrink-0" : "lg:w-[58%] shrink-0"} max-w-sm mx-auto lg:max-w-none`}>
         <motion.div
           whileHover={{ y: -6, rotate: isEven ? 1 : -1 }}
           transition={{ type: "spring", stiffness: 200, damping: 20 }}
@@ -243,7 +243,7 @@ export default function Projects() {
   const hidden   = cvProjects.filter((p) => !p.showOnHome);
 
   return (
-    <section id="projects" className="bg-white py-16 scroll-mt-24" ref={inViewRef}>
+    <section id="projects" className="bg-white py-12 sm:py-16 scroll-mt-24" ref={inViewRef}>
       <div className="max-w-5xl mx-auto px-6">
 
         {/* heading */}
