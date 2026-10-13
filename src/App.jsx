@@ -84,14 +84,24 @@ function AnimatedRoutes() {
               transition={{ duration: 1.85, times: [0, 0.24, 0.65, 1], ease: "easeOut" }}
               className="absolute h-[72vmax] w-[72vmax] rounded-full bg-[radial-gradient(circle,_rgba(255,255,255,0.98)_0%,_rgba(253,246,240,0.82)_32%,_rgba(253,246,240,0)_70%)]"
             />
-            <motion.img
-              src="/logo.png"
-              alt=""
-              initial={{ opacity: 0, scale: 0.62, rotate: 0 }}
-              animate={{ opacity: [0, 0.3, 1, 1], scale: [0.62, 0.72, 0.94, 1], rotate: [0, 18, 150, 720] }}
-              transition={{ duration: 1.85, times: [0, 0.38, 0.67, 1], ease: "easeInOut" }}
-              className="relative h-20 w-20 rounded-full object-cover shadow-[0_14px_36px_rgba(31,34,51,0.22)]"
-            />
+            <div className="relative flex flex-col items-center gap-3">
+              <motion.img
+                src="/logo.png"
+                alt=""
+                initial={{ opacity: 0, scale: 0.62, rotate: 0 }}
+                animate={{ opacity: [0, 0.3, 1, 1], scale: [0.62, 0.72, 0.94, 1], rotate: [0, 18, 150, 720] }}
+                transition={{ duration: 1.85, times: [0, 0.38, 0.67, 1], ease: "easeInOut" }}
+                className="h-20 w-20 rounded-full object-cover shadow-[0_14px_36px_rgba(31,34,51,0.22)]"
+              />
+              <motion.p
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: [0, 0, 1], y: [8, 8, 0] }}
+                transition={{ duration: 1.85, times: [0, 0.55, 1], ease: [0.22, 1, 0.36, 1] }}
+                className="font-heading text-sm font-bold tracking-[0.12em] text-[#1f2233]"
+              >
+                Mutimutuje Hope
+              </motion.p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
