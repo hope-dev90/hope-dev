@@ -175,13 +175,12 @@ export default function Navbar() {
           aria-label="Main navigation"
           className="
             flex h-auto w-[76px] flex-col
-            items-center gap-1 overflow-y-auto
+            items-center gap-1
             rounded-[24px] border border-[#24243a]/[0.09]
             bg-[#faf8f6]/95 px-1.5 py-2.5
             shadow-[0_10px_35px_rgba(31,34,51,0.09)]
             backdrop-blur-xl
           "
-          style={{ maxHeight: "calc(100dvh - 24px)" }}
         >
           {/* Logo */}
           <Link

@@ -87,9 +87,9 @@ function HeroNav() {
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 sm:px-8">
         <a href="#top" className="flex items-center gap-2.5" aria-label="Hope Mutimutuje home">
           <img src="/logo-touch.png" alt="" className="h-9 w-9 rounded-xl object-contain" />
-          <span className="font-heading text-sm font-bold sm:text-base" style={{ color: INK }}>Mutimutuje Hope</span>
+          <span className="font-heading shrink-0 whitespace-nowrap text-sm font-bold sm:text-base" style={{ color: INK }}>Mutimutuje Hope</span>
         </a>
-        <nav aria-label="Hero navigation" className="hidden items-center gap-1 sm:flex">
+        <nav aria-label="Hero navigation" className="hidden shrink-0 items-center gap-1 md:flex">
           {navLinks.map((link) => (
             <a key={link.id} href={link.href}
               className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition-colors hover:bg-black/5 hover:text-orange"
@@ -100,7 +100,7 @@ function HeroNav() {
           ))}
         </nav>
         <button type="button" onClick={() => setMenuOpen(v => !v)}
-          className="flex h-9 w-9 items-center justify-center rounded-xl transition-colors hover:bg-black/5 sm:hidden"
+          className="flex h-9 w-9 items-center justify-center rounded-xl transition-colors hover:bg-black/5 md:hidden"
           aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} style={{ color: INK }}
         >
           {menuOpen ? <FiX size={20}/> : <FiMenu size={20}/>}
@@ -110,7 +110,7 @@ function HeroNav() {
         {menuOpen && (
           <motion.nav aria-label="Mobile hero navigation"
             initial={{ opacity:0, y:-8 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:-8 }} transition={{ duration:0.2 }}
-            className="mx-4 mb-2 overflow-hidden rounded-2xl border border-black/[0.07] bg-white/90 shadow-lg backdrop-blur-xl sm:hidden"
+            className="mx-4 mb-2 overflow-hidden rounded-2xl border border-black/[0.07] bg-white/90 shadow-lg backdrop-blur-xl md:hidden"
           >
             <ul className="flex flex-col divide-y divide-black/[0.05]">
               {navLinks.map((link) => (
@@ -137,17 +137,17 @@ function HeroNav() {
 export default function Hero() {
   return (
     <section id="top" aria-labelledby="hero-title"
-      className="relative flex w-full flex-col items-center overflow-x-hidden"
+      className="relative flex min-h-[100svh] w-full flex-col items-center overflow-x-clip"
       style={{ backgroundColor: "#faf7f4" }}
     >
       <HeroNav />
       <span className="pointer-events-none absolute -left-24 bottom-[-4rem] hidden h-64 w-64 rounded-full border-[1.5px] sm:block" style={{ borderColor: "rgba(122,10,13,0.18)" }} />
       <span className="pointer-events-none absolute -right-16 top-16 hidden h-36 w-36 rounded-full border-[1.5px] sm:block" style={{ borderColor: "rgba(122,10,13,0.14)" }} />
 
-      <div className="flex w-full max-w-xl flex-1 flex-col items-center justify-center px-5 pb-6 pt-20 text-center sm:px-8 sm:pt-24 md:max-w-2xl">
-        <motion.div {...enter(0.1)} className="relative mb-6">
+      <div className="flex w-full max-w-xl flex-1 flex-col items-center justify-center px-5 pb-3 pt-16 text-center sm:px-8 sm:pb-6 sm:pt-24 md:max-w-2xl">
+        <motion.div {...enter(0.1)} className="relative mb-4 sm:mb-6">
           <div className="absolute inset-3 -z-10 rounded-full blur-xl" style={{ backgroundColor: "rgba(122,10,13,0.10)" }} />
-          <img src="/pof.png" alt="Hope Mutimutuje" className="h-28 w-28 rounded-full border-4 border-white object-cover object-top shadow-[0_10px_28px_rgba(26,26,46,0.14)] sm:h-36 sm:w-36" />
+          <img src="/pof.png" alt="Hope Mutimutuje" className="h-24 w-24 rounded-full border-4 border-white object-cover object-top shadow-[0_10px_28px_rgba(26,26,46,0.14)] xs:h-28 xs:w-28 sm:h-36 sm:w-36" />
         </motion.div>
         <motion.p {...enter(0.2)} animate={{ opacity:[1,0.68,1], y:[0,-4,0] }} transition={{ delay:0.75, duration:2.4, repeat:Infinity, ease:"easeInOut" }}
           className="font-heading text-base font-black uppercase tracking-[0.18em] sm:text-xl md:text-2xl" style={{ color: INK }}
@@ -155,30 +155,30 @@ export default function Hero() {
         <h1 id="hero-title" className="font-heading mt-2 w-full whitespace-nowrap text-[clamp(1.1rem,5.5vw,4rem)] font-black uppercase leading-[0.92] tracking-[-0.02em]" style={{ color: MAROON }}>
           <Typewriter phrases={rolePhrases} />
         </h1>
-        <motion.p {...enter(0.36)} className="mt-4 w-full max-w-[420px] text-sm leading-6 sm:text-base sm:leading-7" style={{ color:"rgba(31,34,51,0.60)", fontWeight:300 }}>
+        <motion.p {...enter(0.36)} className="mt-3 w-full max-w-[420px] text-sm leading-5 sm:mt-4 sm:leading-7 sm:text-base" style={{ color:"rgba(31,34,51,0.60)", fontWeight:300 }}>
           I build robust, scalable and secure backend systems and APIs. Passionate about clean architecture and solving real-world problems.
         </motion.p>
-        <motion.div {...enter(0.44)} className="mt-6 flex w-full flex-col gap-3 sm:flex-row sm:justify-center">
-          <a href="#contact" className="flex w-full items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 sm:w-auto"
+        <motion.div {...enter(0.44)} className="mt-4 flex w-full flex-row justify-center gap-2 sm:mt-6 sm:gap-3">
+          <a href="#contact" className="flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 sm:flex-none sm:px-7"
             style={{ backgroundColor: MAROON, boxShadow:"0 8px 20px rgba(122,10,13,0.26)" }}
             onMouseEnter={e => e.currentTarget.style.backgroundColor=MAROON_DARK}
             onMouseLeave={e => e.currentTarget.style.backgroundColor=MAROON}
           >Get In Touch <FiArrowRight aria-hidden="true" /></a>
-          <Link to="/cv" className="flex w-full items-center justify-center gap-2 rounded-full border bg-white px-7 py-3 text-sm font-bold shadow-[0_4px_14px_rgba(26,26,46,0.08)] transition hover:-translate-y-0.5 sm:w-auto"
+          <Link to="/cv" className="flex flex-1 items-center justify-center gap-2 rounded-full border bg-white px-4 py-3 text-sm font-bold shadow-[0_4px_14px_rgba(26,26,46,0.08)] transition hover:-translate-y-0.5 sm:flex-none sm:px-7"
             style={{ color: INK, borderColor:"rgba(31,34,51,0.10)" }}
           >Download CV <FiDownload aria-hidden="true" /></Link>
         </motion.div>
       </div>
 
-      <motion.div {...enter(0.52)} className="w-full shrink-0 pb-24 pt-3 text-center sm:pb-8">
+      <motion.div {...enter(0.52)} className="w-full shrink-0 pb-4 pt-2 text-center sm:pb-8 sm:pt-3">
         <div className="mx-auto flex max-w-xs items-center gap-3 px-5 sm:max-w-sm">
           <span className="h-px flex-1" style={{ backgroundColor:"rgba(31,34,51,0.12)" }} />
           <p className="whitespace-nowrap text-[8px] font-semibold uppercase tracking-[0.12em] sm:text-[10px]" style={{ color:"rgba(31,34,51,0.40)" }}>Work for all this brand &amp; client</p>
           <span className="h-px flex-1" style={{ backgroundColor:"rgba(31,34,51,0.12)" }} />
         </div>
-        <div className="mt-3 flex flex-wrap items-center justify-center gap-4 px-5 sm:gap-6">
+        <div className="mt-2 flex flex-wrap items-center justify-center gap-3 px-5 sm:mt-3 sm:gap-6">
           {brandLogos.map(({ Icon, color, label }) => (
-            <span key={label} title={label} aria-label={label} className="transition-transform duration-200 hover:-translate-y-1"><Icon size={20} color={color} /></span>
+            <span key={label} title={label} aria-label={label} className="transition-transform duration-200 hover:-translate-y-1"><Icon className="h-6 w-6 sm:h-7 sm:w-7" color={color} /></span>
           ))}
         </div>
 
@@ -186,7 +186,7 @@ export default function Hero() {
         <motion.a
           href="#about"
           aria-label="Scroll down"
-          className="mx-auto mt-6 flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-navy/30 sm:hidden"
+          className="mx-auto mt-3 flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-navy/30 sm:mt-6 sm:hidden"
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
         >

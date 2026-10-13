@@ -10,15 +10,23 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
+  min-height: 100svh;
+  margin: 0;
+  overflow-x: clip;
   font-family: 'Urbanist', ui-sans-serif, system-ui, sans-serif;
   font-weight: 200;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* prevent last section hiding behind mobile bottom tab bar */
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+#root {
+  min-height: 100svh;
 }
 
 @media (prefers-reduced-motion: reduce) {
