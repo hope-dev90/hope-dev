@@ -260,6 +260,18 @@ export const realCertificates = [
     file: "/certificates/MUTIMUTUJE Hope CERTIFICATE OF COMPLETION.pdf",
     type: "pdf",
   },
+  {
+    id: 16,
+    name: "Networking Basics",
+    issuer: "Cisco Networking Academy",
+    date: "2026",
+    category: "Cybersecurity",
+    highlight: true,
+    color: "bg-sky-50 border-sky-200",
+    badge: "bg-sky-100 text-sky-700",
+    file: "/certificates/Networking_Basics_certificate_mutimutujehope90-gmail-com_ae6d858c-ff79-4f53-8872-f484c9041fd1.pdf",
+    type: "pdf",
+  },
 ];
 
 export const navLinks = [
