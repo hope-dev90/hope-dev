@@ -13,7 +13,7 @@ const collaborators = [
   {
     name: "Umurerwa Aubierge",
     initials: "UA",
-    role: "Co-founder of Umuco Core",
+    role: "CEO of Umuco Core",
     image: "/aubie.png",
     quote:
       "Hope was one of the best backend developers I worked with on Umuco Core. She brought strong thinking to APIs, data design, and security, while keeping the team focused on building something useful. Her openness, reliability, and positive energy made working together a great experience.",

@@ -48,38 +48,64 @@ export const techStack = [
   { name: "Cybersecurity", key: "cybersecurity" },
 ];
 
+
 export const whatIDo = [
   {
     title: "Backend Development",
-    text: "Building robust, scalable server-side systems, REST APIs and microservices using modern backend frameworks and tools.",
+    text: "I build reliable backend systems, authentication, business logic, and REST APIs for web applications.",
     icon: "code",
-    color: "bg-violet-100 text-violet-600",
+    color: "bg-rose-100 text-rose-700",
+    tools: ["java", "spring", "node", "typescript", "postgresql"],
+    projectLink: "#projects",
+    cta: "View Projects",
   },
   {
-    title: "API & Microservices",
-    text: "Designing and implementing RESTful APIs and microservices architectures.",
+    title: "API & Microservices Development",
+    text: "I develop REST APIs, connect third-party services, and build maintainable microservice architectures.",
     icon: "server",
-    color: "bg-emerald-100 text-emerald-600",
+    color: "bg-rose-100 text-rose-700",
+    tools: ["nest", "express", "spring", "postgresql", "mongodb"],
+    projectLink: "#projects",
+    cta: "View Projects",
   },
   {
-    title: "Databases",
-    text: "Working with SQL and NoSQL databases to store and manage data efficiently.",
-    icon: "database",
-    color: "bg-amber-100 text-amber-600",
+    title: "TYPO3 & CMS Development",
+    text: "I create and customize content-managed websites that make publishing and maintaining digital content easier.",
+    icon: "panels-top-left",
+    color: "bg-rose-100 text-rose-700",
+    tools: ["typo3", "php", "html", "css", "typescript"],
+    projectLink: "#projects",
+    cta: "View Projects",
   },
   {
     title: "DevOps & Deployment",
-    text: "Using Docker, Kubernetes and CI/CD pipelines for reliable deployments.",
-    icon: "shield",
-    color: "bg-sky-100 text-sky-600",
+    text: "I containerize applications and work with deployment pipelines and infrastructure tools to support reliable releases.",
+    icon: "container",
+    color: "bg-rose-100 text-rose-700",
+    tools: ["docker", "kubernetes", "cicd", "git", "linux"],
+    projectLink: "#projects",
+    cta: "View Projects",
   },
   {
-    title: "Cybersecurity & Networking",
-    text: "Understanding secure coding practices, networking concepts and system security.",
-    icon: "lock",
-    color: "bg-rose-100 text-rose-600",
+    title: "Cybersecurity & Web Pentesting",
+    text: "I explore web application security, assess vulnerabilities in authorized environments, and apply secure coding practices.",
+    icon: "shield",
+    color: "bg-rose-100 text-rose-700",
+    tools: ["networking", "cybersecurity", "linux"],
+    projectLink: "#projects",
+    cta: "View Security Work",
+  },
+  {
+    title: "Full-Stack Development",
+    text: "I build complete web applications, connecting responsive interfaces to backend APIs, databases, and authentication.",
+    icon: "layers",
+    color: "bg-rose-100 text-rose-700",
+    tools: ["react", "typescript", "node", "express", "postgresql", "mongodb"],
+    projectLink: "#projects",
+    cta: "View Projects",
   },
 ];
+
 
 export const experience = [
   {

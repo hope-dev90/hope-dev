@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { FiExternalLink, FiX } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight, FiExternalLink, FiX } from "react-icons/fi";
 import { realCertificates } from "../data";
 
 function CertificatePreview({ cert }) {
@@ -70,8 +70,16 @@ export default function Certificates() {
   const [activeIndex, setActiveIndex] = useState(8);
   const [activeCert, setActiveCert] = useState(null);
   const [isLeaving, setIsLeaving] = useState(false);
+  const [direction, setDirection] = useState(1);
   const leavingRef = useRef(false);
   const navigate = useNavigate();
+  const active = realCertificates[activeIndex];
+
+  const showCertificate = (nextIndex) => {
+    const normalisedIndex = (nextIndex + realCertificates.length) % realCertificates.length;
+    setDirection(normalisedIndex > activeIndex ? 1 : -1);
+    setActiveIndex(normalisedIndex);
+  };
 
   useEffect(() => {
     if (activeCert) return undefined;
@@ -119,43 +127,50 @@ export default function Certificates() {
         </div>
       </div>
 
-      <section className="relative mt-10 h-[min(68vw,620px)] min-h-[390px] sm:mt-14" aria-label="Certificate coverflow">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(247,139,45,0.12),_transparent_45%)]" />
-        <div className="absolute inset-0 flex items-center justify-center [perspective:1400px]">
-          {realCertificates.map((cert, index) => {
-            const offset = index - activeIndex;
-            const distance = Math.abs(offset);
-            const visible = distance <= 3;
+      <section className="relative mx-auto mt-10 max-w-5xl px-6 sm:mt-14" aria-label="Certificate carousel">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,_rgba(247,139,45,0.12),_transparent_58%)]" />
+        <div className="overflow-hidden rounded-[2rem] shadow-[0_24px_60px_rgba(31,34,51,0.18)] ring-1 ring-navy/10 sm:rounded-[2.5rem]">
+          <AnimatePresence initial={false} mode="wait" custom={direction}>
+            <motion.button
+              key={active.id}
+              type="button"
+              custom={direction}
+              initial={(travel) => ({ opacity: 0, x: travel * 120, scale: 0.96 })}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={(travel) => ({ opacity: 0, x: travel * -120, scale: 0.96 })}
+              transition={{ type: "spring", stiffness: 260, damping: 28, mass: 0.9 }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.16}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < -70 || info.velocity.x < -400) showCertificate(activeIndex + 1);
+                if (info.offset.x > 70 || info.velocity.x > 400) showCertificate(activeIndex - 1);
+              }}
+              onClick={() => setActiveCert(active)}
+              aria-label={`View ${active.name}`}
+              className="group relative block aspect-[16/9] w-full overflow-hidden bg-white text-left"
+            >
+              <CertificatePreview cert={active} />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/90 via-navy/35 to-transparent px-6 pb-6 pt-20 text-white sm:px-8 sm:pb-8">
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/65">{active.category}</p>
+                <p className="mt-1 text-base font-extrabold leading-tight sm:text-lg">{active.name}</p>
+              </div>
+            </motion.button>
+          </AnimatePresence>
+        </div>
 
-            return (
-              <motion.button
-                key={cert.id}
-                type="button"
-                initial={false}
-                animate={{
-                  x: `${offset * 63}%`,
-                  scale: offset === 0 ? 1 : 0.76 - Math.min(distance, 3) * 0.04,
-                  rotateY: offset * -25,
-                  rotateZ: offset * -2,
-                  opacity: visible ? 1 : 0,
-                  zIndex: 20 - distance,
-                }}
-                transition={{ type: "spring", stiffness: 240, damping: 28, mass: 0.8 }}
-                onHoverStart={() => visible && setActiveIndex(index)}
-                onFocus={() => setActiveIndex(index)}
-                onClick={() => setActiveCert(cert)}
-                aria-label={`View ${cert.name}`}
-                className="absolute aspect-[1.42/1] w-[min(82vw,640px)] overflow-hidden rounded-2xl bg-white text-left shadow-[0_24px_60px_rgba(31,34,51,0.22)] ring-1 ring-navy/10 sm:rounded-3xl"
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                <CertificatePreview cert={cert} />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/90 via-navy/30 to-transparent px-5 pb-5 pt-14 text-white sm:px-7 sm:pb-6">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/65">{cert.category}</p>
-                  <p className="mt-1 text-sm font-extrabold leading-tight sm:text-base">{cert.name}</p>
-                </div>
-              </motion.button>
-            );
-          })}
+        <div className="mt-6 flex items-center justify-center gap-3">
+          <button type="button" onClick={() => showCertificate(activeIndex - 1)} aria-label="Previous certificate" className="flex h-11 w-11 items-center justify-center rounded-full border border-orange/40 bg-white text-orange transition-all hover:-translate-y-0.5 hover:border-orange hover:bg-orange hover:text-white">
+            <FiChevronLeft size={19} />
+          </button>
+          <div className="flex gap-1.5" aria-label={`Certificate ${activeIndex + 1} of ${realCertificates.length}`}>
+            {realCertificates.map((cert, index) => (
+              <button key={cert.id} type="button" onClick={() => showCertificate(index)} aria-label={`Show ${cert.name}`} className={`h-1.5 rounded-full transition-all ${index === activeIndex ? "w-7 bg-orange" : "w-1.5 bg-navy/15 hover:bg-navy/35"}`} />
+            ))}
+          </div>
+          <button type="button" onClick={() => showCertificate(activeIndex + 1)} aria-label="Next certificate" className="flex h-11 w-11 items-center justify-center rounded-full bg-orange text-white shadow-[0_10px_24px_rgba(247,139,45,0.26)] transition-all hover:-translate-y-0.5 hover:bg-orange-dark">
+            <FiChevronRight size={19} />
+          </button>
         </div>
       </section>
 

@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
-import { whatIDo } from "../data";
-import { FiCode, FiServer, FiDatabase, FiShield, FiLock, FiChevronDown } from "react-icons/fi";
+import { whatIDo, techStack } from "../data";
+import { FiCode, FiServer, FiDatabase, FiShield, FiLock, FiLayout, FiBox, FiLayers, FiChevronDown } from "react-icons/fi";
 import { motion, useInView } from "framer-motion";
 import { staggerContainer, fadeUp } from "../lib/motion";
+import TechIcon from "./TechIcon";
 
 const iconMap = {
   code: FiCode,
@@ -10,7 +11,12 @@ const iconMap = {
   database: FiDatabase,
   shield: FiShield,
   lock: FiLock,
+  "panels-top-left": FiLayout,
+  container: FiBox,
+  layers: FiLayers,
 };
+
+const techNames = Object.fromEntries(techStack.map((tech) => [tech.key, tech.name]));
 
 const GRAD_ACTIVE = "linear-gradient(135deg, #780000 0%, #a30000 50%, #5e0000 100%)";
 
@@ -18,6 +24,7 @@ export default function WhatIDo() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const [active, setActive] = useState(0);
+  const current = whatIDo[active];
 
   return (
     <section id="about" ref={ref} className="py-12 sm:py-20 scroll-mt-24 bg-white">
@@ -37,7 +44,7 @@ export default function WhatIDo() {
             >
               {whatIDo.map((item, i) => {
                 const isActive = active === i;
-                const ItemIcon = iconMap[item.icon];
+                const ItemIcon = iconMap[item.icon] ?? FiCode;
 
                 return (
                   <motion.div
@@ -57,8 +64,8 @@ export default function WhatIDo() {
                       className="rounded-[1.15rem] px-5 py-4 flex items-center gap-4"
                       style={{ background: isActive ? "#ffffff" : "rgba(255,255,255,0.55)" }}
                     >
-                      <span className="w-12 h-12 shrink-0 rounded-full flex items-center justify-center bg-orange/10">
-                        <ItemIcon size={20} className="text-orange" />
+                      <span className={`w-12 h-12 shrink-0 rounded-full flex items-center justify-center ${item.color}`}>
+                        <ItemIcon size={20} />
                       </span>
                       <div className="flex-1 min-w-0">
                         <p className="font-bold text-sm text-navy mb-1">{item.title}</p>
@@ -80,7 +87,7 @@ export default function WhatIDo() {
             </button>
           </motion.div>
 
-          {/* RIGHT — text detail */}
+          {/* RIGHT — active service detail */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -92,16 +99,40 @@ export default function WhatIDo() {
               <span className="text-orange">Services</span>
             </h2>
 
-            <p className="text-navy/55 text-sm leading-relaxed max-w-md mb-6">
-              {whatIDo[active].text}
-            </p>
-
-            <a
-              href="#contact"
-              className="inline-flex items-center bg-orange hover:bg-orange-dark text-white font-bold px-7 py-3 rounded-full text-sm transition-colors"
+            {/* animated on service change */}
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              Get In Touch
-            </a>
+              <h3 className="text-navy font-bold text-base mb-2 text-center lg:text-left">{current.title}</h3>
+              <p className="text-navy/55 text-sm leading-relaxed max-w-md mb-5 text-center lg:text-left">
+                {current.text}
+              </p>
+
+              {/* tools used for this service */}
+              <div className="flex flex-wrap justify-center gap-2 lg:justify-start mb-6">
+                {current.tools.map((tool) => (
+                  <span
+                    key={tool}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-navy/10 bg-navy/5 px-2.5 py-1 text-[11px] font-semibold text-navy/60"
+                  >
+                    <TechIcon name={tool} size={13} />
+                    {techNames[tool] ?? tool}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex justify-center lg:justify-start">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center bg-orange hover:bg-orange-dark text-white font-bold px-7 py-3 rounded-full text-sm transition-colors"
+                >
+                  Get In Touch
+                </a>
+              </div>
+            </motion.div>
           </motion.div>
 
         </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "./components/Navbar";
@@ -53,6 +53,7 @@ function Portfolio() {
 
 function AnimatedRoutes() {
   const location = useLocation();
+  const hasShownIntro = useRef(false);
   const [isLoading, setIsLoading] = useState(location.pathname === "/");
 
   useEffect(() => {
@@ -61,7 +62,15 @@ function AnimatedRoutes() {
       return undefined;
     }
 
-    setIsLoading(true);
+    // Only play the splash loader on the very first visit to the site —
+    // never when navigating back to "/" (e.g. scrolling off the certificates preview).
+    // If the intro was already shown, make sure the loader is cleared.
+    if (hasShownIntro.current) {
+      setIsLoading(false);
+      return undefined;
+    }
+    hasShownIntro.current = true;
+
     const timeout = window.setTimeout(() => setIsLoading(false), 2200);
     return () => window.clearTimeout(timeout);
   }, [location.pathname]);
