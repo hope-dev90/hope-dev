@@ -131,6 +131,7 @@ const wrap = (min, max, value) => {
  */
 function CertificateTicker({ certs, onOpen, baseSpeed = 50 }) {
   const reduceMotion = useReducedMotion();
+  const isTouchDevice = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
   const x = useMotionValue(0);
   const cursorShift = useMotionValue(0);
   const setRef = useRef(null);
@@ -171,11 +172,11 @@ function CertificateTicker({ certs, onOpen, baseSpeed = 50 }) {
     x.set(wrap(-setWidth, 0, x.get() + moveBy));
   });
 
-  // Reduced motion: plain horizontally scrollable row, no animation
-  if (reduceMotion) {
+  // Reduced motion OR touch device: plain horizontally scrollable row, no animation
+  if (reduceMotion || isTouchDevice) {
     return (
-      <div className="overflow-x-auto py-8 pl-6">
-        <div className="flex w-max">
+      <div className="overflow-x-auto py-8 pl-6 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex w-max pr-6">
           {certs.map((cert, i) => (
             <CertificateCard key={cert.id} cert={cert} index={i} onOpen={onOpen} />
           ))}
@@ -223,7 +224,7 @@ export default function Certifications() {
   const [activeCert, setActiveCert] = useState(null);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const featuredCertificateIds = [10, 9, 15, 1];
+  const featuredCertificateIds = [10, 15, 16, 1];
   const featuredCertificates = featuredCertificateIds
     .map((certificateId) => realCertificates.find((certificate) => certificate.id === certificateId))
     .filter(Boolean);
