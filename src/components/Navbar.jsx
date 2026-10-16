@@ -59,6 +59,7 @@ export default function Navbar() {
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const location = useLocation();
   const isCV = location.pathname === "/cv";
+  const isPortfolioHome = location.pathname === "/";
   const activeSection = useActiveSection();
 
   /* show/hide on scroll */
@@ -128,9 +129,9 @@ export default function Navbar() {
               return (
                 <a
                   key={link.id}
-                  href={link.href}
+                  href={isPortfolioHome ? link.href : `/${link.href}`}
                   aria-current={isActive ? "location" : undefined}
-                  onClick={() => handleNavClick(link.id)}
+                  onClick={isPortfolioHome ? () => handleNavClick(link.id) : undefined}
                   className={`
                     relative flex flex-1 flex-col items-center justify-center gap-0.5 py-2
                     transition-colors duration-200
@@ -206,9 +207,9 @@ export default function Navbar() {
                 return (
                   <li key={link.id} className="w-full">
                     <a
-                      href={link.href}
+                      href={isPortfolioHome ? link.href : `/${link.href}`}
                       aria-current={isActive ? "location" : undefined}
-                      onClick={() => handleNavClick(link.id)}
+                      onClick={isPortfolioHome ? () => handleNavClick(link.id) : undefined}
                       className={`
                         group relative flex w-full flex-col items-center justify-center gap-1.5
                         rounded-xl px-1 py-1.5 transition-all duration-200

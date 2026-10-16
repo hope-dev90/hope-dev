@@ -8,6 +8,7 @@ import WhatIDo from "./components/WhatIDo";
 import Projects from "./components/Projects";
 import InfoGrid from "./components/InfoGrid";
 import Testimonials from "./components/Testimonials";
+import Certificates from "./pages/Certificates";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import CV from "./pages/CV";
@@ -27,6 +28,15 @@ function PageWrapper({ children }) {
 }
 
 function Portfolio() {
+  useEffect(() => {
+    const sectionId = window.location.hash.slice(1);
+    if (!sectionId) return;
+    const timeout = window.setTimeout(() => {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+    return () => window.clearTimeout(timeout);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       <Hero />
@@ -62,6 +72,7 @@ function AnimatedRoutes() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<PageWrapper><Portfolio /></PageWrapper>} />
           <Route path="/cv" element={<PageWrapper><CV /></PageWrapper>} />
+          <Route path="/certificates" element={<PageWrapper><Certificates /></PageWrapper>} />
         </Routes>
       </AnimatePresence>
 

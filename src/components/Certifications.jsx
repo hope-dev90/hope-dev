@@ -1,15 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { realCertificates } from "../data";
-import { FiArrowRight, FiEye, FiX, FiExternalLink, FiAward } from "react-icons/fi";
+import { FiArrowRight, FiEye, FiX, FiExternalLink, FiAward, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import {
   motion,
   useInView,
   AnimatePresence,
-  useScroll,
-  useVelocity,
-  useSpring,
-  useTransform,
   useMotionValue,
   useAnimationFrame,
   useReducedMotion,
@@ -118,104 +114,72 @@ function CertificateCard({ cert, index, onOpen, hidden = false }) {
   );
 }
 
-// Wraps a value into the range [min, max)
 const wrap = (min, max, value) => {
   const range = max - min;
   return ((((value - min) % range) + range) % range) + min;
 };
 
-/**
- * Scroll-driven ticker: drifts left on its own, and page scrolling
- * speeds it up (and reverses it when you scroll back up).
- * Pauses while hovered.
- */
 function CertificateTicker({ certs, onOpen, baseSpeed = 50 }) {
   const reduceMotion = useReducedMotion();
-  const isTouchDevice = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
   const x = useMotionValue(0);
-  const cursorShift = useMotionValue(0);
   const setRef = useRef(null);
   const [setWidth, setSetWidth] = useState(0);
-  const direction = useRef(-1); // -1 = left, 1 = right
   const paused = useRef(false);
-  const combinedX = useTransform([x, cursorShift], ([baseX, shift]) => baseX + shift);
 
-  // Page-scroll velocity -> smoothed speed multiplier
-  const { scrollY } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 4], { clamp: false });
-
-  // Measure one full set of cards so we know where to loop
   useEffect(() => {
-    const el = setRef.current;
-    if (!el) return;
-    const measure = () => setSetWidth(el.offsetWidth);
+    const element = setRef.current;
+    if (!element) return undefined;
+    const measure = () => setSetWidth(element.offsetWidth);
     measure();
     const observer = new ResizeObserver(measure);
-    observer.observe(el);
+    observer.observe(element);
     return () => observer.disconnect();
   }, [certs.length]);
 
   useAnimationFrame((_, delta) => {
     if (reduceMotion || paused.current || !setWidth) return;
-
-    const factor = velocityFactor.get();
-    if (factor < 0) direction.current = 1;
-    else if (factor > 0) direction.current = -1;
-
-    const seconds = delta / 1000;
-    let moveBy = direction.current * baseSpeed * seconds;
-    // Scrolling adds extra push in the direction of travel
-    moveBy += direction.current * baseSpeed * seconds * Math.abs(factor);
-
-    x.set(wrap(-setWidth, 0, x.get() + moveBy));
+    x.set(wrap(-setWidth, 0, x.get() - baseSpeed * (delta / 1000)));
   });
 
-  // Reduced motion OR touch device: plain horizontally scrollable row, no animation
-  if (reduceMotion || isTouchDevice) {
-    return (
-      <div className="overflow-x-auto py-8 pl-6 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div className="flex w-max pr-6">
-          {certs.map((cert, i) => (
-            <CertificateCard key={cert.id} cert={cert} index={i} onOpen={onOpen} />
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  const handlePointerMove = (event) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const center = (event.clientX - rect.left) / rect.width;
-    const nextShift = (center - 0.5) * 180;
-    cursorShift.set(nextShift);
+  const skip = (travel) => {
+    if (!setWidth) return;
+    const fourCertificates = (setWidth / certs.length) * 4;
+    x.set(wrap(-setWidth, 0, x.get() + travel * fourCertificates));
   };
 
   return (
-    <div
-      className="overflow-hidden py-8"
-      style={{
-        WebkitMaskImage: "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
-        maskImage: "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
-      }}
-      onMouseEnter={() => { paused.current = true; }}
-      onMouseLeave={() => { paused.current = false; cursorShift.set(0); }}
-      onMouseMove={handlePointerMove}
-    >
-      <motion.div className="flex w-max will-change-transform" style={{ x: combinedX }}>
-        <div ref={setRef} className="flex">
-          {certs.map((cert, i) => (
-            <CertificateCard key={cert.id} cert={cert} index={i} onOpen={onOpen} />
-          ))}
-        </div>
-        {/* Duplicate set for a seamless loop */}
-        <div className="flex" aria-hidden="true">
-          {certs.map((cert, i) => (
-            <CertificateCard key={`dup-${cert.id}`} cert={cert} index={i} onOpen={onOpen} hidden />
-          ))}
-        </div>
-      </motion.div>
+    <div>
+      <div
+        className="overflow-hidden py-2 sm:py-4"
+        style={{
+          WebkitMaskImage: "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
+          maskImage: "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
+        }}
+        onMouseEnter={() => { paused.current = true; }}
+        onMouseLeave={() => { paused.current = false; }}
+      >
+        <motion.div className="flex w-max will-change-transform" style={{ x }}>
+          <div ref={setRef} className="flex">
+            {certs.map((cert, index) => (
+              <CertificateCard key={cert.id} cert={cert} index={index} onOpen={onOpen} />
+            ))}
+          </div>
+          <div className="flex" aria-hidden="true">
+            {certs.map((cert, index) => (
+              <CertificateCard key={`duplicate-${cert.id}`} cert={cert} index={index} onOpen={onOpen} hidden />
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="mx-auto mt-5 flex max-w-7xl justify-center gap-2 px-6">
+        <button type="button" onClick={() => skip(1)} aria-label="Skip back four certificates" className="flex h-10 w-10 items-center justify-center rounded-full border border-navy/10 bg-white text-navy transition-all hover:border-orange hover:text-orange">
+          <FiChevronLeft size={18} />
+        </button>
+        <button type="button" onClick={() => skip(-1)} aria-label="Skip forward four certificates" className="flex h-10 w-10 items-center justify-center rounded-full bg-navy text-white shadow-[0_8px_20px_rgba(31,34,51,0.18)] transition-all hover:-translate-y-0.5 hover:bg-orange">
+          <FiChevronRight size={18} />
+        </button>
+      </div>
     </div>
   );
 }
@@ -256,7 +220,7 @@ export default function Certifications() {
         </div>
 
         <div className="mx-auto mt-6 flex max-w-7xl justify-center px-6">
-          <Link to="/cv" className="inline-flex items-center gap-2 rounded-full border border-orange px-6 py-2.5 text-xs font-semibold text-orange transition-colors hover:bg-orange hover:text-white">
+          <Link to="/certificates" className="inline-flex items-center gap-2 rounded-full border border-orange px-6 py-2.5 text-xs font-semibold text-orange transition-colors hover:bg-orange hover:text-white">
             View all certificates <FiArrowRight size={13} />
           </Link>
         </div>

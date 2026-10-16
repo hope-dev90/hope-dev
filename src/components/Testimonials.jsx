@@ -75,7 +75,7 @@ export default function Testimonials() {
           </p>
         </motion.div>
 
-        <div className="grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="grid items-stretch gap-8 sm:grid-cols-2 xl:grid-cols-4">
           {collaborators.map((person, index) => (
             <motion.article
               key={person.name}
@@ -83,14 +83,29 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -8, scale: 1.015 }}
-              className="group relative flex h-full min-h-[300px] flex-col overflow-hidden rounded-3xl bg-white p-6 text-navy shadow-card ring-1 ring-black/5 sm:min-h-[360px] sm:p-7"
+              whileHover={{ y: -10, scale: 1.02, rotate: index % 2 ? 0.6 : -0.6 }}
+              whileTap={{ scale: 0.99 }}
+              className="group relative flex h-full flex-col overflow-hidden rounded-3xl bg-white p-5 text-navy shadow-card ring-1 ring-black/5 sm:p-6"
             >
-              <span className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-orange/10 blur-2xl transition-transform duration-700 group-hover:scale-150" />
+              <motion.span
+                animate={{ scale: [1, 1.28, 1], x: [0, -8, 0], y: [0, 6, 0] }}
+                transition={{ duration: 5 + index * 0.45, repeat: Infinity, ease: "easeInOut" }}
+                className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-orange/10 blur-2xl"
+              />
+              <motion.span
+                initial={{ opacity: 0, x: -8 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.35 + index * 0.12, duration: 0.45 }}
+                aria-hidden="true"
+                className="pointer-events-none absolute left-5 top-2 font-heading text-6xl font-black leading-none text-orange/10 sm:left-6"
+              >
+                &ldquo;
+              </motion.span>
               <p className="relative flex-1 text-[15px] leading-[1.65] tracking-[-0.02em] text-navy/75 sm:text-base">
                 "{person.quote}"
               </p>
-              <div className="relative mt-8 flex items-center gap-3 border-t border-navy/10 pt-5">
+              <div className="relative mt-6 flex items-center gap-3 border-t border-navy/10 pt-4 transition-transform duration-300 group-hover:translate-x-1">
                 <CollaboratorAvatar person={person} />
                 <div className="min-w-0">
                   <h3 className="text-sm font-semibold leading-snug text-navy">{person.name}</h3>
