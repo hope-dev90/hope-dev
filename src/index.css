@@ -18,7 +18,7 @@ body {
   margin: 0;
   overflow-x: clip;
   font-family: 'Urbanist', ui-sans-serif, system-ui, sans-serif;
-  font-weight: 200;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* prevent last section hiding behind mobile bottom tab bar */
