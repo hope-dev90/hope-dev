@@ -296,6 +296,7 @@ export const realCertificates = [
     desc: "Completed the KQL 101 cybersecurity module, learning Kusto Query Language (KQL) to query and analyze security logs and telemetry data.",
     file: "/certificates/KQL 101.pdf",
     type: "pdf",
+    preview: "/certificates/KQL 1001.png",
   },
   {
     id: 18,
@@ -306,6 +307,7 @@ export const realCertificates = [
     desc: "Completed the VirusTotal Fundamentals module, covering threat analysis techniques using file hashes, domains, and IP addresses to identify malicious activity.",
     file: "/certificates/Virustotal Fundamentals.pdf",
     type: "pdf",
+    preview: "/certificates/Virus Total.png",
   },
   {
     id: 19,
@@ -316,6 +318,7 @@ export const realCertificates = [
     desc: "Investigated a politically motivated email phishing and influence campaign using KQL to analyze emails, employee roles, and process events across a simulated organization.",
     file: "/certificates/Valdorian Times.pdf",
     type: "pdf",
+    preview: "/certificates/Valdorian.png",
   },
   {
     id: 20,
@@ -336,6 +339,7 @@ export const realCertificates = [
     desc: "Completed a hip-hop themed cybersecurity investigation involving threat detection, suspicious communications analysis, and log-based data forensics using KQL.",
     file: "/certificates/Rap Beef.pdf",
     type: "pdf",
+    preview: "/certificates/Rap Beef.png",
   },
   {
     id: 22,
@@ -346,6 +350,7 @@ export const realCertificates = [
     desc: "Earned the Super Fan badge by completing 3 or more KC7 cybersecurity modules, demonstrating consistent engagement with hands-on security training.",
     file: "/certificates/Super Fan.pdf",
     type: "pdf",
+    preview: "/certificates/Super Fan.png",
   },
   {
     id: 23,
@@ -356,6 +361,7 @@ export const realCertificates = [
     desc: "Solved a Daily 7 challenge — a timed cybersecurity problem designed to sharpen threat detection and analytical skills through real-world scenario practice.",
     file: "/certificates/1 Daily 7.pdf",
     type: "pdf",
+    preview: "/certificates/1 DAILY 7.png",
   },
 ];
 
