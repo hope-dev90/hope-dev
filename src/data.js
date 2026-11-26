@@ -329,6 +329,7 @@ export const realCertificates = [
     desc: "Investigated a phishing and social engineering attack targeting an influencer — using OSINT, log forensics, and KQL to trace attacker infrastructure and tactics.",
     file: "/certificates/Clout Defender.pdf",
     type: "pdf",
+    preview: "/certificates/Clout Defender.png",
   },
   {
     id: 21,
@@ -362,6 +363,18 @@ export const realCertificates = [
     file: "/certificates/1 Daily 7.pdf",
     type: "pdf",
     preview: "/certificates/1 DAILY 7.png",
+  },
+  {
+    id: 24,
+    name: "primeCTF Africa 2026 — Participation",
+    issuer: "primeCTF-Africa",
+    date: "2026",
+    category: "CTF / Competition",
+    desc: "Participated in primeCTF-Africa 2026 — \"That time I got reincarnated as a fruit\" — a continental cybersecurity CTF event organized by the Upanzi DPI Network.",
+    file: "/certificates/mutimutuje-hope-NH2A76ZETWB6PM2D6JNEV4HPE50QB18.pdf",
+    type: "pdf",
+    preview: "/certificates/newCert.png",
+    verify: "https://attesta.upanzi.net/c/01a2132d-b4e4-72f2-946a-2827f141057c",
   },
 ];
 
