@@ -1,15 +1,15 @@
 import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { FiArrowRight, FiDownload, FiMenu, FiX } from "react-icons/fi";
 import { FaGithub, FaJava, FaLinux } from "react-icons/fa";
 import { SiDocker, SiPostgresql, SiSpringboot, SiTypo3 } from "react-icons/si";
+import CvPasswordModal from "./CvPasswordModal";
 
 const MAROON      = "#7a0a0d";
 const MAROON_DARK = "#5e070a";
 const INK         = "#1f2233";
 
-const rolePhrases = ["Backend Developer", "Typo3 CMS Developer"];
+const rolePhrases = ["Backend Developer", "Typo3 CMS Developer","Cybersecurity enthusiast"];
 
 const navLinks = [
   { label: "Home",     href: "#top",           id: "top"            },
@@ -135,6 +135,7 @@ function HeroNav() {
 }
 
 export default function Hero() {
+  const [cvModalOpen, setCvModalOpen] = useState(false);
   return (
     <section id="top" aria-labelledby="hero-title"
       className="relative flex min-h-[100svh] w-full flex-col items-center overflow-x-clip"
@@ -164,9 +165,10 @@ export default function Hero() {
             onMouseEnter={e => e.currentTarget.style.backgroundColor=MAROON_DARK}
             onMouseLeave={e => e.currentTarget.style.backgroundColor=MAROON}
           >Get In Touch <FiArrowRight aria-hidden="true" /></a>
-          <Link to="/cv" className="flex flex-1 items-center justify-center gap-2 rounded-full border bg-white px-4 py-3 text-sm font-bold shadow-[0_4px_14px_rgba(26,26,46,0.08)] transition hover:-translate-y-0.5 sm:flex-none sm:px-7"
+          <button type="button" onClick={() => setCvModalOpen(true)}
+            className="flex flex-1 items-center justify-center gap-2 rounded-full border bg-white px-4 py-3 text-sm font-bold shadow-[0_4px_14px_rgba(26,26,46,0.08)] transition hover:-translate-y-0.5 sm:flex-none sm:px-7"
             style={{ color: INK, borderColor:"rgba(31,34,51,0.10)" }}
-          >Download CV <FiDownload aria-hidden="true" /></Link>
+          >Download CV <FiDownload aria-hidden="true" /></button>
         </motion.div>
       </div>
 
@@ -195,6 +197,7 @@ export default function Hero() {
           </svg>
         </motion.a>
       </motion.div>
+      <CvPasswordModal isOpen={cvModalOpen} onClose={() => setCvModalOpen(false)} />
     </section>
   );
 }

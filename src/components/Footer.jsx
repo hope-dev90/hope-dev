@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { profile } from "../data";
 import { FiArrowUp, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { motion } from "framer-motion";
@@ -14,8 +15,9 @@ export default function Footer() {
   const dayAndMonth = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
   const year = today.getFullYear();
 
+  const [hovered, setHovered] = useState(null); // "building" | "creating" | null
+
   const pages = [
-    { label: "Home", href: "#top" },
     { label: "About", href: "#about" },
     { label: "Projects", href: "#projects" },
     { label: "Certificates", href: "#certifications" },
@@ -40,11 +42,27 @@ export default function Footer() {
 
           <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
             <div className="space-y-4 text-navy">
-              <p className="text-[clamp(1.8rem,4vw,4rem)] font-black leading-[0.95] tracking-[-0.06em] text-navy">
-                Walk the
+              <p
+                className="text-[clamp(1.8rem,4vw,4rem)] leading-[0.95] tracking-[-0.06em] cursor-default select-none transition-all duration-300"
+                style={{
+                  fontWeight: hovered === "building" ? 800 : 400,
+                  color: hovered === "building" ? "#1f2233" : "rgba(31,34,51,0.38)",
+                }}
+                onMouseEnter={() => setHovered("building")}
+                onMouseLeave={() => setHovered(null)}
+              >
+                Building ideas
               </p>
-              <p className="text-[clamp(1.8rem,4vw,4rem)] font-black leading-[0.95] tracking-[-0.06em] text-orange">
-                Walk 🔮
+              <p
+                className="text-[clamp(1.8rem,4vw,4rem)] leading-[0.95] tracking-[-0.06em] cursor-default select-none transition-all duration-300"
+                style={{
+                  fontWeight: hovered === "building" ? 400 : 800,
+                  color: hovered === "building" ? "rgba(122,10,13,0.38)" : "#7a0a0d",
+                }}
+                onMouseEnter={() => setHovered("creating")}
+                onMouseLeave={() => setHovered(null)}
+              >
+                Creating impact
               </p>
             </div>
 
@@ -84,7 +102,7 @@ export default function Footer() {
 
           <div className="mt-10 flex flex-col justify-between gap-4 border-t border-navy/15 pt-5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-navy/60 sm:flex-row sm:items-center">
             {/* Displaying updated text string here */}
-            <p>Lastly updated on {dayAndMonth}, {year}</p>
+            <p>Lastly updated on 26 November, 2026</p>
             <div className="flex items-center gap-5">
               <a href="#top" className="transition-colors hover:text-orange">Back to top</a>
             </div>
